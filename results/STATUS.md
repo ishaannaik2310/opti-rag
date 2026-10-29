@@ -209,3 +209,25 @@ esults/entity_survival.png
 - **GitHub Target**: Created public repository `https://github.com/ishaannaik2310/opti-rag`.
 - **Commit**: `951905b` ("Initial commit: OptiRAG-lite complete research pipeline and interactive web demo").
 - **Remote**: Successfully pushed to `origin/main`.
+
+---
+
+### [2026-10-29 12:50 IST] - Step 11: Frontend Redesign with Notion Design Philosophy
+- **Backup Snapshot**: `backups/20261029_1241/` created and verified (904 files, zero `.env`).
+- **Aesthetic Overhaul**:
+  - Implemented Notion's document-first aesthetic, typography stack, and tactile card layout across `demo_site/index.html`, `demo_site/style.css`, and `demo_site/app.js`.
+  - Added full Light Mode (`#ffffff` / `#fbfbfa`) and Dark Mode (`#191919` / `#202020`) with clean toggle and `localStorage` persistence.
+  - Replaced arbitrary dashboard boxes with Notion callout blocks (subtle pastel tints, 1px low-contrast borders, iconic emoji accents: 💡, 📌, ⚠️, ⏱️, 🔍).
+  - PTM protected token highlights styled as Notion inline text highlights (currency green, date blue, percent orange, negation red, number purple).
+  - Database view navigation bar (`📋 Pipeline Replay`, `✂️ Try the Mask`, `📊 Benchmark Results`, `📄 Project Documentation`) and database properties header grid (`Status`, `Budget`, `Small Tier`, `Large Tier`, `Author`, `Dataset`).
+- **Zero-Dependency & Offline Guarantees Preserved**:
+  - Maintained 100% static HTML5/CSS3/vanilla JS architecture (0 npm packages, 0 external CDNs).
+  - Preserved all 40+ interactive element IDs and event handlers.
+- **Verification & Integrity**:
+  - Security audit: PASSED (0 secrets, 0 API keys, 0 local absolute paths, 100% relative local data fetches).
+  - PTM Parity test: 100% byte-for-byte span parity on all 100 test contexts + 25 edge cases.
+  - Full pytest suite: 45/45 tests passed in 52.09s.
+  - API usage counters: Verified untouched at exactly 389 requests ($0 spent).
+- **Deployment**:
+  - Pushed to GitHub repository `https://github.com/ishaannaik2310/opti-rag` (commit `4d01c93`).
+
