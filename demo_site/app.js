@@ -469,6 +469,24 @@
       }
     });
 
+    // Update fluid progress bar
+    const liveProgressFill = document.getElementById("liveProgressFill");
+    if (liveProgressFill) {
+      liveProgressFill.style.width = ((currentLiveStep / 6) * 100).toFixed(1) + "%";
+    }
+
+    // Update fluid flow nodes along the timeline spine
+    for (let i = 1; i <= 6; i++) {
+      const node = document.getElementById(`flowNode${i}`);
+      if (node) {
+        if (i <= currentLiveStep) {
+          node.classList.add("active");
+        } else {
+          node.classList.remove("active");
+        }
+      }
+    }
+
     // Reveal or hide cards
     liveStepCards.forEach((card, idx) => {
       const cardStep = idx + 1;
@@ -601,18 +619,56 @@
       `;
     }
 
+    // Update fluid routing gate visual paths
+    const liveRouteGateVal = document.getElementById("liveRouteGateVal");
+    const gateArmSmall = document.getElementById("gateArmSmall");
+    const gateArmLarge = document.getElementById("gateArmLarge");
+    if (liveRouteGateVal) liveRouteGateVal.textContent = `P(hard) = ${p_hard.toFixed(3)}`;
+    if (gateArmSmall && gateArmLarge) {
+      if (willEscalate) {
+        gateArmLarge.classList.add("selected");
+        gateArmLarge.classList.remove("dimmed");
+        gateArmSmall.classList.add("dimmed");
+        gateArmSmall.classList.remove("selected");
+      } else {
+        gateArmSmall.classList.add("selected");
+        gateArmSmall.classList.remove("dimmed");
+        gateArmLarge.classList.add("dimmed");
+        gateArmLarge.classList.remove("selected");
+      }
+    }
+
     // -------------------------------------------------------------
     // Stage 4: PTM Context Compression
     // -------------------------------------------------------------
+    const liveMeterRetained = document.getElementById("liveMeterRetained");
+    const liveMeterPruned = document.getElementById("liveMeterPruned");
+    const liveMeterRetainedText = document.getElementById("liveMeterRetainedText");
+    const liveMeterPrunedText = document.getElementById("liveMeterPrunedText");
+
     if (currentQuery.bypassed) {
       liveCompressionBadge.className = "badge-notion info";
       liveCompressionBadge.textContent = "Bypassed (< 400 tokens) · Unmodified";
       liveOrigContextView.innerHTML = renderHighlightedText(currentQuery.original_context, currentQuery.ptm_protected_spans);
       liveCompContextView.textContent = currentQuery.original_context;
+      if (liveMeterRetained && liveMeterPruned) {
+        liveMeterRetained.style.width = "100%";
+        liveMeterPruned.style.width = "0%";
+      }
+      if (liveMeterRetainedText) liveMeterRetainedText.textContent = `Retained Context (${currentQuery.original_tokens} tokens - Bypassed)`;
+      if (liveMeterPrunedText) liveMeterPrunedText.textContent = "0% Pruned (Short Context)";
     } else {
       liveCompressionBadge.className = "badge-notion success";
       liveCompressionBadge.textContent = `${currentQuery.tokens_saved_pct}% Shorter · ${currentQuery.original_tokens} → ${currentQuery.compressed_tokens} tokens`;
       
+      if (liveMeterRetained && liveMeterPruned) {
+        const retainedPct = Math.max(10, 100 - currentQuery.tokens_saved_pct);
+        liveMeterRetained.style.width = retainedPct + "%";
+        liveMeterPruned.style.width = currentQuery.tokens_saved_pct + "%";
+      }
+      if (liveMeterRetainedText) liveMeterRetainedText.textContent = `Retained Context (${currentQuery.compressed_tokens} tokens)`;
+      if (liveMeterPrunedText) liveMeterPrunedText.textContent = `Pruned Peripheral Tokens (-${currentQuery.tokens_saved_pct}%)`;
+
       // Before: Highlight protected tokens in color, fade pruned tokens with subtle strikethrough
       liveOrigContextView.innerHTML = renderContextWithPrunedFade(
         currentQuery.original_context,

@@ -101,144 +101,190 @@
 
       <!-- Stepper Progress & Action Controls -->
       <div class="stepper-nav-bar">
-        <div class="stepper-pills">
-          <button class="step-pill active" data-step="1">1. Query</button>
-          <button class="step-pill" data-step="2">2. Retrieve</button>
-          <button class="step-pill" data-step="3">3. Route</button>
-          <button class="step-pill" data-step="4">4. Compress</button>
-          <button class="step-pill" data-step="5">5. Answer</button>
-          <button class="step-pill" data-step="6">6. Summary</button>
+        <div class="stepper-nav-top">
+          <div class="stepper-pills">
+            <button class="step-pill active" data-step="1">1. Query</button>
+            <button class="step-pill" data-step="2">2. Retrieve</button>
+            <button class="step-pill" data-step="3">3. Route</button>
+            <button class="step-pill" data-step="4">4. Compress</button>
+            <button class="step-pill" data-step="5">5. Answer</button>
+            <button class="step-pill" data-step="6">6. Summary</button>
+          </div>
+          <div class="stepper-actions">
+            <button class="notion-btn" id="btnLivePrev" title="Previous Stage (Left Arrow)">← Back</button>
+            <button class="notion-btn primary" id="btnLiveNext" title="Next Stage (Right Arrow)">Next Stage →</button>
+            <button class="notion-btn" id="btnLiveRunAll" title="Run all pipeline stages automatically">⚡ Run All</button>
+            <button class="notion-btn" id="btnLiveReset" title="Reset to start (R)">Reset</button>
+          </div>
         </div>
-        <div class="stepper-actions">
-          <button class="notion-btn" id="btnLivePrev" title="Previous Stage (Left Arrow)">← Back</button>
-          <button class="notion-btn primary" id="btnLiveNext" title="Next Stage (Right Arrow)">Next Stage →</button>
-          <button class="notion-btn" id="btnLiveRunAll" title="Run all pipeline stages automatically">⚡ Run All</button>
-          <button class="notion-btn" id="btnLiveReset" title="Reset to start (R)">Reset</button>
+        <div class="stepper-progress-track">
+          <div class="stepper-progress-fill" id="liveProgressFill" style="width: 16.66%;"></div>
         </div>
       </div>
       <div class="stepper-hint">
         <span>Keyboard shortcuts: <kbd>→</kbd> Next stage &bull; <kbd>←</kbd> Back &bull; <kbd>R</kbd> Reset</span>
       </div>
 
-      <!-- Stepper Stages Container -->
-      <div id="liveStepperContainer">
+      <!-- Stepper Stages Container with Flow Spine -->
+      <div class="flow-stepper-wrap">
+        <div class="flow-spine-line" id="flowSpineLine"></div>
+        <div id="liveStepperContainer">
 
-        <!-- Stage 1: Query -->
-        <div class="stepper-card" id="liveStep1">
-          <div class="stage-header">
-            <span class="stage-num">Stage 1</span>
-            <span class="stage-title">User Query</span>
-            <span class="stage-io-badge input">INPUT</span>
-            <span id="liveQidBadge" style="margin-left: auto; font-size: 12px; color: var(--text-tertiary); font-family: 'SFMono-Regular', Menlo, monospace;"></span>
-          </div>
-          <div class="stage-summary">
-            The input question requires multi-hop reasoning across multiple Wikipedia articles.
-          </div>
-          <div class="stage-body">
-            <div class="live-query-display" id="liveQuestionText">Loading question...</div>
-          </div>
-        </div>
-
-        <!-- Stage 2: Retrieve -->
-        <div class="stepper-card hidden" id="liveStep2">
-          <div class="stage-header">
-            <span class="stage-num">Stage 2</span>
-            <span class="stage-title">Dense Retrieval &amp; Confidence</span>
-            <span class="stage-io-badge output">OUTPUT: TOP-5 PASSAGES</span>
-            <span id="liveRetrievalConfidenceBadge" class="badge-notion success" style="margin-left: auto;">Retrieval Confidence: High</span>
-          </div>
-          <div class="stage-summary">
-            Retrieved top-5 passages using MiniLM embeddings and FAISS index. Telemetry signals quantify retrieval ambiguity.
-          </div>
-          <div class="stage-body">
-            <div class="live-passages-list" id="livePassagesList"></div>
-          </div>
-        </div>
-
-        <!-- Stage 3: Route -->
-        <div class="stepper-card hidden" id="liveStep3">
-          <div class="stage-header">
-            <span class="stage-num">Stage 3</span>
-            <span class="stage-title">Cascade Routing</span>
-            <span class="stage-io-badge output">DECISION</span>
-            <span id="liveRouteDecisionBadge" class="badge-notion success" style="margin-left: auto;">ROUTE TO SMALL MODEL</span>
-          </div>
-          <div class="stage-summary">
-            Classifier evaluates retrieval confidence to decide if the cheap 7B model is sufficient or if the frontier model is needed.
-          </div>
-          <div class="stage-body">
-            <div class="live-route-explanation" id="liveRouteReasonText">
-              Retrieval confidence is high and multi-hop complexity is low, so the fast 7B model is sufficient to answer accurately at 90% lower cost.
+          <!-- Stage 1: Query -->
+          <div class="stepper-card flow-step" id="liveStep1">
+            <div class="flow-node active" id="flowNode1"></div>
+            <div class="stage-header">
+              <span class="stage-num">Stage 1</span>
+              <span class="stage-title">User Query</span>
+              <span class="stage-io-badge input">INPUT</span>
+              <span id="liveQidBadge" style="margin-left: auto; font-size: 12px; color: var(--text-tertiary); font-family: 'SFMono-Regular', Menlo, monospace;"></span>
+            </div>
+            <div class="stage-summary">
+              The input question requires multi-hop reasoning across multiple Wikipedia articles.
+            </div>
+            <div class="stage-body">
+              <div class="live-query-display" id="liveQuestionText">Loading question...</div>
             </div>
           </div>
-        </div>
 
-        <!-- Stage 4: Compress -->
-        <div class="stepper-card hidden" id="liveStep4">
-          <div class="stage-header">
-            <span class="stage-num">Stage 4</span>
-            <span class="stage-title">PTM Context Compression</span>
-            <span class="stage-io-badge output">COMPRESSED CONTEXT</span>
-            <span id="liveCompressionBadge" class="badge-notion info" style="margin-left: auto;">41% Shorter &bull; 536 → 318 tokens</span>
-          </div>
-          <div class="stage-summary">
-            LLMLingua-2 prunes filler text while the Protected Token Mask (PTM) locks in numbers, dates, currency, and negations in color.
-          </div>
-          <div class="stage-body">
-            <div class="live-compress-compare">
-              <div class="compress-col">
-                <div class="compress-col-title">Original Context (With Protected Entities &amp; Faded Pruned Text)</div>
-                <div class="doc-text live-context-box" id="liveOrigContextView"></div>
-              </div>
-              <div class="compress-col">
-                <div class="compress-col-title">Compressed Context (Preserved Facts)</div>
-                <div class="doc-text live-context-box" id="liveCompContextView"></div>
-              </div>
+          <!-- Stage 2: Retrieve -->
+          <div class="stepper-card flow-step hidden" id="liveStep2">
+            <div class="flow-node" id="flowNode2"></div>
+            <div class="stage-header">
+              <span class="stage-num">Stage 2</span>
+              <span class="stage-title">Dense Retrieval &amp; Confidence</span>
+              <span class="stage-io-badge output">OUTPUT: TOP-5 PASSAGES</span>
+              <span id="liveRetrievalConfidenceBadge" class="badge-notion success" style="margin-left: auto;">Retrieval Confidence: High</span>
+            </div>
+            <div class="stage-summary">
+              Retrieved top-5 passages using MiniLM embeddings and FAISS index. Telemetry signals quantify retrieval ambiguity.
+            </div>
+            <div class="stage-body">
+              <div class="live-passages-list" id="livePassagesList"></div>
             </div>
           </div>
-        </div>
 
-        <!-- Stage 5: Answer -->
-        <div class="stepper-card hidden" id="liveStep5">
-          <div class="stage-header">
-            <span class="stage-num">Stage 5</span>
-            <span class="stage-title">Final Generation &amp; Evaluation</span>
-            <span class="stage-io-badge output">FINAL ANSWER</span>
-            <span id="liveModelBadge" class="badge-notion info" style="margin-left: auto;">Served by Small Tier (ALLaM-2-7B)</span>
-          </div>
-          <div class="stage-summary">
-            The selected model generates the final answer using the compressed context.
-          </div>
-          <div class="stage-body">
-            <div class="live-answer-card">
-              <div class="live-answer-text" id="liveAnswerText">"..."</div>
-              <div class="live-gold-reveal-wrap">
-                <button class="notion-btn" id="btnLiveRevealGold">Reveal Ground Truth</button>
-                <div id="liveGoldContainer" style="display: none; align-items: center; gap: 10px;">
-                  <span style="font-size: 13px; font-weight: 600; text-transform: uppercase; color: var(--text-secondary);">Ground Truth:</span>
-                  <span id="liveGoldAnswerText" class="badge-notion success" style="font-size: 15px;"></span>
-                  <span id="liveEvalStatusBadge" class="badge-notion"></span>
+          <!-- Stage 3: Route -->
+          <div class="stepper-card flow-step hidden" id="liveStep3">
+            <div class="flow-node" id="flowNode3"></div>
+            <div class="stage-header">
+              <span class="stage-num">Stage 3</span>
+              <span class="stage-title">Cascade Routing</span>
+              <span class="stage-io-badge output">DECISION</span>
+              <span id="liveRouteDecisionBadge" class="badge-notion success" style="margin-left: auto;">ROUTE TO SMALL MODEL</span>
+            </div>
+            <div class="stage-summary">
+              Classifier evaluates retrieval confidence to decide if the cheap 7B model is sufficient or if the frontier model is needed.
+            </div>
+            <div class="stage-body">
+              <div class="live-route-explanation" id="liveRouteReasonText">
+                Retrieval confidence is high and multi-hop complexity is low, so the fast 7B model is sufficient to answer accurately at 90% lower cost.
+              </div>
+              <div class="route-gate-diagram" id="liveRouteGateDiagram">
+                <div class="gate-node input-node">
+                  <span class="node-label">Telemetry Hardness Score</span>
+                  <span class="node-val" id="liveRouteGateVal">P(hard) = 0.417</span>
+                </div>
+                <div class="gate-branch-split">
+                  <div class="gate-branch-arm" id="gateArmSmall">
+                    <div class="gate-branch-header">
+                      <span class="arm-cond">&lt; 0.520 Threshold</span>
+                      <span class="arm-tag small">Cost: $0.02 / 1k</span>
+                    </div>
+                    <div class="gate-branch-title">Small Tier: ALLaM-2-7B</div>
+                  </div>
+                  <div class="gate-branch-arm" id="gateArmLarge">
+                    <div class="gate-branch-header">
+                      <span class="arm-cond">&ge; 0.520 Threshold</span>
+                      <span class="arm-tag large">Cost: $0.23 / 1k</span>
+                    </div>
+                    <div class="gate-branch-title">Large Tier: Gemini 3.5 Flash-Lite</div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Stage 6: Summary Strip -->
-        <div class="stepper-card hidden" id="liveStep6">
-          <div class="stage-header">
-            <span class="stage-num">Stage 6</span>
-            <span class="stage-title">Pipeline Impact Summary</span>
-            <span class="stage-io-badge output">OPTIMIZATION RESULT</span>
+          <!-- Stage 4: Compress -->
+          <div class="stepper-card flow-step hidden" id="liveStep4">
+            <div class="flow-node" id="flowNode4"></div>
+            <div class="stage-header">
+              <span class="stage-num">Stage 4</span>
+              <span class="stage-title">PTM Context Compression</span>
+              <span class="stage-io-badge output">COMPRESSED CONTEXT</span>
+              <span id="liveCompressionBadge" class="badge-notion info" style="margin-left: auto;">41% Shorter &bull; 536 → 318 tokens</span>
+            </div>
+            <div class="stage-summary">
+              LLMLingua-2 prunes filler text while the Protected Token Mask (PTM) locks in numbers, dates, currency, and negations in color.
+            </div>
+            <div class="stage-body">
+              <div class="compression-flow-meter" id="liveCompressionMeter">
+                <div class="flow-meter-bar">
+                  <div class="flow-meter-retained" id="liveMeterRetained" style="width: 59%;"></div>
+                  <div class="flow-meter-pruned" id="liveMeterPruned" style="width: 41%;"></div>
+                </div>
+                <div class="flow-meter-legend">
+                  <span class="meter-legend-item"><span class="legend-dot retained"></span> <span id="liveMeterRetainedText">Retained Context (318 tokens)</span></span>
+                  <span class="meter-legend-item"><span class="legend-dot pruned"></span> <span id="liveMeterPrunedText">Pruned Peripheral Tokens (-41%)</span></span>
+                </div>
+              </div>
+              <div class="live-compress-compare">
+                <div class="compress-col">
+                  <div class="compress-col-title">Original Context (Protected Spans &amp; Pruned Faded Text)</div>
+                  <div class="doc-text live-context-box" id="liveOrigContextView"></div>
+                </div>
+                <div class="compress-col">
+                  <div class="compress-col-title">Compressed Context (Preserved Facts)</div>
+                  <div class="doc-text live-context-box" id="liveCompContextView"></div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="stage-summary">
-            One-line comparison between standard uncompressed large-model baseline and the OptiRAG pipeline.
-          </div>
-          <div class="stage-body">
-            <div class="live-summary-strip" id="liveSummaryStrip"></div>
-          </div>
-        </div>
 
+          <!-- Stage 5: Answer -->
+          <div class="stepper-card flow-step hidden" id="liveStep5">
+            <div class="flow-node" id="flowNode5"></div>
+            <div class="stage-header">
+              <span class="stage-num">Stage 5</span>
+              <span class="stage-title">Final Generation &amp; Evaluation</span>
+              <span class="stage-io-badge output">FINAL ANSWER</span>
+              <span id="liveModelBadge" class="badge-notion info" style="margin-left: auto;">Served by Small Tier (ALLaM-2-7B)</span>
+            </div>
+            <div class="stage-summary">
+              The selected model generates the final answer using the compressed context.
+            </div>
+            <div class="stage-body">
+              <div class="live-answer-card">
+                <div class="live-answer-text" id="liveAnswerText">"..."</div>
+                <div class="live-gold-reveal-wrap">
+                  <button class="notion-btn" id="btnLiveRevealGold">Reveal Ground Truth</button>
+                  <div id="liveGoldContainer" style="display: none; align-items: center; gap: 10px;">
+                    <span style="font-size: 13px; font-weight: 600; text-transform: uppercase; color: var(--text-secondary);">Ground Truth:</span>
+                    <span id="liveGoldAnswerText" class="badge-notion success" style="font-size: 15px;"></span>
+                    <span id="liveEvalStatusBadge" class="badge-notion"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stage 6: Summary Strip -->
+          <div class="stepper-card flow-step hidden" id="liveStep6">
+            <div class="flow-node" id="flowNode6"></div>
+            <div class="stage-header">
+              <span class="stage-num">Stage 6</span>
+              <span class="stage-title">Pipeline Impact Summary</span>
+              <span class="stage-io-badge output">OPTIMIZATION RESULT</span>
+            </div>
+            <div class="stage-summary">
+              One-line comparison between standard uncompressed large-model baseline and the OptiRAG pipeline.
+            </div>
+            <div class="stage-body">
+              <div class="live-summary-strip" id="liveSummaryStrip"></div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </section>
 
