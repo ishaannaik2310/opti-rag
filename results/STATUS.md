@@ -199,3 +199,13 @@ esults/entity_survival.png
      - `demo_site/vercel.json` configured for cleanUrls and asset caching.
      - `demo_site/DEPLOY.md` written with exact deployment instructions (free Hobby plan, stop if credit card requested, local `python -m http.server 8000` backup).
      - Security audit verified: zero .env, zero .cache, zero API keys, zero absolute local paths, and zero external fetch requests.
+
+
+---
+
+### [2026-10-29 11:22 IST] - Step 10: Git Repository Initialized and Pushed to GitHub
+- **Action**: Initialized clean local git repository with strict `.gitignore` protection (`.env`, `.cache/`, `backups/`, `scratch/`, `venv/`).
+- **Audit**: Verified zero credentials or API keys staged.
+- **GitHub Target**: Created public repository `https://github.com/ishaannaik2310/opti-rag`.
+- **Commit**: `951905b` ("Initial commit: OptiRAG-lite complete research pipeline and interactive web demo").
+- **Remote**: Successfully pushed to `origin/main`.
