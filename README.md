@@ -46,7 +46,35 @@ flowchart TD
 
 ---
 
-## 3. Setup & Reproduction Guide
+## 3. Live Demo & Presentation Script (5-Step Talking Guide)
+
+The web demonstration in [`demo_site/`](demo_site/) features an interactive **Live Demo Stepper** designed for live presentation to a professor or evaluators. Enable **Presenter Mode** (or press <kbd>→</kbd> Right Arrow to advance, <kbd>←</kbd> to go back, and <kbd>R</kbd> to reset).
+
+### 5-Step Presentation Walkthrough
+
+1. **Step 1: The $0 RAG Dilemma & Query Input**
+   - *Talking Point*: *"Standard production RAG systems blindly pass massive uncompressed contexts to expensive frontier models, blowing through token budgets. OptiRAG-lite solves this by combining cascaded routing with fact-preserving context compression—all evaluated within a strict $0 project spend."*
+   - *Demo Action*: Click the **"Easy Question (Small Model)"** preset to load an initial multi-hop query (Stage 1).
+
+2. **Step 2: Dense Retrieval & Confidence Telemetry**
+   - *Talking Point*: *"In Stage 2, our MiniLM retriever pulls the top-5 passages from FAISS. Crucially, we extract 8 low-dimensional retrieval confidence signals (top-1 score, score margin, entropy, chunk cosine similarity). The badge indicates whether retrieval coverage was confident or ambiguous."*
+   - *Demo Action*: Press <kbd>→</kbd> (Next Stage) to reveal Stage 2 and show the top-5 passage snippets and confidence badge.
+
+3. **Step 3: Cascaded Routing Decision**
+   - *Talking Point*: *"Rather than always using the frontier model, our classifier checks if the fast 7B model (ALLaM-2-7B on Groq) can handle this query. When retrieval is confident and complexity is low, it routes to Small, cutting model cost by over 90%. Escalation to Large is reserved only for ambiguous or hard queries."*
+   - *Demo Action*: Press <kbd>→</kbd> to reveal Stage 3 and highlight the clear routing decision and plain-English justification.
+
+4. **Step 4: Protected Token Mask (PTM) Context Compression**
+   - *Talking Point*: *"Standard token compressors (like LLMLingua-2) frequently prune critical dates, numbers, currency, and negations, causing catastrophic hallucinations. Our Protected Token Mask guarantees 100% regex preservation of high-entropy entities. Notice how filler text is faded/struck through while dates and numbers stay highlighted in color."*
+   - *Demo Action*: Press <kbd>→</kbd> to reveal Stage 4 and show the side-by-side Before/After view with ~40% token reduction.
+
+5. **Step 5: Final Answer Generation & Economic Payoff**
+   - *Talking Point*: *"In Stage 5, the routed model synthesizes the correct answer from the compact context. Finally, in Stage 6, our summary strip displays the real-world impact: 40% fewer tokens, 68% lower simulated cost, with full answer accuracy preserved."*
+   - *Demo Action*: Press <kbd>→</kbd> to reveal Stages 5 and 6, click **"Reveal Ground Truth"** to confirm the answer is correct, and point to the 3-metric summary strip. Then switch to the **"Hard Question"** or **"Mask Saves a Fact"** presets to show escalation and fact preservation in action.
+
+---
+
+## 4. Setup & Reproduction Guide
 
 ### Environment Setup
 OptiRAG-lite was built on native Python 3.12 on Windows. PyTorch, FAISS-CPU, Hugging Face Transformers, LLMLingua-2, and official API SDKs are pinned in `requirements.txt`.
@@ -94,7 +122,7 @@ python eval.py
 
 ---
 
-## 4. Key Empirical Results
+## 5. Key Empirical Results
 
 ### A. Labeling & Hardness Distribution (N=200 Train, N=100 Test)
 Labels were established by evaluating both models across HotpotQA distractor questions with Content-Token F1 and exact matching metrics:
@@ -164,7 +192,7 @@ Simulated costs are computed using published official list prices per 1M tokens 
 
 ---
 
-## 5. Honest Limitations
+## 6. Honest Limitations
 
 1. **Sample Size Constraints**: Due to strict free-tier daily rate caps (Groq rolling TPM limits, Gemini 15 RPM and 450 provisional RPD safe ceiling), evaluations were conducted on 200 train and 100 test queries. While stratified bootstrap 95% confidence intervals quantify uncertainty, variance remains non-trivial ($\pm 9\%$ accuracy intervals).
 2. **Small Tier Model Specialization**: Following Groq's deprecation of `llama-3.1-8b-instant`, `allam-2-7b` was adopted as the active 7B/8B-class model. ALLaM-2 is primarily an Arabic-English bilingual model, which exhibits lower zero-shot English reasoning accuracy on multi-hop questions (38.0% on test) compared to general-purpose English models.
@@ -173,7 +201,7 @@ Simulated costs are computed using published official list prices per 1M tokens 
 
 ---
 
-## 6. Future Work
+## 7. Future Work
 
 1. **Reinforcement-Learned Protected Token Masker**: Replace hand-crafted regular expressions with a policy gradient network trained to select tokens whose removal minimizes downstream QA perplexity.
 2. **Conformal Risk Control**: Formulate cascaded routing under a conformal prediction framework to provide formal, distribution-free guarantees on maximum allowable accuracy loss.

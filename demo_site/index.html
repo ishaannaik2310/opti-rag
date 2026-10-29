@@ -3,35 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OptiRAG-lite &bull; Cost-Aware RAG Optimization &amp; PTM Compression</title>
+  <title>OptiRAG-lite &bull; Cost-Optimal RAG Optimization &amp; PTM Compression</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Notion Pinned Top Notice Banner -->
+  <!-- Top Notice Banner -->
   <div class="notion-banner">
-    <span class="notion-pill">⚡ Zero-Cost Replay</span>
-    <span>Replay of audited cached inferences for 100 HotpotQA test questions. No live model calls. Costs are simulated at list prices (small model: proxy price).</span>
+    <span class="notion-pill">Zero-Cost Replay</span>
+    <span>Replay of audited cached inferences for 100 HotpotQA test questions. No live model calls. Costs simulated at developer list prices (small model: proxy price).</span>
   </div>
 
   <div class="notion-layout">
     <!-- Breadcrumb Navigation -->
     <div class="breadcrumbs">
-      <span>📚 Workspace</span>
+      <span>Workspace</span>
       <span class="sep">/</span>
-      <span>🔬 Academic Research</span>
+      <span>Academic Research</span>
       <span class="sep">/</span>
-      <span style="color: var(--text-primary); font-weight: 500;">⚡ OptiRAG-lite Benchmark</span>
+      <span style="color: var(--text-primary); font-weight: 500;">OptiRAG-lite Benchmark</span>
     </div>
 
-    <!-- Page Header -->
+    <!-- Page Header (Simplified & Minimalist) -->
     <div class="page-title-row">
       <div>
-        <span class="page-icon">⚡</span>
         <h1 class="page-title">OptiRAG-lite</h1>
         <p class="page-desc">
-          Cost-Optimal Retrieval-Augmented Generation via Retrieval Telemetry Cascade Routing &amp; Protected Token Masking (PTM).
+          Cost-optimal Retrieval-Augmented Generation via retrieval telemetry cascaded routing &amp; protected token compression.
         </p>
+        <div class="header-metadata">
+          HotpotQA Multi-Hop &bull; Free-tier models (Groq ALLaM-2-7B &bull; Gemini 3.5 Flash-Lite) &bull; $0 budget
+        </div>
       </div>
       <div>
         <button id="btnThemeToggle" class="theme-toggle-btn" title="Toggle Light/Dark Theme">
@@ -41,46 +43,209 @@
       </div>
     </div>
 
-    <!-- Notion Database Properties Header -->
-    <div class="notion-properties">
-      <div class="prop-item">
-        <span class="prop-key">🏷️ Status</span>
-        <span class="prop-val"><span class="badge-notion success">Audited Benchmark (N=100)</span></span>
-      </div>
-      <div class="prop-item">
-        <span class="prop-key">💰 Budget</span>
-        <span class="prop-val">$0.00 (100% Free-Tier APIs)</span>
-      </div>
-      <div class="prop-item">
-        <span class="prop-key">🤖 Small Tier</span>
-        <span class="prop-val">ALLaM-2-7B (Groq, 8B proxy)</span>
-      </div>
-      <div class="prop-item">
-        <span class="prop-key">🧠 Large Tier</span>
-        <span class="prop-val">Gemini 3.5 Flash-Lite (Google AI Studio)</span>
-      </div>
-      <div class="prop-item">
-        <span class="prop-key">👤 Author</span>
-        <span class="prop-val">Ishaan Naik (Symbiosis Inst. of Tech)</span>
-      </div>
-      <div class="prop-item">
-        <span class="prop-key">📦 Dataset</span>
-        <span class="prop-val">HotpotQA Multi-Hop (CC BY-SA 4.0)</span>
-      </div>
-    </div>
-
-    <!-- Notion Database Views Bar (Navigation Tabs) -->
+    <!-- Navigation Tabs (Clean text, zero emoji clutter) -->
     <div class="notion-views-bar" role="tablist">
-      <button class="tab-btn active" data-tab="pipeline" role="tab">📋 Pipeline Replay</button>
-      <button class="tab-btn" data-tab="mask" role="tab">✂️ Try the Mask</button>
-      <button class="tab-btn" data-tab="results" role="tab">📊 Benchmark Results</button>
-      <button class="tab-btn" data-tab="about" role="tab">📄 Project Documentation</button>
+      <button class="tab-btn active" data-tab="live" role="tab">Live Demo</button>
+      <button class="tab-btn" data-tab="pipeline" role="tab">Pipeline Replay</button>
+      <button class="tab-btn" data-tab="mask" role="tab">Try the Mask</button>
+      <button class="tab-btn" data-tab="results" role="tab">Benchmark Results</button>
+      <button class="tab-btn" data-tab="about" role="tab">Project Documentation</button>
     </div>
 
     <!-- ============================================================== -->
-    <!-- TAB 1: PIPELINE REPLAY -->
+    <!-- TAB 1: LIVE DEMO (NEW INTERACTIVE STEPPER) -->
     <!-- ============================================================== -->
-    <section id="tab-pipeline" class="tab-content active">
+    <section id="tab-live" class="tab-content active">
+
+      <!-- Presets & Presenter Mode Bar -->
+      <div class="live-presets-bar">
+        <span class="preset-label">Demo Presets:</span>
+        <button class="notion-btn live-preset-btn" id="livePresetEasy" title="Query routed to Small model that answers correctly">Easy Question (Small Model)</button>
+        <button class="notion-btn live-preset-btn" id="livePresetHard" title="Query requiring escalation to Large model">Hard Question (Large Model)</button>
+        <button class="notion-btn live-preset-btn" id="livePresetMask" title="Query where PTM protected facts from being dropped">Mask Saves a Fact</button>
+        <button class="notion-btn live-preset-btn" id="livePresetRandom" title="Pick a random query from the 100 test questions">Random</button>
+        
+        <div style="margin-left: auto; display: flex; align-items: center; gap: 8px;">
+          <button class="notion-btn" id="btnPresenterMode" title="Toggle larger fonts, keyboard stepping, and clean layout for presentations">
+            <span id="presenterIcon">🎤</span>
+            <span id="presenterText">Presenter Mode</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mode Selector & Question Input Area -->
+      <div class="live-input-container">
+        <div class="live-mode-switch">
+          <button class="mode-pill active" id="btnModeReplay">Replay Mode (100 Cached Tests)</button>
+          <button class="mode-pill" id="btnModeCustom">Custom Question Mode</button>
+        </div>
+
+        <!-- Replay Mode: Question Selector -->
+        <div id="liveReplayWrap" class="live-selector-wrap">
+          <label style="font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 6px; display: block;">Select Question</label>
+          <select id="liveQuerySelect" style="width: 100%;">
+            <option value="">Loading test questions...</option>
+          </select>
+        </div>
+
+        <!-- Custom Mode: Freeform Input -->
+        <div id="liveCustomWrap" class="live-custom-wrap" style="display: none;">
+          <label style="font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 6px; display: block;">Type Any Question</label>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="liveCustomInput" placeholder="Type a multi-hop question (e.g. When was the singer of the Commodores born?)..." style="flex: 1;">
+            <button class="notion-btn primary" id="btnLiveCustomRun">Match &amp; Run</button>
+          </div>
+          <div id="liveCustomNote" class="live-custom-note" style="display: none;"></div>
+        </div>
+      </div>
+
+      <!-- Stepper Progress & Action Controls -->
+      <div class="stepper-nav-bar">
+        <div class="stepper-pills">
+          <button class="step-pill active" data-step="1">1. Query</button>
+          <button class="step-pill" data-step="2">2. Retrieve</button>
+          <button class="step-pill" data-step="3">3. Route</button>
+          <button class="step-pill" data-step="4">4. Compress</button>
+          <button class="step-pill" data-step="5">5. Answer</button>
+          <button class="step-pill" data-step="6">6. Summary</button>
+        </div>
+        <div class="stepper-actions">
+          <button class="notion-btn" id="btnLivePrev" title="Previous Stage (Left Arrow)">← Back</button>
+          <button class="notion-btn primary" id="btnLiveNext" title="Next Stage (Right Arrow)">Next Stage →</button>
+          <button class="notion-btn" id="btnLiveRunAll" title="Run all pipeline stages automatically">⚡ Run All</button>
+          <button class="notion-btn" id="btnLiveReset" title="Reset to start (R)">Reset</button>
+        </div>
+      </div>
+      <div class="stepper-hint">
+        <span>Keyboard shortcuts: <kbd>→</kbd> Next stage &bull; <kbd>←</kbd> Back &bull; <kbd>R</kbd> Reset</span>
+      </div>
+
+      <!-- Stepper Stages Container -->
+      <div id="liveStepperContainer">
+
+        <!-- Stage 1: Query -->
+        <div class="stepper-card" id="liveStep1">
+          <div class="stage-header">
+            <span class="stage-num">Stage 1</span>
+            <span class="stage-title">User Query</span>
+            <span class="stage-io-badge input">INPUT</span>
+            <span id="liveQidBadge" style="margin-left: auto; font-size: 12px; color: var(--text-tertiary); font-family: 'SFMono-Regular', Menlo, monospace;"></span>
+          </div>
+          <div class="stage-summary">
+            The input question requires multi-hop reasoning across multiple Wikipedia articles.
+          </div>
+          <div class="stage-body">
+            <div class="live-query-display" id="liveQuestionText">Loading question...</div>
+          </div>
+        </div>
+
+        <!-- Stage 2: Retrieve -->
+        <div class="stepper-card hidden" id="liveStep2">
+          <div class="stage-header">
+            <span class="stage-num">Stage 2</span>
+            <span class="stage-title">Dense Retrieval &amp; Confidence</span>
+            <span class="stage-io-badge output">OUTPUT: TOP-5 PASSAGES</span>
+            <span id="liveRetrievalConfidenceBadge" class="badge-notion success" style="margin-left: auto;">Retrieval Confidence: High</span>
+          </div>
+          <div class="stage-summary">
+            Retrieved top-5 passages using MiniLM embeddings and FAISS index. Telemetry signals quantify retrieval ambiguity.
+          </div>
+          <div class="stage-body">
+            <div class="live-passages-list" id="livePassagesList"></div>
+          </div>
+        </div>
+
+        <!-- Stage 3: Route -->
+        <div class="stepper-card hidden" id="liveStep3">
+          <div class="stage-header">
+            <span class="stage-num">Stage 3</span>
+            <span class="stage-title">Cascade Routing</span>
+            <span class="stage-io-badge output">DECISION</span>
+            <span id="liveRouteDecisionBadge" class="badge-notion success" style="margin-left: auto;">ROUTE TO SMALL MODEL</span>
+          </div>
+          <div class="stage-summary">
+            Classifier evaluates retrieval confidence to decide if the cheap 7B model is sufficient or if the frontier model is needed.
+          </div>
+          <div class="stage-body">
+            <div class="live-route-explanation" id="liveRouteReasonText">
+              Retrieval confidence is high and multi-hop complexity is low, so the fast 7B model is sufficient to answer accurately at 90% lower cost.
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 4: Compress -->
+        <div class="stepper-card hidden" id="liveStep4">
+          <div class="stage-header">
+            <span class="stage-num">Stage 4</span>
+            <span class="stage-title">PTM Context Compression</span>
+            <span class="stage-io-badge output">COMPRESSED CONTEXT</span>
+            <span id="liveCompressionBadge" class="badge-notion info" style="margin-left: auto;">41% Shorter &bull; 536 → 318 tokens</span>
+          </div>
+          <div class="stage-summary">
+            LLMLingua-2 prunes filler text while the Protected Token Mask (PTM) locks in numbers, dates, currency, and negations in color.
+          </div>
+          <div class="stage-body">
+            <div class="live-compress-compare">
+              <div class="compress-col">
+                <div class="compress-col-title">Original Context (With Protected Entities &amp; Faded Pruned Text)</div>
+                <div class="doc-text live-context-box" id="liveOrigContextView"></div>
+              </div>
+              <div class="compress-col">
+                <div class="compress-col-title">Compressed Context (Preserved Facts)</div>
+                <div class="doc-text live-context-box" id="liveCompContextView"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 5: Answer -->
+        <div class="stepper-card hidden" id="liveStep5">
+          <div class="stage-header">
+            <span class="stage-num">Stage 5</span>
+            <span class="stage-title">Final Generation &amp; Evaluation</span>
+            <span class="stage-io-badge output">FINAL ANSWER</span>
+            <span id="liveModelBadge" class="badge-notion info" style="margin-left: auto;">Served by Small Tier (ALLaM-2-7B)</span>
+          </div>
+          <div class="stage-summary">
+            The selected model generates the final answer using the compressed context.
+          </div>
+          <div class="stage-body">
+            <div class="live-answer-card">
+              <div class="live-answer-text" id="liveAnswerText">"..."</div>
+              <div class="live-gold-reveal-wrap">
+                <button class="notion-btn" id="btnLiveRevealGold">Reveal Ground Truth</button>
+                <div id="liveGoldContainer" style="display: none; align-items: center; gap: 10px;">
+                  <span style="font-size: 13px; font-weight: 600; text-transform: uppercase; color: var(--text-secondary);">Ground Truth:</span>
+                  <span id="liveGoldAnswerText" class="badge-notion success" style="font-size: 15px;"></span>
+                  <span id="liveEvalStatusBadge" class="badge-notion"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 6: Summary Strip -->
+        <div class="stepper-card hidden" id="liveStep6">
+          <div class="stage-header">
+            <span class="stage-num">Stage 6</span>
+            <span class="stage-title">Pipeline Impact Summary</span>
+            <span class="stage-io-badge output">OPTIMIZATION RESULT</span>
+          </div>
+          <div class="stage-summary">
+            One-line comparison between standard uncompressed large-model baseline and the OptiRAG pipeline.
+          </div>
+          <div class="stage-body">
+            <div class="live-summary-strip" id="liveSummaryStrip"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- TAB 2: PIPELINE REPLAY (SIMPLIFIED & CLEANED) -->
+    <!-- ============================================================== -->
+    <section id="tab-pipeline" class="tab-content">
 
       <!-- Query Selector -->
       <div class="query-picker-wrap">
@@ -91,20 +256,17 @@
           </select>
         </div>
         <div style="display: flex; align-items: flex-end;">
-          <button id="btnRandom" class="notion-btn">
-            <span>🎲</span>
-            <span>Random Question</span>
-          </button>
+          <button id="btnRandom" class="notion-btn">Random Question</button>
         </div>
       </div>
 
       <!-- Step 1: Question & Gold Answer -->
       <div class="notion-block">
         <div class="block-header">
-          <span style="font-size: 16px;">1️⃣</span>
-          <span class="block-title">Question &amp; Retrieval Target</span>
+          <span class="block-title">1. Question &amp; Target</span>
           <span id="qidBadge" style="margin-left: auto; font-size: 13px; color: var(--text-tertiary); font-family: 'SFMono-Regular', Menlo, monospace;"></span>
         </div>
+        <p class="block-plain-desc">Multi-hop query evaluated against HotpotQA distractor Wikipedia passages.</p>
         <div class="question-card">
           <div id="questionText" class="q-main-text">Loading question...</div>
           <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
@@ -120,26 +282,32 @@
       <!-- Step 2: Dense Retrieval Chunks & Telemetry -->
       <div class="notion-block">
         <div class="block-header">
-          <span style="font-size: 16px;">2️⃣</span>
-          <span class="block-title">Retrieval Telemetry (MiniLM-L6-v2 + FAISS Dense Top-5)</span>
+          <span class="block-title">2. Dense Retrieval (Top-5 Passages)</span>
           <span id="retrievalCoverageBadge" style="margin-left: auto; display: none;"></span>
         </div>
+        <p class="block-plain-desc">Top 5 passages retrieved using MiniLM-L6-v2 embeddings with inner-product FAISS index.</p>
         
         <div id="chunksList" class="chunks-container">
           <!-- Populated by JS -->
         </div>
 
-        <div class="telemetry-grid" id="telemetryStrip">
-          <!-- 8 Telemetry Features -->
-        </div>
+        <!-- Telemetry collapsed by default to avoid clutter -->
+        <details class="details-toggle" id="telemetryDetails">
+          <summary class="details-summary">Show telemetry metrics (8 retrieval signals &amp; score distribution)</summary>
+          <div class="details-content">
+            <div class="telemetry-grid" id="telemetryStrip">
+              <!-- 8 Telemetry Features -->
+            </div>
+          </div>
+        </details>
       </div>
 
       <!-- Step 3: Cascade Router Decision -->
       <div class="notion-block">
         <div class="block-header">
-          <span style="font-size: 16px;">3️⃣</span>
-          <span class="block-title">Adaptive Cascade Router</span>
+          <span class="block-title">3. Cascade Router Decision</span>
         </div>
+        <p class="block-plain-desc">Trained classifier evaluates query difficulty to route to the small model or escalate to the large model.</p>
 
         <div class="router-panel">
           <div>
@@ -174,11 +342,11 @@
         <div id="routerDecisionBanner" class="router-decision-card">
           <div>
             <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--text-tertiary); letter-spacing: 0.04em;">Predicted P(hard = 1)</div>
-            <div id="probHardValue" style="font-size: 26px; font-weight: 700; font-family: 'SFMono-Regular', Menlo, monospace; color: var(--text-primary);">0.0000</div>
+            <div id="probHardValue" style="font-size: 26px; font-weight: 600; font-family: 'SFMono-Regular', Menlo, monospace; color: var(--text-primary);">0.0000</div>
           </div>
           <div style="text-align: right;">
             <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--text-tertiary); letter-spacing: 0.04em;">Routing Action</div>
-            <div id="decisionText" style="font-size: 20px; font-weight: 700;">ROUTE -> SMALL TIER</div>
+            <div id="decisionText" style="font-size: 20px; font-weight: 600;">ROUTE -> SMALL TIER</div>
           </div>
         </div>
       </div>
@@ -186,9 +354,9 @@
       <!-- Step 4: PTM Context Compression -->
       <div class="notion-block">
         <div class="block-header">
-          <span style="font-size: 16px;">4️⃣</span>
-          <span class="block-title">Protected Token Mask (PTM) &amp; Context Compression</span>
+          <span class="block-title">4. Protected Token Mask (PTM) &amp; Context Compression</span>
         </div>
+        <p class="block-plain-desc">Neural token pruning via LLMLingua-2 with guaranteed regex preservation of high-entropy entities.</p>
 
         <div class="compression-toggle-bar">
           <label class="toggle-switch-wrap">
@@ -226,7 +394,6 @@
         </div>
 
         <div class="notion-callout yellow" style="margin-top: 14px;">
-          <span class="callout-icon">⏱️</span>
           <div class="callout-body">
             <strong>Latency Note:</strong> Context compression was precomputed on CPU in this project; takes about 7 s per query on 2 CPU threads. Compression is a token (~40%) and financial cost (~36%) optimization, rather than a latency saving on free-tier APIs.
           </div>
@@ -236,9 +403,9 @@
       <!-- Step 5: Final Dispatch, Answers & Economics -->
       <div class="notion-block">
         <div class="block-header">
-          <span style="font-size: 16px;">5️⃣</span>
-          <span class="block-title">Final Dispatch, Answer &amp; Simulated Economics</span>
+          <span class="block-title">5. Final Dispatch &amp; Economics</span>
         </div>
+        <p class="block-plain-desc">Final generation generated by routed model using compressed context.</p>
 
         <div class="answer-panel">
           <div class="final-answer-card">
@@ -271,18 +438,16 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- TAB 2: TRY THE MASK (PTM LIVE TESTER) -->
+    <!-- TAB 3: TRY THE MASK (PTM LIVE TESTER) -->
     <!-- ============================================================== -->
     <section id="tab-mask" class="tab-content">
       <div class="notion-block">
         <div class="block-header">
-          <span style="font-size: 18px;">✂️</span>
           <span class="block-title">Protected Token Mask (PTM) Interactive Sandbox</span>
           <span class="badge-notion info" style="margin-left: auto;">Client-Side JavaScript Engine</span>
         </div>
 
         <div class="notion-callout blue">
-          <span class="callout-icon">💡</span>
           <div class="callout-body">
             Type or paste any text below. The JavaScript engine (with 100% exact parity to Python <code>ptm.py</code>) instantly scans and highlights high-entropy tokens across 5 entity types. 
             <strong>Note: This sandbox runs the mask only, not the neural compressor.</strong>
@@ -343,132 +508,185 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- TAB 3: BENCHMARK RESULTS -->
+    <!-- TAB 4: BENCHMARK RESULTS (HERO VIEW + EXPANDABLE DETAILS) -->
     <!-- ============================================================== -->
     <section id="tab-results" class="tab-content">
 
-      <!-- 3 Core Findings Callout Blocks -->
-      <div class="notion-callout green">
-        <span class="callout-icon">📌</span>
-        <div class="callout-body">
-          <strong>Finding 1 &bull; PTM Preserves Critical Facts Through Compression:</strong> Numbers, negations, and percentages achieved 100.0% survival (1,667/1,667 numbers, 69/69 negations, 6/6 percents). Dates and currency achieved 99.7% and 85.7% exact span survival, and <strong>100.0% word/digit-level survival</strong> after punctuation normalization (0 constituent words dropped across all 120 missed date spans).
+      <!-- Hero View: Headline Numbers -->
+      <div class="hero-headline-grid">
+        <div class="hero-metric-card">
+          <div class="hero-metric-label">Cost Saved</div>
+          <div class="hero-metric-value">-68% Cost</div>
+          <div class="hero-metric-desc">$0.229 → $0.074 / 1k queries using Telemetry Router + PTM vs. Always-Large.</div>
+        </div>
+        <div class="hero-metric-card">
+          <div class="hero-metric-label">Accuracy Retained</div>
+          <div class="hero-metric-value">88% Retained</div>
+          <div class="hero-metric-desc">42.0% accuracy vs 48.0% Always-Large (paired bootstrap diff 95% CI spans zero).</div>
+        </div>
+        <div class="hero-metric-card">
+          <div class="hero-metric-label">Fact Preservation</div>
+          <div class="hero-metric-value">100% Fact Survival</div>
+          <div class="hero-metric-desc">Numbers, dates, negations, and percentages preserved with zero word-level drops.</div>
         </div>
       </div>
 
-      <div class="notion-callout red">
-        <span class="callout-icon">🔍</span>
-        <div class="callout-body">
-          <strong>Finding 2 &bull; Retrieval Completeness Dominates Accuracy:</strong> When all gold paragraphs were retrieved in the top-5 (49% of test queries), Large tier accuracy reached <strong>85.71% [75.51, 93.93]</strong> and Small reached <strong>57.14% [42.86, 71.43]</strong>. When retrieval missed at least one gold paragraph (51% of test), Large accuracy collapsed to <strong>11.76% [3.92, 21.57]</strong> and Small to <strong>19.61% [9.80, 31.37]</strong>.
-        </div>
-      </div>
-
-      <div class="notion-callout yellow">
-        <span class="callout-icon">⚠️</span>
-        <div class="callout-body">
-          <strong>Finding 3 &bull; Cascade Routing &amp; Latency Limits:</strong> At N=100 test queries, learned routers did not statistically significantly beat cost-matched random routing (paired 95% CIs span zero). Context compression on CPU adds ~6.87s latency overhead, making it a <strong>token (~40%) and cost (~36%) optimization</strong>, rather than a wall-clock latency saving on free-tier APIs.
-        </div>
-      </div>
-
-      <!-- Audited Benchmark Summary Table -->
-      <div class="notion-block" style="margin-top: 24px;">
-        <div class="block-header">
-          <span class="block-title">Full Pipeline Benchmark Table (Audited summary_v4.csv)</span>
-        </div>
-        <div class="notion-table-wrap">
-          <table id="benchmarkTable">
-            <thead>
-              <tr>
-                <th>System</th>
-                <th>Threshold Method</th>
-                <th>&tau;</th>
-                <th>Large %</th>
-                <th>Accuracy [95% CI]</th>
-                <th>Mean F1</th>
-                <th>Simulated Cost / 1k</th>
-                <th>LLM Latency</th>
-                <th>End-to-End Latency</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Populated by JS -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Pricing Disclosure Table -->
-      <div class="notion-block">
-        <div class="block-header">
-          <span class="block-title">Simulated Pricing Model Disclosures</span>
-        </div>
-        <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 12px;">
-          OptiRAG-lite was built with strictly $0 actual spend using free-tier API quotas. Pricing reported below reflects standard developer list prices used solely to model production economics.
-        </p>
-        <div class="notion-table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Tier</th>
-                <th>Model</th>
-                <th>Billed Spend</th>
-                <th>Simulated Prompt / 1M</th>
-                <th>Simulated Completion / 1M</th>
-                <th>Pricing Disclosure Label</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Small Tier</strong></td>
-                <td>ALLaM-2-7B (Groq)</td>
-                <td><span class="badge-notion success">$0.00 (Free Tier)</span></td>
-                <td>$0.05</td>
-                <td>$0.08</td>
-                <td><span class="badge-notion info">small-model price is a proxy (8B list proxy)</span></td>
-              </tr>
-              <tr>
-                <td><strong>Large Tier</strong></td>
-                <td>Gemini 3.5 Flash-Lite (AI Studio)</td>
-                <td><span class="badge-notion success">$0.00 (Free Tier)</span></td>
-                <td>$0.30</td>
-                <td>$2.50</td>
-                <td><span class="badge-notion info">simulated list price, not billed</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Three Publication Figures -->
-      <div class="figure-block">
-        <img src="assets/retrieval_accuracy_v3.png" alt="Retrieval completeness impact on accuracy" loading="lazy">
+      <!-- Hero View: Cost vs Accuracy Frontier Chart -->
+      <div class="figure-block hero-figure-block">
+        <img src="assets/pareto_v4.png" alt="Accuracy and End-to-end latency vs simulated cost trade-offs" loading="lazy">
         <div class="figure-caption">
-          <strong>Figure 1: Accuracy depends heavily on retrieval completeness.</strong> Large tier accuracy is 85.7% with complete retrieval but drops to 11.8% when any gold paragraph is missing (N=100 test).
+          <strong>Hero Benchmark: Accuracy and end-to-end latency vs. simulated cost trade-offs (N=100 test).</strong> Routers achieve 41-44% accuracy at 40-50% lower cost, while PTM adds ~6.87s CPU latency overhead to reduce token costs by ~36%.
         </div>
       </div>
 
-      <div class="figure-block">
-        <img src="assets/ptm_survival_v4.png" alt="PTM Entity survival rates" loading="lazy">
-        <div class="figure-caption">
-          <strong>Figure 2: Protected entity survival across compression modes.</strong> PTM preserves 100% of numbers, negations, and percentages, and achieves 100% word-level preservation for dates and currency after punctuation normalization.
-        </div>
-      </div>
+      <!-- Expandable Full Results & Tables -->
+      <details class="details-toggle" id="fullResultsDetails" style="margin-top: 24px;">
+        <summary class="details-summary">Show full benchmark results, statistical findings &amp; tables</summary>
+        <div class="details-content">
+          
+          <!-- 3 Core Findings Callout Blocks -->
+          <div class="notion-callout green" style="margin-bottom: 12px;">
+            <div class="callout-body">
+              <strong>Finding 1 &bull; PTM Preserves Critical Facts Through Compression:</strong> Numbers, negations, and percentages achieved 100.0% survival (1,667/1,667 numbers, 69/69 negations, 6/6 percents). Dates and currency achieved 99.7% and 85.7% exact span survival, and <strong>100.0% word/digit-level survival</strong> after punctuation normalization (0 constituent words dropped across all 120 missed date spans).
+            </div>
+          </div>
 
-      <div class="figure-block">
-        <img src="assets/pareto_v4.png" alt="Accuracy and End-to-end latency vs simulated cost" loading="lazy">
-        <div class="figure-caption">
-          <strong>Figure 3: Accuracy and end-to-end latency vs. simulated cost trade-offs.</strong> Routers achieve 41-44% accuracy at 40-50% lower cost, while PTM adds ~6.87s CPU latency overhead to reduce token costs by ~36%.
+          <div class="notion-callout red" style="margin-bottom: 12px;">
+            <div class="callout-body">
+              <strong>Finding 2 &bull; Retrieval Completeness Dominates Accuracy:</strong> When all gold paragraphs were retrieved in the top-5 (49% of test queries), Large tier accuracy reached <strong>85.71% [75.51, 93.93]</strong> and Small reached <strong>57.14% [42.86, 71.43]</strong>. When retrieval missed at least one gold paragraph (51% of test), Large accuracy collapsed to <strong>11.76% [3.92, 21.57]</strong> and Small to <strong>19.61% [9.80, 31.37]</strong>.
+            </div>
+          </div>
+
+          <div class="notion-callout yellow" style="margin-bottom: 20px;">
+            <div class="callout-body">
+              <strong>Finding 3 &bull; Cascade Routing &amp; Latency Limits:</strong> At N=100 test queries, learned routers did not statistically significantly beat cost-matched random routing (paired 95% CIs span zero). Context compression on CPU adds ~6.87s latency overhead, making it a <strong>token (~40%) and cost (~36%) optimization</strong>, rather than a wall-clock latency saving on free-tier APIs.
+            </div>
+          </div>
+
+          <!-- Audited Benchmark Summary Table -->
+          <div class="notion-block">
+            <div class="block-header">
+              <span class="block-title">Full Pipeline Benchmark Table (Audited summary_v4.csv)</span>
+            </div>
+            <div class="notion-table-wrap">
+              <table id="benchmarkTable">
+                <thead>
+                  <tr>
+                    <th>System</th>
+                    <th>Threshold Method</th>
+                    <th>&tau;</th>
+                    <th>Large %</th>
+                    <th>Accuracy [95% CI]</th>
+                    <th>Mean F1</th>
+                    <th>Simulated Cost / 1k</th>
+                    <th>LLM Latency</th>
+                    <th>End-to-End Latency</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Pricing Disclosure Table -->
+          <div class="notion-block">
+            <div class="block-header">
+              <span class="block-title">Simulated Pricing Model Disclosures</span>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 12px;">
+              OptiRAG-lite was built with strictly $0 actual spend using free-tier API quotas. Pricing reported below reflects standard developer list prices used solely to model production economics.
+            </p>
+            <div class="notion-table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Tier</th>
+                    <th>Model</th>
+                    <th>Billed Spend</th>
+                    <th>Simulated Prompt / 1M</th>
+                    <th>Simulated Completion / 1M</th>
+                    <th>Pricing Disclosure Label</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Small Tier</strong></td>
+                    <td>ALLaM-2-7B (Groq)</td>
+                    <td><span class="badge-notion success">$0.00 (Free Tier)</span></td>
+                    <td>$0.05</td>
+                    <td>$0.08</td>
+                    <td><span class="badge-notion info">small-model price is a proxy (8B list proxy)</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Large Tier</strong></td>
+                    <td>Gemini 3.5 Flash-Lite (AI Studio)</td>
+                    <td><span class="badge-notion success">$0.00 (Free Tier)</span></td>
+                    <td>$0.30</td>
+                    <td>$2.50</td>
+                    <td><span class="badge-notion info">simulated list price, not billed</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Additional Figures -->
+          <div class="figure-block">
+            <img src="assets/retrieval_accuracy_v3.png" alt="Retrieval completeness impact on accuracy" loading="lazy">
+            <div class="figure-caption">
+              <strong>Figure 1: Accuracy depends heavily on retrieval completeness.</strong> Large tier accuracy is 85.7% with complete retrieval but drops to 11.8% when any gold paragraph is missing (N=100 test).
+            </div>
+          </div>
+
+          <div class="figure-block">
+            <img src="assets/ptm_survival_v4.png" alt="PTM Entity survival rates" loading="lazy">
+            <div class="figure-caption">
+              <strong>Figure 2: Protected entity survival across compression modes.</strong> PTM preserves 100% of numbers, negations, and percentages, and achieves 100% word-level preservation for dates and currency after punctuation normalization.
+            </div>
+          </div>
+
         </div>
-      </div>
+      </details>
 
     </section>
 
     <!-- ============================================================== -->
-    <!-- TAB 4: ABOUT & DOCUMENTATION -->
+    <!-- TAB 5: PROJECT DOCUMENTATION (METADATA DETAILS MOVED HERE) -->
     <!-- ============================================================== -->
     <section id="tab-about" class="tab-content">
+      
+      <!-- Full Project Properties Grid (Moved from header) -->
+      <div class="notion-properties" style="margin-top: 0;">
+        <div class="prop-item">
+          <span class="prop-key">Status</span>
+          <span class="prop-val"><span class="badge-notion success">Audited Benchmark (N=100)</span></span>
+        </div>
+        <div class="prop-item">
+          <span class="prop-key">Budget</span>
+          <span class="prop-val">$0.00 (100% Free-Tier APIs)</span>
+        </div>
+        <div class="prop-item">
+          <span class="prop-key">Small Tier</span>
+          <span class="prop-val">ALLaM-2-7B (Groq, 8B proxy)</span>
+        </div>
+        <div class="prop-item">
+          <span class="prop-key">Large Tier</span>
+          <span class="prop-val">Gemini 3.5 Flash-Lite (Google AI Studio)</span>
+        </div>
+        <div class="prop-item">
+          <span class="prop-key">Author</span>
+          <span class="prop-val">Ishaan Naik (Symbiosis Inst. of Tech)</span>
+        </div>
+        <div class="prop-item">
+          <span class="prop-key">Dataset</span>
+          <span class="prop-val">HotpotQA Multi-Hop (CC BY-SA 4.0)</span>
+        </div>
+      </div>
+
       <div class="notion-block">
         <div class="block-header">
-          <span style="font-size: 18px;">📖</span>
           <span class="block-title">About OptiRAG-lite</span>
         </div>
 
@@ -476,7 +694,7 @@
           <strong>OptiRAG-lite</strong> is an empirical investigation into cost-accuracy-latency trade-offs in Retrieval-Augmented Generation (RAG) pipelines under strict zero-budget constraints ($0 actual project spend).
         </p>
 
-        <h3 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin: 20px 0 10px 0;">Architecture Overview</h3>
+        <h3 style="font-size: 17px; font-weight: 600; color: var(--text-primary); margin: 20px 0 10px 0;">Architecture Overview</h3>
         <p style="color: var(--text-secondary); margin-bottom: 12px;">
           The system integrates three core optimization stages:
         </p>
@@ -486,7 +704,7 @@
           <li style="margin-bottom: 8px;"><strong>Protected Token Mask (PTM) Context Compression:</strong> Uses <code>microsoft/llmlingua-2-bert-base-multilingual-cased-meetingbank</code> to prune 40-50% of peripheral tokens while enforcing hard regex retention of high-entropy entities (dates, currency, negations, numbers).</li>
         </ol>
 
-        <h3 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin: 20px 0 10px 0;">Model Quotas &amp; Infrastructure</h3>
+        <h3 style="font-size: 17px; font-weight: 600; color: var(--text-primary); margin: 20px 0 10px 0;">Model Quotas &amp; Infrastructure</h3>
         <ul style="padding-left: 20px; color: var(--text-primary); margin-bottom: 16px; line-height: 1.6;">
           <li style="margin-bottom: 6px;"><strong>Small Tier:</strong> <code>allam-2-7b</code> via Groq Cloud free tier (30 RPM, 6,000 TPM limit). Cost modeled via an 8B-class list price proxy ($0.05 / $0.08 per 1M tokens).</li>
           <li style="margin-bottom: 6px;"><strong>Large Tier:</strong> <code>gemini-3.5-flash-lite</code> via Google AI Studio free tier (15 RPM, 250,000 TPM, provisional 500 RPD). Modeled at official list rates ($0.30 / $2.50 per 1M tokens).</li>
@@ -494,7 +712,7 @@
           <li style="margin-bottom: 6px;"><strong>Compression:</strong> LLMLingua-2 BERT-base (local CPU, 2 threads).</li>
         </ul>
 
-        <h3 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin: 20px 0 10px 0;">Project Limitations</h3>
+        <h3 style="font-size: 17px; font-weight: 600; color: var(--text-primary); margin: 20px 0 10px 0;">Project Limitations</h3>
         <ul style="padding-left: 20px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.6;">
           <li style="margin-bottom: 6px;"><strong>Sample Size:</strong> 200 train queries and 100 test queries. With N=100 test queries, 95% bootstrap confidence intervals span approximately &plusmn;9 percentage points.</li>
           <li style="margin-bottom: 6px;"><strong>Small Model Capacity:</strong> ALLaM-2-7B is primarily optimized for Arabic-English tasks and achieves 38.0% accuracy on multi-hop HotpotQA English questions.</li>
@@ -502,7 +720,7 @@
           <li style="margin-bottom: 6px;"><strong>Static Replay:</strong> This web demonstration replays precomputed, cryptographically verified cached inference traces without executing live network requests.</li>
         </ul>
 
-        <h3 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin: 20px 0 10px 0;">Author &amp; Academic Integrity</h3>
+        <h3 style="font-size: 17px; font-weight: 600; color: var(--text-primary); margin: 20px 0 10px 0;">Author &amp; Academic Integrity</h3>
         <p style="color: var(--text-primary); margin-bottom: 8px;">
           <strong>Author:</strong> Ishaan Naik, Symbiosis Institute of Technology.
         </p>

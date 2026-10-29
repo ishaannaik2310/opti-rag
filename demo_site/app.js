@@ -1,29 +1,98 @@
 /**
  * OptiRAG-lite Interactive Demonstration Client Application (app.js).
- * Crafted with Notion Design Philosophy: document-first, tactile callouts,
- * pastel highlight tokens, clean database tables, and dark/light mode toggle.
- * Runs 100% offline with zero CDN dependencies and zero external network calls.
+ * Minimalist, cache-first, zero-cost web application for academic demonstration.
+ * Features:
+ *   - 6-Stage Live Demo Stepper (Query -> Retrieve -> Route -> Compress -> Answer -> Summary)
+ *   - 3 Curated Presets (Easy, Hard, Mask Saves a Fact)
+ *   - Offline Replay by default + Graceful Custom Question matching
+ *   - Presenter Mode (Larger typography, keyboard stepping with Right/Left/R)
+ *   - Simplified Pipeline Replay & Hero Benchmark views
+ * Runs 100% offline with zero CDN dependencies and zero external API calls.
  */
 
 (function () {
   "use strict";
 
+  // =========================================================================
   // Application State
+  // =========================================================================
   let queriesData = [];
   let summaryData = null;
   let currentQuery = null;
   let goldRevealed = false;
 
-  // DOM Elements - Theme
+  // Live Demo State
+  let currentLiveStep = 1; // 1 to 6
+  let liveGoldRevealed = false;
+  let presenterMode = false;
+  let isCustomMode = false;
+  let presetIndices = { easy: 7, hard: 57, mask: 28 };
+  let runAllInterval = null;
+
+  // =========================================================================
+  // DOM Elements - Theme & Tabs
+  // =========================================================================
   const btnThemeToggle = document.getElementById("btnThemeToggle");
   const themeIcon = document.getElementById("themeIcon");
   const themeLabel = document.getElementById("themeLabel");
-
-  // DOM Elements - Tabs
   const tabButtons = document.querySelectorAll(".tab-btn");
   const tabContents = document.querySelectorAll(".tab-content");
 
-  // DOM Elements - Pipeline Demo
+  // =========================================================================
+  // DOM Elements - Live Demo Tab
+  // =========================================================================
+  const livePresetEasy = document.getElementById("livePresetEasy");
+  const livePresetHard = document.getElementById("livePresetHard");
+  const livePresetMask = document.getElementById("livePresetMask");
+  const livePresetRandom = document.getElementById("livePresetRandom");
+  const btnPresenterMode = document.getElementById("btnPresenterMode");
+  const presenterIcon = document.getElementById("presenterIcon");
+  const presenterText = document.getElementById("presenterText");
+
+  const btnModeReplay = document.getElementById("btnModeReplay");
+  const btnModeCustom = document.getElementById("btnModeCustom");
+  const liveReplayWrap = document.getElementById("liveReplayWrap");
+  const liveCustomWrap = document.getElementById("liveCustomWrap");
+  const liveQuerySelect = document.getElementById("liveQuerySelect");
+  const liveCustomInput = document.getElementById("liveCustomInput");
+  const btnLiveCustomRun = document.getElementById("btnLiveCustomRun");
+  const liveCustomNote = document.getElementById("liveCustomNote");
+
+  const stepPills = document.querySelectorAll(".step-pill");
+  const btnLivePrev = document.getElementById("btnLivePrev");
+  const btnLiveNext = document.getElementById("btnLiveNext");
+  const btnLiveRunAll = document.getElementById("btnLiveRunAll");
+  const btnLiveReset = document.getElementById("btnLiveReset");
+
+  const liveStepCards = [
+    document.getElementById("liveStep1"),
+    document.getElementById("liveStep2"),
+    document.getElementById("liveStep3"),
+    document.getElementById("liveStep4"),
+    document.getElementById("liveStep5"),
+    document.getElementById("liveStep6")
+  ];
+
+  const liveQidBadge = document.getElementById("liveQidBadge");
+  const liveQuestionText = document.getElementById("liveQuestionText");
+  const liveRetrievalConfidenceBadge = document.getElementById("liveRetrievalConfidenceBadge");
+  const livePassagesList = document.getElementById("livePassagesList");
+  const liveRouteDecisionBadge = document.getElementById("liveRouteDecisionBadge");
+  const liveRouteReasonText = document.getElementById("liveRouteReasonText");
+  const liveCompressionBadge = document.getElementById("liveCompressionBadge");
+  const liveOrigContextView = document.getElementById("liveOrigContextView");
+  const liveCompContextView = document.getElementById("liveCompContextView");
+  const liveModelBadge = document.getElementById("liveModelBadge");
+  const liveAnswerText = document.getElementById("liveAnswerText");
+  const btnLiveRevealGold = document.getElementById("btnLiveRevealGold");
+  const liveGoldContainer = document.getElementById("liveGoldContainer");
+  const liveGoldAnswerText = document.getElementById("liveGoldAnswerText");
+  const liveEvalStatusBadge = document.getElementById("liveEvalStatusBadge");
+  const liveSummaryStrip = document.getElementById("liveSummaryStrip");
+
+  // =========================================================================
+  // DOM Elements - Pipeline Replay Tab (Existing)
+  // =========================================================================
   const querySearch = document.getElementById("querySearch");
   const querySelect = document.getElementById("querySelect");
   const btnRandom = document.getElementById("btnRandom");
@@ -60,7 +129,9 @@
   const valCost1k = document.getElementById("valCost1k");
   const valCostQuery = document.getElementById("valCostQuery");
 
-  // DOM Elements - Try the Mask
+  // =========================================================================
+  // DOM Elements - Try the Mask Tab
+  // =========================================================================
   const maskInput = document.getElementById("maskInput");
   const maskHighlightPreview = document.getElementById("maskHighlightPreview");
   const exBtnFinance = document.getElementById("exBtnFinance");
@@ -106,13 +177,12 @@
   }
 
   /**
-   * Highlight PTM spans within arbitrary text using Notion highlight styling
+   * Highlight PTM spans within arbitrary text
    */
   function renderHighlightedText(text, spans) {
     if (!text) return "";
     if (!spans || spans.length === 0) return escapeHtml(text);
 
-    // Sort spans ascending by start
     const sorted = [...spans].sort((a, b) => a.start - b.start);
     let html = "";
     let lastIdx = 0;
@@ -135,7 +205,54 @@
   }
 
   /**
-   * Theme Switcher (Notion Light / Dark mode)
+   * Render original context with PTM spans highlighted AND dropped words faded with strikethrough.
+   * This provides clear visual evidence of what LLMLingua-2 pruned while facts were saved.
+   */
+  function renderContextWithPrunedFade(origText, compText, spans) {
+    if (!origText) return "";
+    const compWords = new Set((compText.match(/[a-zA-Z0-9]+/g) || []).map(w => w.toLowerCase()));
+    const sorted = [...(spans || [])].sort((a, b) => a.start - b.start);
+
+    let html = "";
+    let lastIdx = 0;
+
+    for (const span of sorted) {
+      if (span.start > lastIdx) {
+        html += renderFadedSegment(origText.slice(lastIdx, span.start), compWords);
+      }
+      const spanText = origText.slice(span.start, span.end);
+      const kind = span.kind || "number";
+      html += `<span class="ptm-span ptm-${kind}" title="${kind.toUpperCase()}">${escapeHtml(spanText)}</span>`;
+      lastIdx = span.end;
+    }
+
+    if (lastIdx < origText.length) {
+      html += renderFadedSegment(origText.slice(lastIdx), compWords);
+    }
+
+    return html;
+  }
+
+  function renderFadedSegment(text, compWords) {
+    const tokens = text.split(/(\s+)/);
+    let res = "";
+    for (const tok of tokens) {
+      if (/^\s+$/.test(tok)) {
+        res += tok;
+      } else {
+        const clean = tok.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+        if (!clean || compWords.has(clean)) {
+          res += escapeHtml(tok);
+        } else {
+          res += `<span class="pruned">${escapeHtml(tok)}</span>`;
+        }
+      }
+    }
+    return res;
+  }
+
+  /**
+   * Theme Switcher (Light / Dark mode)
    */
   function initTheme() {
     let saved = "dark";
@@ -188,6 +305,60 @@
   }
 
   /**
+   * Find preset questions automatically from data
+   */
+  function findPresets(list) {
+    // 1. Easy: routed to Small (p_hard < 0.45), Small correct, all gold retrieved
+    const easy = list.find(q => {
+      const p = q.router_probs.telemetry_only.logistic;
+      return p < 0.45 && q.answers.small_compressed.is_correct && q.gold_all_in_top5;
+    });
+    if (easy) presetIndices.easy = easy.idx;
+
+    // 2. Hard: routed to Large (p_hard >= 0.52), Small wrong, Large correct
+    const hard = list.find(q => {
+      const p = q.router_probs.telemetry_only.logistic;
+      return p >= 0.52 && !q.answers.small_compressed.is_correct && q.answers.large_compressed.is_correct;
+    });
+    if (hard) presetIndices.hard = hard.idx;
+
+    // 3. Mask saves a fact: Vanilla Small wrong, but PTM Small correct, has date/currency/negation
+    const mask = list.find(q => {
+      const kinds = q.ptm_protected_spans.map(s => s.kind);
+      const hasFact = kinds.includes("date") || kinds.includes("negation") || kinds.includes("currency");
+      return !q.answers.small_uncompressed.is_correct && q.answers.small_compressed.is_correct && hasFact;
+    });
+    if (mask) presetIndices.mask = mask.idx;
+  }
+
+  /**
+   * Find closest cached query to an arbitrary user string using Jaccard word similarity
+   */
+  function findClosestCachedQuery(queryStr) {
+    const terms = (queryStr.toLowerCase().match(/[a-zA-Z0-9]+/g) || []);
+    if (terms.length === 0) return queriesData[0];
+    const querySet = new Set(terms);
+
+    let bestScore = -1;
+    let bestQuery = queriesData[0];
+
+    for (const q of queriesData) {
+      const qTerms = (q.question.toLowerCase().match(/[a-zA-Z0-9]+/g) || []);
+      let matchCount = 0;
+      for (const t of qTerms) {
+        if (querySet.has(t)) matchCount++;
+      }
+      const unionSize = new Set([...terms, ...qTerms]).size;
+      const score = unionSize > 0 ? matchCount / unionSize : 0;
+      if (score > bestScore) {
+        bestScore = score;
+        bestQuery = q;
+      }
+    }
+    return bestQuery;
+  }
+
+  /**
    * Load data files
    */
   async function loadData() {
@@ -203,23 +374,24 @@
       queriesData = await queriesRes.json();
       summaryData = await summaryRes.json();
 
+      findPresets(queriesData);
       populateQuerySelect(queriesData);
+      populateLiveQuerySelect(queriesData);
       populateBenchmarkTable(summaryData.benchmark_table);
 
-      // Select first query by default
-      if (queriesData.length > 0) {
-        selectQuery(0);
-      }
+      // Select Easy preset or first query by default
+      selectQuery(presetIndices.easy !== undefined ? presetIndices.easy : 0);
     } catch (err) {
       console.error("Initialization error:", err);
-      questionText.textContent = "Error loading demonstration data: " + err.message;
+      if (questionText) questionText.textContent = "Error loading demonstration data: " + err.message;
     }
   }
 
   /**
-   * Populate query dropdown
+   * Populate query dropdown in Pipeline Replay
    */
   function populateQuerySelect(list) {
+    if (!querySelect) return;
     querySelect.innerHTML = "";
     list.forEach(q => {
       const opt = document.createElement("option");
@@ -227,6 +399,21 @@
       const snippet = q.question.length > 70 ? q.question.slice(0, 70) + "..." : q.question;
       opt.textContent = `#${q.idx + 1} (${q.id.slice(0, 8)}) - ${snippet}`;
       querySelect.appendChild(opt);
+    });
+  }
+
+  /**
+   * Populate query dropdown in Live Demo
+   */
+  function populateLiveQuerySelect(list) {
+    if (!liveQuerySelect) return;
+    liveQuerySelect.innerHTML = "";
+    list.forEach(q => {
+      const opt = document.createElement("option");
+      opt.value = q.idx;
+      const snippet = q.question.length > 70 ? q.question.slice(0, 70) + "..." : q.question;
+      opt.textContent = `#${q.idx + 1} - ${snippet}`;
+      liveQuerySelect.appendChild(opt);
     });
   }
 
@@ -249,74 +436,325 @@
    */
   function selectQuery(idx) {
     currentQuery = queriesData.find(q => q.idx === Number(idx)) || queriesData[0];
-    querySelect.value = currentQuery.idx;
+    if (querySelect) querySelect.value = currentQuery.idx;
+    if (liveQuerySelect) liveQuerySelect.value = currentQuery.idx;
     goldRevealed = false;
+    liveGoldRevealed = false;
+
+    // Reset live demo stepper to stage 1 whenever question changes
+    setLiveStep(1);
+
     updatePipelineUI();
+    updateLiveUI();
+  }
+
+  // =========================================================================
+  // LIVE DEMO STEPPER CONTROLS
+  // =========================================================================
+
+  /**
+   * Update Stepper visible stage cards (Stages 1 through currentStep)
+   */
+  function setLiveStep(step) {
+    currentLiveStep = Math.max(1, Math.min(6, step));
+
+    // Update step pills
+    stepPills.forEach((pill, idx) => {
+      const pStep = idx + 1;
+      pill.classList.remove("active", "completed");
+      if (pStep === currentLiveStep) {
+        pill.classList.add("active");
+      } else if (pStep < currentLiveStep) {
+        pill.classList.add("completed");
+      }
+    });
+
+    // Reveal or hide cards
+    liveStepCards.forEach((card, idx) => {
+      const cardStep = idx + 1;
+      if (cardStep <= currentLiveStep) {
+        card.classList.remove("hidden");
+        if (cardStep === currentLiveStep) {
+          card.classList.add("revealing");
+        }
+      } else {
+        card.classList.add("hidden");
+        card.classList.remove("revealing");
+      }
+    });
+
+    // Update Action Buttons
+    if (btnLivePrev) btnLivePrev.disabled = (currentLiveStep === 1);
+    if (btnLiveNext) {
+      if (currentLiveStep === 6) {
+        btnLiveNext.textContent = "Done ✓";
+        btnLiveNext.disabled = true;
+      } else {
+        btnLiveNext.textContent = "Next Stage →";
+        btnLiveNext.disabled = false;
+      }
+    }
+  }
+
+  function advanceLiveStep() {
+    if (currentLiveStep < 6) {
+      setLiveStep(currentLiveStep + 1);
+    }
+  }
+
+  function previousLiveStep() {
+    if (currentLiveStep > 1) {
+      setLiveStep(currentLiveStep - 1);
+    }
+  }
+
+  function resetLiveSteps() {
+    if (runAllInterval) clearInterval(runAllInterval);
+    liveGoldRevealed = false;
+    setLiveStep(1);
+    updateLiveUI();
+  }
+
+  function runAllLiveSteps() {
+    if (runAllInterval) clearInterval(runAllInterval);
+    setLiveStep(1);
+    let s = 1;
+    runAllInterval = setInterval(() => {
+      s++;
+      if (s <= 6) {
+        setLiveStep(s);
+      } else {
+        clearInterval(runAllInterval);
+      }
+    }, 450);
   }
 
   /**
-   * Update the entire Pipeline Demo tab for the current query
+   * Render all 6 Live Demo Stages for currentQuery
    */
+  function updateLiveUI() {
+    if (!currentQuery) return;
+
+    // -------------------------------------------------------------
+    // Stage 1: Query
+    // -------------------------------------------------------------
+    liveQidBadge.textContent = "HotpotQA ID: " + currentQuery.id.slice(0, 8);
+    liveQuestionText.textContent = currentQuery.question;
+
+    // -------------------------------------------------------------
+    // Stage 2: Dense Retrieval & Confidence
+    // -------------------------------------------------------------
+    const tf = currentQuery.telemetry_features;
+    let confBadgeText = "Retrieval Confidence: High";
+    let confBadgeClass = "badge-notion success";
+
+    if (tf.top1_score >= 0.55 && tf.score_gap >= 0.08) {
+      confBadgeText = "Retrieval Confidence: High";
+      confBadgeClass = "badge-notion success";
+    } else if (tf.top1_score >= 0.44 && tf.score_gap >= 0.03) {
+      confBadgeText = "Retrieval Confidence: Medium";
+      confBadgeClass = "badge-notion info";
+    } else {
+      confBadgeText = "Retrieval Confidence: Low (Ambiguous)";
+      confBadgeClass = "badge-notion warning";
+    }
+
+    liveRetrievalConfidenceBadge.className = confBadgeClass;
+    liveRetrievalConfidenceBadge.textContent = confBadgeText;
+
+    // Render 5 clean passage snippets
+    livePassagesList.innerHTML = "";
+    currentQuery.chunks.forEach((c) => {
+      const item = document.createElement("div");
+      item.className = "live-passage-item";
+      const snippet = c.text.length > 130 ? c.text.slice(0, 130) + "..." : c.text;
+      item.innerHTML = `
+        <div class="live-passage-item-top">
+          <span class="live-passage-title">#${c.rank} &bull; ${escapeHtml(c.title)}</span>
+          <span style="font-size: 11px; font-family: monospace; color: var(--text-tertiary);">${c.score.toFixed(3)}</span>
+        </div>
+        <div class="live-passage-snippet">${escapeHtml(snippet)}</div>
+      `;
+      livePassagesList.appendChild(item);
+    });
+
+    // -------------------------------------------------------------
+    // Stage 3: Cascade Router Decision
+    // -------------------------------------------------------------
+    // Using calibrated telemetry logistic model (threshold = 0.520)
+    const p_hard = currentQuery.router_probs.telemetry_only.logistic;
+    const willEscalate = (p_hard >= 0.520);
+
+    if (willEscalate) {
+      liveRouteDecisionBadge.className = "badge-notion danger";
+      liveRouteDecisionBadge.textContent = "ESCALATE TO LARGE MODEL (Gemini 3.5 Flash-Lite)";
+      liveRouteReasonText.innerHTML = `
+        <strong>Routing Reason:</strong> Retrieval signals indicate higher ambiguity or multi-hop difficulty 
+        (P(hard) = ${p_hard.toFixed(3)} &ge; &tau; 0.520). The query is escalated to the frontier model for reasoning synthesis.
+      `;
+    } else {
+      liveRouteDecisionBadge.className = "badge-notion success";
+      liveRouteDecisionBadge.textContent = "ROUTE TO SMALL MODEL (ALLaM-2-7B)";
+      liveRouteReasonText.innerHTML = `
+        <strong>Routing Reason:</strong> Retrieval confidence is sufficient and question difficulty is manageable 
+        (P(hard) = ${p_hard.toFixed(3)} &lt; &tau; 0.520). The query is handled by the 7B model at 90% lower inference cost.
+      `;
+    }
+
+    // -------------------------------------------------------------
+    // Stage 4: PTM Context Compression
+    // -------------------------------------------------------------
+    if (currentQuery.bypassed) {
+      liveCompressionBadge.className = "badge-notion info";
+      liveCompressionBadge.textContent = "Bypassed (< 400 tokens) · Unmodified";
+      liveOrigContextView.innerHTML = renderHighlightedText(currentQuery.original_context, currentQuery.ptm_protected_spans);
+      liveCompContextView.textContent = currentQuery.original_context;
+    } else {
+      liveCompressionBadge.className = "badge-notion success";
+      liveCompressionBadge.textContent = `${currentQuery.tokens_saved_pct}% Shorter · ${currentQuery.original_tokens} → ${currentQuery.compressed_tokens} tokens`;
+      
+      // Before: Highlight protected tokens in color, fade pruned tokens with subtle strikethrough
+      liveOrigContextView.innerHTML = renderContextWithPrunedFade(
+        currentQuery.original_context,
+        currentQuery.compressed_context,
+        currentQuery.ptm_protected_spans
+      );
+
+      // After: Highlight preserved entities in compressed text
+      const compSpans = findProtectedSpansJS(currentQuery.compressed_context);
+      liveCompContextView.innerHTML = renderHighlightedText(currentQuery.compressed_context, compSpans);
+    }
+
+    // -------------------------------------------------------------
+    // Stage 5: Final LLM Answer & Verification
+    // -------------------------------------------------------------
+    const activeKey = willEscalate ? "large_compressed" : "small_compressed";
+    const ansData = currentQuery.answers[activeKey];
+
+    if (willEscalate) {
+      liveModelBadge.className = "badge-notion danger";
+      liveModelBadge.textContent = "Served by Large Tier (Gemini 3.5 Flash-Lite)";
+    } else {
+      liveModelBadge.className = "badge-notion success";
+      liveModelBadge.textContent = "Served by Small Tier (ALLaM-2-7B on Groq)";
+    }
+
+    liveAnswerText.textContent = `"${ansData.answer}"`;
+    liveGoldAnswerText.textContent = currentQuery.gold_answer;
+
+    if (liveGoldRevealed) {
+      liveGoldContainer.style.display = "inline-flex";
+      btnLiveRevealGold.textContent = "Hide Ground Truth";
+      if (ansData.is_correct) {
+        liveEvalStatusBadge.className = "badge-notion success";
+        liveEvalStatusBadge.textContent = "CORRECT ✓";
+      } else {
+        liveEvalStatusBadge.className = "badge-notion danger";
+        liveEvalStatusBadge.textContent = "INCORRECT ✗";
+      }
+    } else {
+      liveGoldContainer.style.display = "none";
+      btnLiveRevealGold.textContent = "Reveal Ground Truth";
+    }
+
+    // -------------------------------------------------------------
+    // Stage 6: Summary Strip (Without OptiRAG vs. With OptiRAG)
+    // -------------------------------------------------------------
+    const baselineAns = currentQuery.answers.large_uncompressed;
+    const optiAns = ansData;
+
+    const tokSavedPct = Math.max(0, Math.round(((baselineAns.in_tokens - optiAns.in_tokens) / baselineAns.in_tokens) * 100));
+    const costSavedPct = Math.max(0, Math.round(((baselineAns.cost_per_1k - optiAns.cost_per_1k) / baselineAns.cost_per_1k) * 100));
+
+    liveSummaryStrip.innerHTML = `
+      <div class="summary-metric-card">
+        <div class="summary-metric-label">Tokens Used</div>
+        <div class="summary-metric-value">${baselineAns.in_tokens} → ${optiAns.in_tokens} (${tokSavedPct}% shorter)</div>
+        <div class="summary-metric-sub">Without OptiRAG: ${baselineAns.in_tokens} tokens</div>
+      </div>
+      <div class="summary-metric-card">
+        <div class="summary-metric-label">Simulated Cost / 1k</div>
+        <div class="summary-metric-value">$${baselineAns.cost_per_1k.toFixed(3)} → $${optiAns.cost_per_1k.toFixed(3)} (-${costSavedPct}%)</div>
+        <div class="summary-metric-sub">Without OptiRAG: $${baselineAns.cost_per_1k.toFixed(3)}</div>
+      </div>
+      <div class="summary-metric-card">
+        <div class="summary-metric-label">Model Tier Selected</div>
+        <div class="summary-metric-value">${willEscalate ? "Large Tier (Gemini)" : "Small Tier (ALLaM-2)"}</div>
+        <div class="summary-metric-sub">Without OptiRAG: Always Large ($0.23/1k)</div>
+      </div>
+    `;
+  }
+
+  // =========================================================================
+  // PIPELINE REPLAY TAB (EXISTING LOGIC)
+  // =========================================================================
+
   function updatePipelineUI() {
     if (!currentQuery) return;
 
     // 1. Question & Reveal Area
-    qidBadge.textContent = "ID: " + currentQuery.id;
-    questionText.textContent = currentQuery.question;
-    goldAnswerText.textContent = currentQuery.gold_answer;
+    if (qidBadge) qidBadge.textContent = "ID: " + currentQuery.id;
+    if (questionText) questionText.textContent = currentQuery.question;
+    if (goldAnswerText) goldAnswerText.textContent = currentQuery.gold_answer;
 
     if (goldRevealed) {
-      goldAnswerContainer.style.display = "inline-flex";
-      btnRevealGold.textContent = "Hide Gold Answer";
-      retrievalCoverageBadge.style.display = "inline-flex";
-      if (currentQuery.gold_all_in_top5) {
-        retrievalCoverageBadge.className = "badge-notion success";
-        retrievalCoverageBadge.textContent = "All Gold Paragraphs Retrieved (Complete)";
-      } else {
-        retrievalCoverageBadge.className = "badge-notion danger";
-        retrievalCoverageBadge.textContent = "Incomplete Retrieval (Partial / Missing Gold)";
+      if (goldAnswerContainer) goldAnswerContainer.style.display = "inline-flex";
+      if (btnRevealGold) btnRevealGold.textContent = "Hide Gold Answer";
+      if (retrievalCoverageBadge) {
+        retrievalCoverageBadge.style.display = "inline-flex";
+        if (currentQuery.gold_all_in_top5) {
+          retrievalCoverageBadge.className = "badge-notion success";
+          retrievalCoverageBadge.textContent = "All Gold Paragraphs Retrieved (Complete)";
+        } else {
+          retrievalCoverageBadge.className = "badge-notion danger";
+          retrievalCoverageBadge.textContent = "Incomplete Retrieval (Partial / Missing Gold)";
+        }
       }
-      evalBadgeContainer.style.display = "block";
+      if (evalBadgeContainer) evalBadgeContainer.style.display = "block";
     } else {
-      goldAnswerContainer.style.display = "none";
-      btnRevealGold.textContent = "Reveal Gold Answer";
-      retrievalCoverageBadge.style.display = "none";
-      evalBadgeContainer.style.display = "none";
+      if (goldAnswerContainer) goldAnswerContainer.style.display = "none";
+      if (btnRevealGold) btnRevealGold.textContent = "Reveal Gold Answer";
+      if (retrievalCoverageBadge) retrievalCoverageBadge.style.display = "none";
+      if (evalBadgeContainer) evalBadgeContainer.style.display = "none";
     }
 
-    // 2. Chunks List (Notion Accordion Rows)
-    chunksList.innerHTML = "";
-    currentQuery.chunks.forEach(c => {
-      const card = document.createElement("div");
-      card.className = "chunk-row";
-      const scorePct = Math.min(100, Math.max(0, (c.score / 1.0) * 100));
-      card.innerHTML = `
-        <div class="chunk-top">
-          <span class="chunk-heading">#${c.rank} &bull; ${escapeHtml(c.title)}</span>
-          <div class="score-badge">
-            <div class="score-bar-bg">
-              <div class="score-bar-fill" style="width: ${scorePct}%;"></div>
+    // 2. Chunks List
+    if (chunksList) {
+      chunksList.innerHTML = "";
+      currentQuery.chunks.forEach(c => {
+        const card = document.createElement("div");
+        card.className = "chunk-row";
+        const scorePct = Math.min(100, Math.max(0, (c.score / 1.0) * 100));
+        card.innerHTML = `
+          <div class="chunk-top">
+            <span class="chunk-heading">#${c.rank} &bull; ${escapeHtml(c.title)}</span>
+            <div class="score-badge">
+              <div class="score-bar-bg">
+                <div class="score-bar-fill" style="width: ${scorePct}%;"></div>
+              </div>
+              <span class="score-text">${c.score.toFixed(4)}</span>
             </div>
-            <span class="score-text">${c.score.toFixed(4)}</span>
           </div>
-        </div>
-        <div class="chunk-text">${escapeHtml(c.text)}</div>
-      `;
-      chunksList.appendChild(card);
-    });
+          <div class="chunk-text">${escapeHtml(c.text)}</div>
+        `;
+        chunksList.appendChild(card);
+      });
+    }
 
-    // Telemetry Features Strip (Notion Mini-Cards)
-    const tf = currentQuery.telemetry_features;
-    telemetryStrip.innerHTML = `
-      <div class="telemetry-card"><div class="telemetry-label">Top-1 Score</div><div class="telemetry-value">${tf.top1_score.toFixed(3)}</div></div>
-      <div class="telemetry-card"><div class="telemetry-label">Top-2 Score</div><div class="telemetry-value">${tf.top2_score.toFixed(3)}</div></div>
-      <div class="telemetry-card"><div class="telemetry-label">Score Gap</div><div class="telemetry-value">${tf.score_gap.toFixed(3)}</div></div>
-      <div class="telemetry-card"><div class="telemetry-label">Mean Score</div><div class="telemetry-value">${tf.mean_score.toFixed(3)}</div></div>
-      <div class="telemetry-card"><div class="telemetry-label">Score Std</div><div class="telemetry-value">${tf.score_std.toFixed(3)}</div></div>
-      <div class="telemetry-card"><div class="telemetry-label">Entropy</div><div class="telemetry-value">${tf.softmax_entropy.toFixed(3)}</div></div>
-      <div class="telemetry-card"><div class="telemetry-label">Chunk Sim</div><div class="telemetry-value">${tf.chunk_sim_mean.toFixed(3)}</div></div>
-      <div class="telemetry-card"><div class="telemetry-label">Context Toks</div><div class="telemetry-value">${tf.context_tokens}</div></div>
-    `;
+    // Telemetry Features Strip
+    if (telemetryStrip) {
+      const tf = currentQuery.telemetry_features;
+      telemetryStrip.innerHTML = `
+        <div class="telemetry-card"><div class="telemetry-label">Top-1 Score</div><div class="telemetry-value">${tf.top1_score.toFixed(3)}</div></div>
+        <div class="telemetry-card"><div class="telemetry-label">Top-2 Score</div><div class="telemetry-value">${tf.top2_score.toFixed(3)}</div></div>
+        <div class="telemetry-card"><div class="telemetry-label">Score Gap</div><div class="telemetry-value">${tf.score_gap.toFixed(3)}</div></div>
+        <div class="telemetry-card"><div class="telemetry-label">Mean Score</div><div class="telemetry-value">${tf.mean_score.toFixed(3)}</div></div>
+        <div class="telemetry-card"><div class="telemetry-label">Score Std</div><div class="telemetry-value">${tf.score_std.toFixed(3)}</div></div>
+        <div class="telemetry-card"><div class="telemetry-label">Entropy</div><div class="telemetry-value">${tf.softmax_entropy.toFixed(3)}</div></div>
+        <div class="telemetry-card"><div class="telemetry-label">Chunk Sim</div><div class="telemetry-value">${tf.chunk_sim_mean.toFixed(3)}</div></div>
+        <div class="telemetry-card"><div class="telemetry-label">Context Toks</div><div class="telemetry-value">${tf.context_tokens}</div></div>
+      `;
+    }
 
     // 3. Router Decision Evaluation
     updateRouterDecision();
@@ -325,27 +763,24 @@
     updateCompressionView();
   }
 
-  /**
-   * Recompute Router Decision based on variant and threshold
-   */
   function updateRouterDecision() {
-    if (!currentQuery) return;
+    if (!currentQuery || !routerVariantSelect) return;
 
     const variant = routerVariantSelect.value;
-    variantDesc.textContent = VARIANT_DESCRIPTIONS[variant] || "";
+    if (variantDesc) variantDesc.textContent = VARIANT_DESCRIPTIONS[variant] || "";
 
     let p_hard = 0.5;
     let willEscalate = false;
-    const threshold = parseFloat(thresholdSlider.value);
+    const threshold = parseFloat(thresholdSlider ? thresholdSlider.value : 0.52);
 
     if (variant === "heuristic") {
-      thresholdControlGroup.style.opacity = "0.4";
-      thresholdSlider.disabled = true;
+      if (thresholdControlGroup) thresholdControlGroup.style.opacity = "0.4";
+      if (thresholdSlider) thresholdSlider.disabled = true;
       p_hard = currentQuery.router_probs.heuristic.prob;
       willEscalate = currentQuery.router_probs.heuristic.predict_large;
     } else {
-      thresholdControlGroup.style.opacity = "1";
-      thresholdSlider.disabled = false;
+      if (thresholdControlGroup) thresholdControlGroup.style.opacity = "1";
+      if (thresholdSlider) thresholdSlider.disabled = false;
 
       if (variant === "telemetry_only_logistic") {
         p_hard = currentQuery.router_probs.telemetry_only.logistic;
@@ -360,54 +795,51 @@
       willEscalate = (p_hard >= threshold);
     }
 
-    probHardValue.textContent = p_hard.toFixed(4);
+    if (probHardValue) probHardValue.textContent = p_hard.toFixed(4);
 
-    if (willEscalate) {
-      routerDecisionBanner.className = "router-decision-card decision-badge-escalate";
-      decisionText.textContent = "ESCALATE -> LARGE TIER";
-    } else {
-      routerDecisionBanner.className = "router-decision-card decision-badge-small";
-      decisionText.textContent = "ROUTE -> SMALL TIER";
+    if (routerDecisionBanner && decisionText) {
+      if (willEscalate) {
+        routerDecisionBanner.className = "router-decision-card decision-badge-escalate";
+        decisionText.textContent = "ESCALATE -> LARGE TIER";
+      } else {
+        routerDecisionBanner.className = "router-decision-card decision-badge-small";
+        decisionText.textContent = "ROUTE -> SMALL TIER";
+      }
     }
 
-    // Update Step 5 with resulting model answer
     updateStep5Answer(willEscalate);
   }
 
-  /**
-   * Update Compression view
-   */
   function updateCompressionView() {
     if (!currentQuery) return;
 
-    origTokCount.textContent = `Tokens: ${currentQuery.original_tokens}`;
+    if (origTokCount) origTokCount.textContent = `Tokens: ${currentQuery.original_tokens}`;
     
-    // Highlight original context using PTM spans
-    originalContextView.innerHTML = renderHighlightedText(
-      currentQuery.original_context,
-      currentQuery.ptm_protected_spans
-    );
+    if (originalContextView) {
+      originalContextView.innerHTML = renderHighlightedText(
+        currentQuery.original_context,
+        currentQuery.ptm_protected_spans
+      );
+    }
 
     if (currentQuery.bypassed) {
-      compBypassBadge.innerHTML = '<span class="badge-notion info">Bypassed (&lt;400 tokens)</span>';
-      compTokCount.textContent = `Tokens: ${currentQuery.original_tokens} (Unmodified)`;
-      compressedContextView.textContent = currentQuery.original_context;
+      if (compBypassBadge) compBypassBadge.innerHTML = '<span class="badge-notion info">Bypassed (&lt;400 tokens)</span>';
+      if (compTokCount) compTokCount.textContent = `Tokens: ${currentQuery.original_tokens} (Unmodified)`;
+      if (compressedContextView) compressedContextView.textContent = currentQuery.original_context;
     } else {
-      compBypassBadge.innerHTML = `<span class="badge-notion success">Saved ${currentQuery.tokens_saved_pct}% tokens (in ${currentQuery.compression_seconds}s)</span>`;
-      compTokCount.textContent = `Tokens: ${currentQuery.compressed_tokens} (-${currentQuery.tokens_saved_pct}%)`;
-      // Run PTM on compressed context as well for highlighting visual feedback
-      const compSpans = findProtectedSpansJS(currentQuery.compressed_context);
-      compressedContextView.innerHTML = renderHighlightedText(currentQuery.compressed_context, compSpans);
+      if (compBypassBadge) compBypassBadge.innerHTML = `<span class="badge-notion success">Saved ${currentQuery.tokens_saved_pct}% tokens (in ${currentQuery.compression_seconds}s)</span>`;
+      if (compTokCount) compTokCount.textContent = `Tokens: ${currentQuery.compressed_tokens} (-${currentQuery.tokens_saved_pct}%)`;
+      if (compressedContextView) {
+        const compSpans = findProtectedSpansJS(currentQuery.compressed_context);
+        compressedContextView.innerHTML = renderHighlightedText(currentQuery.compressed_context, compSpans);
+      }
     }
   }
 
-  /**
-   * Update Final Answer and Economics (Step 5)
-   */
   function updateStep5Answer(isLarge) {
-    if (!currentQuery) return;
+    if (!currentQuery || !activeModelLabel) return;
 
-    const isCompressed = compressToggle.checked;
+    const isCompressed = compressToggle ? compressToggle.checked : true;
     let answerKey = "";
 
     if (isLarge) {
@@ -419,40 +851,34 @@
     const ansData = currentQuery.answers[answerKey];
     if (!ansData) return;
 
-    // Model label
     if (isLarge) {
-      activeModelLabel.innerHTML = `<span style="color: var(--ptm-negation-text); font-weight: 700;">ESCALATED TO LARGE TIER</span> &bull; Gemini 3.5 Flash-Lite (Google AI Studio Free Tier)`;
+      activeModelLabel.innerHTML = `<span style="color: var(--ptm-negation-text); font-weight: 600;">ESCALATED TO LARGE TIER</span> &bull; Gemini 3.5 Flash-Lite (Google AI Studio Free Tier)`;
     } else {
-      activeModelLabel.innerHTML = `<span style="color: var(--ptm-currency-text); font-weight: 700;">SERVED BY SMALL TIER</span> &bull; ALLaM-2-7B (Groq Free Tier, 8B list proxy)`;
+      activeModelLabel.innerHTML = `<span style="color: var(--ptm-currency-text); font-weight: 600;">SERVED BY SMALL TIER</span> &bull; ALLaM-2-7B (Groq Free Tier, 8B list proxy)`;
     }
 
-    activeAnswerText.textContent = `"${ansData.answer}"`;
+    if (activeAnswerText) activeAnswerText.textContent = `"${ansData.answer}"`;
 
-    // Latency & Cost Metrics
-    valLlmLats.textContent = `${ansData.llm_latency_s.toFixed(3)} s`;
-    valE2eLats.textContent = `${ansData.e2e_latency_s.toFixed(3)} s`;
-    valCost1k.textContent = `$${ansData.cost_per_1k.toFixed(4)}`;
-    valCostQuery.textContent = `$${ansData.cost_per_query.toFixed(6)}`;
+    if (valLlmLats) valLlmLats.textContent = `${ansData.llm_latency_s.toFixed(3)} s`;
+    if (valE2eLats) valE2eLats.textContent = `${ansData.e2e_latency_s.toFixed(3)} s`;
+    if (valCost1k) valCost1k.textContent = `$${ansData.cost_per_1k.toFixed(4)}`;
+    if (valCostQuery) valCostQuery.textContent = `$${ansData.cost_per_query.toFixed(6)}`;
 
-    // Evaluation badge
-    if (goldRevealed) {
+    if (goldRevealed && evalBadgeContainer) {
       evalBadgeContainer.style.display = "block";
       if (ansData.is_correct) {
         evalBadgeContainer.innerHTML = '<span class="badge-notion success">CORRECT PREDICTION (+)</span>';
       } else {
         evalBadgeContainer.innerHTML = '<span class="badge-notion danger">INCORRECT PREDICTION (-)</span>';
       }
-    } else {
+    } else if (evalBadgeContainer) {
       evalBadgeContainer.style.display = "none";
     }
   }
 
-  /**
-   * Populate Benchmark summary table in Results tab
-   */
   function populateBenchmarkTable(rows) {
+    if (!benchmarkTableBody || !rows) return;
     benchmarkTableBody.innerHTML = "";
-    if (!rows) return;
 
     rows.forEach(r => {
       const tr = document.createElement("tr");
@@ -477,26 +903,22 @@
     });
   }
 
-  /**
-   * PTM Live Sandbox Handler
-   */
   function updateMaskSandbox() {
+    if (!maskInput || !maskHighlightPreview) return;
     const text = maskInput.value || "";
     const spans = findProtectedSpansJS(text);
 
-    // Counts per kind
     const counts = { currency: 0, date: 0, percent: 0, negation: 0, number: 0 };
     spans.forEach(s => {
       if (counts[s.kind] !== undefined) counts[s.kind]++;
     });
 
-    cntCurrency.textContent = counts.currency;
-    cntDate.textContent = counts.date;
-    cntPercent.textContent = counts.percent;
-    cntNegation.textContent = counts.negation;
-    cntNumber.textContent = counts.number;
+    if (cntCurrency) cntCurrency.textContent = counts.currency;
+    if (cntDate) cntDate.textContent = counts.date;
+    if (cntPercent) cntPercent.textContent = counts.percent;
+    if (cntNegation) cntNegation.textContent = counts.negation;
+    if (cntNumber) cntNumber.textContent = counts.number;
 
-    // Word statistics
     const words = text.trim() ? text.trim().split(/\s+/) : [];
     const totalWords = words.length;
 
@@ -511,75 +933,201 @@
     }
 
     const pct = totalWords > 0 ? Math.min(100, (protectedWordCount / totalWords) * 100).toFixed(1) : "0.0";
-    pctProtectedWords.textContent = `${pct}% (${protectedWordCount}/${totalWords} words)`;
+    if (pctProtectedWords) pctProtectedWords.textContent = `${pct}% (${protectedWordCount}/${totalWords} words)`;
 
-    // Render highlighted preview
     maskHighlightPreview.innerHTML = renderHighlightedText(text, spans);
   }
 
-  /**
-   * Initialize Event Listeners
-   */
+  // =========================================================================
+  // Event Listeners Initialization
+  // =========================================================================
   function initEvents() {
     initTheme();
     initTabs();
 
-    // Query selection & search
-    querySelect.addEventListener("change", (e) => selectQuery(e.target.value));
-    querySearch.addEventListener("input", (e) => filterQueries(e.target.value));
+    // Live Demo Presets
+    if (livePresetEasy) {
+      livePresetEasy.addEventListener("click", () => selectQuery(presetIndices.easy));
+    }
+    if (livePresetHard) {
+      livePresetHard.addEventListener("click", () => selectQuery(presetIndices.hard));
+    }
+    if (livePresetMask) {
+      livePresetMask.addEventListener("click", () => selectQuery(presetIndices.mask));
+    }
+    if (livePresetRandom) {
+      livePresetRandom.addEventListener("click", () => {
+        if (queriesData.length === 0) return;
+        const randIdx = Math.floor(Math.random() * queriesData.length);
+        selectQuery(randIdx);
+      });
+    }
 
-    btnRandom.addEventListener("click", () => {
-      if (queriesData.length === 0) return;
-      const randIdx = Math.floor(Math.random() * queriesData.length);
-      selectQuery(randIdx);
+    // Live Demo Stepper Buttons
+    if (btnLiveNext) btnLiveNext.addEventListener("click", advanceLiveStep);
+    if (btnLivePrev) btnLivePrev.addEventListener("click", previousLiveStep);
+    if (btnLiveReset) btnLiveReset.addEventListener("click", resetLiveSteps);
+    if (btnLiveRunAll) btnLiveRunAll.addEventListener("click", runAllLiveSteps);
+
+    // Step pill direct clicking
+    stepPills.forEach((pill, idx) => {
+      pill.addEventListener("click", () => setLiveStep(idx + 1));
     });
 
-    // Reveal Gold Answer
-    btnRevealGold.addEventListener("click", () => {
-      goldRevealed = !goldRevealed;
-      updatePipelineUI();
+    // Gold Reveal in Live Demo
+    if (btnLiveRevealGold) {
+      btnLiveRevealGold.addEventListener("click", () => {
+        liveGoldRevealed = !liveGoldRevealed;
+        updateLiveUI();
+      });
+    }
+
+    // Live Query Select
+    if (liveQuerySelect) {
+      liveQuerySelect.addEventListener("change", (e) => selectQuery(e.target.value));
+    }
+
+    // Mode Switcher (Replay vs Custom)
+    if (btnModeReplay && btnModeCustom) {
+      btnModeReplay.addEventListener("click", () => {
+        isCustomMode = false;
+        btnModeReplay.classList.add("active");
+        btnModeCustom.classList.remove("active");
+        if (liveReplayWrap) liveReplayWrap.style.display = "block";
+        if (liveCustomWrap) liveCustomWrap.style.display = "none";
+      });
+
+      btnModeCustom.addEventListener("click", () => {
+        isCustomMode = true;
+        btnModeCustom.classList.add("active");
+        btnModeReplay.classList.remove("active");
+        if (liveReplayWrap) liveReplayWrap.style.display = "none";
+        if (liveCustomWrap) liveCustomWrap.style.display = "block";
+      });
+    }
+
+    // Custom Question Match & Run
+    if (btnLiveCustomRun) {
+      btnLiveCustomRun.addEventListener("click", () => {
+        const text = (liveCustomInput ? liveCustomInput.value.trim() : "");
+        if (!text) return;
+        const matched = findClosestCachedQuery(text);
+        if (liveCustomNote) {
+          liveCustomNote.style.display = "block";
+          liveCustomNote.textContent = `Matched to closest benchmark query #${matched.idx + 1}: "${matched.question.slice(0, 70)}..." (Offline Replay)`;
+        }
+        selectQuery(matched.idx);
+      });
+    }
+
+    // Presenter Mode Toggle
+    if (btnPresenterMode) {
+      btnPresenterMode.addEventListener("click", () => {
+        presenterMode = !presenterMode;
+        document.body.classList.toggle("presenter-mode", presenterMode);
+        if (presenterText) {
+          presenterText.textContent = presenterMode ? "Exit Presenter Mode" : "Presenter Mode";
+        }
+        if (btnPresenterMode) {
+          btnPresenterMode.classList.toggle("primary", presenterMode);
+        }
+      });
+    }
+
+    // Keyboard Stepping (Right Arrow = Next, Left Arrow = Prev, R = Reset)
+    window.addEventListener("keydown", (e) => {
+      // Don't intercept if user is typing in an input or select
+      const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : "";
+      if (activeTag === "input" || activeTag === "textarea" || activeTag === "select") {
+        return;
+      }
+
+      // Check if Live Demo tab is active
+      const liveTab = document.getElementById("tab-live");
+      if (!liveTab || !liveTab.classList.contains("active")) {
+        return;
+      }
+
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        advanceLiveStep();
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        previousLiveStep();
+      } else if (e.key === "r" || e.key === "R") {
+        e.preventDefault();
+        resetLiveSteps();
+      }
     });
 
-    // Router variant & slider
-    routerVariantSelect.addEventListener("change", updateRouterDecision);
-    thresholdSlider.addEventListener("input", (e) => {
-      thresholdValue.textContent = parseFloat(e.target.value).toFixed(2);
-      updateRouterDecision();
-    });
+    // Pipeline Replay Events
+    if (querySelect) querySelect.addEventListener("change", (e) => selectQuery(e.target.value));
+    if (querySearch) querySearch.addEventListener("input", (e) => filterQueries(e.target.value));
 
-    // Compression toggle
-    compressToggle.addEventListener("change", () => {
-      const isLarge = decisionText.textContent.includes("LARGE");
-      updateStep5Answer(isLarge);
-    });
+    if (btnRandom) {
+      btnRandom.addEventListener("click", () => {
+        if (queriesData.length === 0) return;
+        const randIdx = Math.floor(Math.random() * queriesData.length);
+        selectQuery(randIdx);
+      });
+    }
 
-    // Mask Sandbox
-    maskInput.addEventListener("input", updateMaskSandbox);
+    if (btnRevealGold) {
+      btnRevealGold.addEventListener("click", () => {
+        goldRevealed = !goldRevealed;
+        updatePipelineUI();
+      });
+    }
 
-    exBtnFinance.addEventListener("click", () => {
-      maskInput.value = MASK_EXAMPLES.finance;
-      updateMaskSandbox();
-    });
+    if (routerVariantSelect) routerVariantSelect.addEventListener("change", updateRouterDecision);
+    if (thresholdSlider) {
+      thresholdSlider.addEventListener("input", (e) => {
+        if (thresholdValue) thresholdValue.textContent = parseFloat(e.target.value).toFixed(2);
+        updateRouterDecision();
+      });
+    }
 
-    exBtnBio.addEventListener("click", () => {
-      maskInput.value = MASK_EXAMPLES.bio;
-      updateMaskSandbox();
-    });
+    if (compressToggle) {
+      compressToggle.addEventListener("change", () => {
+        const isLarge = decisionText ? decisionText.textContent.includes("LARGE") : false;
+        updateStep5Answer(isLarge);
+      });
+    }
 
-    exBtnPlain.addEventListener("click", () => {
-      maskInput.value = MASK_EXAMPLES.plain;
-      updateMaskSandbox();
-    });
+    // Mask Sandbox Events
+    if (maskInput) maskInput.addEventListener("input", updateMaskSandbox);
+
+    if (exBtnFinance) {
+      exBtnFinance.addEventListener("click", () => {
+        if (maskInput) maskInput.value = MASK_EXAMPLES.finance;
+        updateMaskSandbox();
+      });
+    }
+
+    if (exBtnBio) {
+      exBtnBio.addEventListener("click", () => {
+        if (maskInput) maskInput.value = MASK_EXAMPLES.bio;
+        updateMaskSandbox();
+      });
+    }
+
+    if (exBtnPlain) {
+      exBtnPlain.addEventListener("click", () => {
+        if (maskInput) maskInput.value = MASK_EXAMPLES.plain;
+        updateMaskSandbox();
+      });
+    }
   }
 
-  // Startup
+  // Startup initialization
   window.addEventListener("DOMContentLoaded", () => {
     initEvents();
     loadData();
 
-    // Prefill mask sandbox with finance example
-    maskInput.value = MASK_EXAMPLES.finance;
-    updateMaskSandbox();
+    if (maskInput) {
+      maskInput.value = MASK_EXAMPLES.finance;
+      updateMaskSandbox();
+    }
   });
 
 })();
