@@ -231,3 +231,36 @@ esults/entity_survival.png
 - **Deployment**:
   - Pushed to GitHub repository `https://github.com/ishaannaik2310/opti-rag` (commit `4d01c93`).
 
+---
+
+### [2026-10-29 13:15 IST] - Step 12: Minimalist UI Simplification & Live Demo Tab Implementation
+- **Backup Snapshot**: `backups/20261029_1300/` created and verified (891 files, zero `.env`).
+- **UI Simplification**:
+  - Header simplified to title, one-line subtitle, and muted metadata summary line ("HotpotQA Multi-Hop · Free-tier models · $0 budget").
+  - Full metadata properties grid moved cleanly into the Project Documentation tab.
+  - Tab navigation simplified with clean, un-cluttered text labels (zero emoji clutter).
+  - Pipeline Replay simplified: each stage has a plain-English summary, and raw 8-feature telemetry metrics are collapsed inside a `<details>` toggle closed by default.
+  - Benchmark Results transformed: leads with ONE hero view (Cost vs. Accuracy trade-off curve) and 3 headline metrics (Cost Saved -68%, Accuracy Retained 88%, Fact Survival 100%), with full tables placed in an expandable section.
+  - Strict two-font-weight rule enforced (400 normal, 600 semibold), generous whitespace, thin 1px borders, single accent color (`#0b6e99` / `#529cca`).
+- **New Interactive Live Demo Tab**:
+  - Placed first in tab order for academic and live presentations.
+  - 6-stage vertical stepper showing plain-English INPUT -> OUTPUT cards:
+    1. Query: User's question.
+    2. Retrieve: Top-5 passages with single "Retrieval confidence: High / Medium / Low" badge.
+    3. Route: Clear Small vs. Large decision badge with plain-English justification.
+    4. Compress: Side-by-side comparison with "X% shorter" label, color-highlighted protected facts, and faded/struck-through pruned filler text.
+    5. Answer: Served answer, model badge, and ground truth reveal with correctness verification.
+    6. Summary strip: Compact 1-line 3-item comparison (Tokens Used, Simulated Cost, Model Tier).
+  - 3 Curated Presets: "Easy Question (Small Model)", "Hard Question (Large Model)", and "Mask Saves a Fact" + Random.
+  - Modes: Offline Replay by default (100 cached test queries) + Custom Question mode with graceful similarity fallback (never errors, 0 API calls).
+  - Presenter Mode: Larger typography, hidden details toggles, and keyboard stepping (<kbd>→</kbd> Next, <kbd>←</kbd> Back, <kbd>R</kbd> Reset).
+- **Documentation**:
+  - Added a dedicated 5-step talking script for professors in `README.md`.
+- **Verification**:
+  - PTM Parity test: 100% byte-for-byte span match (100 test contexts + 25 edge cases).
+  - Security audit: PASSED (0 secrets, 0 API keys, 0 external fetches).
+  - Pytest suite: 45/45 tests passing.
+  - Quota verification: Exactly 0 API calls made, counters unchanged at 389 requests ($0 spent).
+  - Committed and pushed to GitHub (`c67408e`).
+
+
