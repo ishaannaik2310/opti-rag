@@ -1,7 +1,8 @@
 /**
  * OptiRAG-lite Interactive Demonstration Client Application (app.js).
+ * Crafted with Notion Design Philosophy: document-first, tactile callouts,
+ * pastel highlight tokens, clean database tables, and dark/light mode toggle.
  * Runs 100% offline with zero CDN dependencies and zero external network calls.
- * All numbers and evaluations originate from pre-computed, audited data files.
  */
 
 (function () {
@@ -12,6 +13,11 @@
   let summaryData = null;
   let currentQuery = null;
   let goldRevealed = false;
+
+  // DOM Elements - Theme
+  const btnThemeToggle = document.getElementById("btnThemeToggle");
+  const themeIcon = document.getElementById("themeIcon");
+  const themeLabel = document.getElementById("themeLabel");
 
   // DOM Elements - Tabs
   const tabButtons = document.querySelectorAll(".tab-btn");
@@ -87,7 +93,7 @@
   };
 
   /**
-   * Escape HTML to prevent XSS during string injection
+   * Escape HTML to prevent XSS
    */
   function escapeHtml(str) {
     if (!str) return "";
@@ -100,7 +106,7 @@
   }
 
   /**
-   * Highlight PTM spans within arbitrary text
+   * Highlight PTM spans within arbitrary text using Notion highlight styling
    */
   function renderHighlightedText(text, spans) {
     if (!text) return "";
@@ -126,6 +132,42 @@
     }
 
     return html;
+  }
+
+  /**
+   * Theme Switcher (Notion Light / Dark mode)
+   */
+  function initTheme() {
+    let saved = "dark";
+    try {
+      saved = localStorage.getItem("optirag_theme") || "dark";
+    } catch (e) {}
+    setTheme(saved);
+
+    if (btnThemeToggle) {
+      btnThemeToggle.addEventListener("click", () => {
+        const current = document.documentElement.getAttribute("data-theme") || "dark";
+        const next = current === "dark" ? "light" : "dark";
+        setTheme(next);
+      });
+    }
+  }
+
+  function setTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    try {
+      localStorage.setItem("optirag_theme", theme);
+    } catch (e) {}
+
+    if (themeIcon && themeLabel) {
+      if (theme === "dark") {
+        themeIcon.textContent = "🌞";
+        themeLabel.textContent = "Light Mode";
+      } else {
+        themeIcon.textContent = "🌙";
+        themeLabel.textContent = "Dark Mode";
+      }
+    }
   }
 
   /**
@@ -226,12 +268,12 @@
     if (goldRevealed) {
       goldAnswerContainer.style.display = "inline-flex";
       btnRevealGold.textContent = "Hide Gold Answer";
-      retrievalCoverageBadge.style.display = "inline-block";
+      retrievalCoverageBadge.style.display = "inline-flex";
       if (currentQuery.gold_all_in_top5) {
-        retrievalCoverageBadge.className = "badge badge-success";
+        retrievalCoverageBadge.className = "badge-notion success";
         retrievalCoverageBadge.textContent = "All Gold Paragraphs Retrieved (Complete)";
       } else {
-        retrievalCoverageBadge.className = "badge badge-danger";
+        retrievalCoverageBadge.className = "badge-notion danger";
         retrievalCoverageBadge.textContent = "Incomplete Retrieval (Partial / Missing Gold)";
       }
       evalBadgeContainer.style.display = "block";
@@ -242,38 +284,38 @@
       evalBadgeContainer.style.display = "none";
     }
 
-    // 2. Chunks List
+    // 2. Chunks List (Notion Accordion Rows)
     chunksList.innerHTML = "";
     currentQuery.chunks.forEach(c => {
       const card = document.createElement("div");
-      card.className = "chunk-card";
+      card.className = "chunk-row";
       const scorePct = Math.min(100, Math.max(0, (c.score / 1.0) * 100));
       card.innerHTML = `
-        <div class="chunk-header">
-          <span class="chunk-title">#${c.rank} &bull; ${escapeHtml(c.title)}</span>
-          <div class="score-bar-wrap">
+        <div class="chunk-top">
+          <span class="chunk-heading">#${c.rank} &bull; ${escapeHtml(c.title)}</span>
+          <div class="score-badge">
             <div class="score-bar-bg">
               <div class="score-bar-fill" style="width: ${scorePct}%;"></div>
             </div>
-            <span class="score-val">${c.score.toFixed(4)}</span>
+            <span class="score-text">${c.score.toFixed(4)}</span>
           </div>
         </div>
-        <div class="chunk-snippet">${escapeHtml(c.text)}</div>
+        <div class="chunk-text">${escapeHtml(c.text)}</div>
       `;
       chunksList.appendChild(card);
     });
 
-    // Telemetry Features Strip
+    // Telemetry Features Strip (Notion Mini-Cards)
     const tf = currentQuery.telemetry_features;
     telemetryStrip.innerHTML = `
-      <div class="metric-box"><div class="label">Top-1 Score</div><div class="val">${tf.top1_score.toFixed(3)}</div></div>
-      <div class="metric-box"><div class="label">Top-2 Score</div><div class="val">${tf.top2_score.toFixed(3)}</div></div>
-      <div class="metric-box"><div class="label">Score Gap</div><div class="val">${tf.score_gap.toFixed(3)}</div></div>
-      <div class="metric-box"><div class="label">Mean Score</div><div class="val">${tf.mean_score.toFixed(3)}</div></div>
-      <div class="metric-box"><div class="label">Score Std</div><div class="val">${tf.score_std.toFixed(3)}</div></div>
-      <div class="metric-box"><div class="label">Entropy</div><div class="val">${tf.softmax_entropy.toFixed(3)}</div></div>
-      <div class="metric-box"><div class="label">Chunk Sim</div><div class="val">${tf.chunk_sim_mean.toFixed(3)}</div></div>
-      <div class="metric-box"><div class="label">Context Toks</div><div class="val">${tf.context_tokens}</div></div>
+      <div class="telemetry-card"><div class="telemetry-label">Top-1 Score</div><div class="telemetry-value">${tf.top1_score.toFixed(3)}</div></div>
+      <div class="telemetry-card"><div class="telemetry-label">Top-2 Score</div><div class="telemetry-value">${tf.top2_score.toFixed(3)}</div></div>
+      <div class="telemetry-card"><div class="telemetry-label">Score Gap</div><div class="telemetry-value">${tf.score_gap.toFixed(3)}</div></div>
+      <div class="telemetry-card"><div class="telemetry-label">Mean Score</div><div class="telemetry-value">${tf.mean_score.toFixed(3)}</div></div>
+      <div class="telemetry-card"><div class="telemetry-label">Score Std</div><div class="telemetry-value">${tf.score_std.toFixed(3)}</div></div>
+      <div class="telemetry-card"><div class="telemetry-label">Entropy</div><div class="telemetry-value">${tf.softmax_entropy.toFixed(3)}</div></div>
+      <div class="telemetry-card"><div class="telemetry-label">Chunk Sim</div><div class="telemetry-value">${tf.chunk_sim_mean.toFixed(3)}</div></div>
+      <div class="telemetry-card"><div class="telemetry-label">Context Toks</div><div class="telemetry-value">${tf.context_tokens}</div></div>
     `;
 
     // 3. Router Decision Evaluation
@@ -321,14 +363,14 @@
     probHardValue.textContent = p_hard.toFixed(4);
 
     if (willEscalate) {
-      routerDecisionBanner.className = "router-decision-box decision-escalate";
+      routerDecisionBanner.className = "router-decision-card decision-badge-escalate";
       decisionText.textContent = "ESCALATE -> LARGE TIER";
     } else {
-      routerDecisionBanner.className = "router-decision-box decision-stay-small";
+      routerDecisionBanner.className = "router-decision-card decision-badge-small";
       decisionText.textContent = "ROUTE -> SMALL TIER";
     }
 
-    // Now update Step 5 with the resulting model answer
+    // Update Step 5 with resulting model answer
     updateStep5Answer(willEscalate);
   }
 
@@ -347,11 +389,11 @@
     );
 
     if (currentQuery.bypassed) {
-      compBypassBadge.innerHTML = '<span class="badge badge-info">Bypassed (&lt;400 tokens)</span>';
+      compBypassBadge.innerHTML = '<span class="badge-notion info">Bypassed (&lt;400 tokens)</span>';
       compTokCount.textContent = `Tokens: ${currentQuery.original_tokens} (Unmodified)`;
       compressedContextView.textContent = currentQuery.original_context;
     } else {
-      compBypassBadge.innerHTML = `<span class="badge badge-success">Saved ${currentQuery.tokens_saved_pct}% tokens (in ${currentQuery.compression_seconds}s)</span>`;
+      compBypassBadge.innerHTML = `<span class="badge-notion success">Saved ${currentQuery.tokens_saved_pct}% tokens (in ${currentQuery.compression_seconds}s)</span>`;
       compTokCount.textContent = `Tokens: ${currentQuery.compressed_tokens} (-${currentQuery.tokens_saved_pct}%)`;
       // Run PTM on compressed context as well for highlighting visual feedback
       const compSpans = findProtectedSpansJS(currentQuery.compressed_context);
@@ -379,9 +421,9 @@
 
     // Model label
     if (isLarge) {
-      activeModelLabel.innerHTML = `<span style="color: #f87171;">ESCALATED TO LARGE TIER</span> &bull; Gemini 3.5 Flash-Lite (Google AI Studio Free Tier)`;
+      activeModelLabel.innerHTML = `<span style="color: var(--ptm-negation-text); font-weight: 700;">ESCALATED TO LARGE TIER</span> &bull; Gemini 3.5 Flash-Lite (Google AI Studio Free Tier)`;
     } else {
-      activeModelLabel.innerHTML = `<span style="color: #4ade80;">SERVED BY SMALL TIER</span> &bull; ALLaM-2-7B (Groq Free Tier, 8B list proxy)`;
+      activeModelLabel.innerHTML = `<span style="color: var(--ptm-currency-text); font-weight: 700;">SERVED BY SMALL TIER</span> &bull; ALLaM-2-7B (Groq Free Tier, 8B list proxy)`;
     }
 
     activeAnswerText.textContent = `"${ansData.answer}"`;
@@ -396,9 +438,9 @@
     if (goldRevealed) {
       evalBadgeContainer.style.display = "block";
       if (ansData.is_correct) {
-        evalBadgeContainer.innerHTML = '<span class="badge badge-success">CORRECT PREDICTION (+)</span>';
+        evalBadgeContainer.innerHTML = '<span class="badge-notion success">CORRECT PREDICTION (+)</span>';
       } else {
-        evalBadgeContainer.innerHTML = '<span class="badge badge-danger">INCORRECT PREDICTION (-)</span>';
+        evalBadgeContainer.innerHTML = '<span class="badge-notion danger">INCORRECT PREDICTION (-)</span>';
       }
     } else {
       evalBadgeContainer.style.display = "none";
@@ -416,14 +458,14 @@
       const tr = document.createElement("tr");
       const isOptiRAG = r.system.includes("OptiRAG");
       if (isOptiRAG) {
-        tr.style.background = "rgba(56, 189, 248, 0.12)";
-        tr.style.fontWeight = "bold";
+        tr.style.background = "var(--callout-blue-bg)";
+        tr.style.fontWeight = "600";
       }
 
       tr.innerHTML = `
         <td>${escapeHtml(r.system)}</td>
         <td>${escapeHtml(r.threshold_method)}</td>
-        <td><code>${escapeHtml(r.decision_threshold)}</code></td>
+        <td><code style="font-family: 'SFMono-Regular', Menlo, monospace; font-size: 13px;">${escapeHtml(r.decision_threshold)}</code></td>
         <td>${(parseFloat(r.fraction_to_large) * 100).toFixed(0)}%</td>
         <td><strong>${r.accuracy}%</strong> [${r.accuracy_ci_low}, ${r.accuracy_ci_high}]</td>
         <td>${parseFloat(r.mean_f1).toFixed(3)}</td>
@@ -479,6 +521,7 @@
    * Initialize Event Listeners
    */
   function initEvents() {
+    initTheme();
     initTabs();
 
     // Query selection & search
