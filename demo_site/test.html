@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OptiRAG-lite PTM Parity Test Suite</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 24px;
+      background: #0f172a;
+      color: #f8fafc;
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 8px;
+      color: #38bdf8;
+    }
+    p {
+      color: #94a3b8;
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      font-weight: 700;
+      border-radius: 6px;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    .badge.pass {
+      background: #15803d;
+      color: #dcfce7;
+      border: 1px solid #22c55e;
+    }
+    .badge.fail {
+      background: #b91c1c;
+      color: #fee2e2;
+      border: 1px solid #ef4444;
+    }
+    .badge.running {
+      background: #0369a1;
+      color: #e0f2fe;
+    }
+    .card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .card h2 {
+      font-size: 18px;
+      margin-top: 0;
+      color: #cbd5e1;
+    }
+    .stat-row {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 12px;
+    }
+    .stat {
+      flex: 1;
+      background: #0f172a;
+      padding: 12px 16px;
+      border-radius: 6px;
+      border: 1px solid #334155;
+    }
+    .stat-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #64748b;
+    }
+    .stat-val {
+      font-size: 20px;
+      font-weight: 700;
+      color: #f1f5f9;
+      margin-top: 4px;
+    }
+    pre {
+      background: #090d16;
+      border: 1px solid #1e293b;
+      padding: 12px;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+      color: #e2e8f0;
+      max-height: 350px;
+      overflow-y: auto;
+    }
+    .mismatch-item {
+      padding: 10px;
+      background: #450a0a;
+      border: 1px solid #991b1b;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>OptiRAG-lite PTM Parity Test Suite</h1>
+    <p>Compares Python <code>ptm.find_protected_spans()</code> ground truth against the client-side JavaScript regex engine.</p>
+    
+    <div id="statusBadge" class="badge running">Running Verification...</div>
+
+    <div class="card">
+      <h2>Test Execution Summary</h2>
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-label">Edge Cases (25 target)</div>
+          <div class="stat-val" id="edgeStats">- / 25</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Test Contexts (100 target)</div>
+          <div class="stat-val" id="contextStats">- / 100</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Parity Accuracy</div>
+          <div class="stat-val" id="parityPct">- %</div>
+        </div>
+      </div>
+      <div id="mismatchContainer" style="display: none;">
+        <h3 style="color: #f87171; font-size: 15px; margin-top: 16px;">Mismatches Detected:</h3>
+        <div id="mismatchList"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Raw Console Output</h2>
+      <pre id="logOutput">Initializing tests...</pre>
+    </div>
+  </div>
+
+  <script src="ptm.js"></script>
+  <script>
+    const logEl = document.getElementById("logOutput");
+    const statusBadge = document.getElementById("statusBadge");
+    const edgeStats = document.getElementById("edgeStats");
+    const contextStats = document.getElementById("contextStats");
+    const parityPct = document.getElementById("parityPct");
+    const mismatchContainer = document.getElementById("mismatchContainer");
+    const mismatchList = document.getElementById("mismatchList");
+
+    function log(msg) {
+      logEl.textContent += msg + "\n";
+      logEl.scrollTop = logEl.scrollHeight;
+    }
+
+    async function runParityTests() {
+      try {
+        log("Fetching ./data/ptm_parity.json...");
+        const res = await fetch("./data/ptm_parity.json");
+        if (!res.ok) throw new Error("HTTP " + res.status + " " + res.statusText);
+        const data = await res.json();
+
+        log("Loaded " + data.edge_cases.length + " edge cases and " + data.test_contexts.length + " test contexts.");
+        
+        let edgePassed = 0;
+        let edgeMismatches = [];
+
+        data.edge_cases.forEach((ec, idx) => {
+          const jsSpans = findProtectedSpansJS(ec.text);
+          const pySpans = ec.spans;
+          if (JSON.stringify(jsSpans) === JSON.stringify(pySpans)) {
+            edgePassed++;
+          } else {
+            edgeMismatches.push({
+              type: "Edge Case #" + (idx + 1),
+              text: ec.text,
+              py: pySpans,
+              js: jsSpans
+            });
+          }
+        });
+
+        let contextPassed = 0;
+        let contextMismatches = [];
+
+        data.test_contexts.forEach((tc, idx) => {
+          const jsSpans = findProtectedSpansJS(tc.text);
+          const pySpans = tc.spans;
+          if (JSON.stringify(jsSpans) === JSON.stringify(pySpans)) {
+            contextPassed++;
+          } else {
+            contextMismatches.push({
+              type: "Context #" + (idx + 1) + " (ID: " + tc.id + ")",
+              text: tc.text.slice(0, 100) + "...",
+              py: pySpans,
+              js: jsSpans
+            });
+          }
+        });
+
+        const totalTests = data.edge_cases.length + data.test_contexts.length;
+        const totalPassed = edgePassed + contextPassed;
+        const pct = ((totalPassed / totalTests) * 100).toFixed(2);
+
+        edgeStats.textContent = edgePassed + " / " + data.edge_cases.length;
+        contextStats.textContent = contextPassed + " / " + data.test_contexts.length;
+        parityPct.textContent = pct + "%";
+
+        log("\n==================================================");
+        log("RESULTS:");
+        log("  Edge Cases:    " + edgePassed + " / " + data.edge_cases.length + " passed");
+        log("  Test Contexts: " + contextPassed + " / " + data.test_contexts.length + " passed");
+        log("  Total Parity:  " + totalPassed + " / " + totalTests + " (" + pct + "%)");
+        log("==================================================");
+
+        if (totalPassed === totalTests) {
+          statusBadge.textContent = "PASS - 100% PARITY VERIFIED";
+          statusBadge.className = "badge pass";
+          log("\nSUCCESS: JavaScript engine produces 100% byte-for-byte span parity with Python!");
+        } else {
+          statusBadge.textContent = "FAIL - MISMATCHES DETECTED";
+          statusBadge.className = "badge fail";
+          mismatchContainer.style.display = "block";
+          
+          const allMismatches = [...edgeMismatches, ...contextMismatches];
+          allMismatches.forEach(m => {
+            const div = document.createElement("div");
+            div.className = "mismatch-item";
+            div.innerHTML = "<strong>" + m.type + "</strong><br>" +
+              "Text: <code>" + m.text + "</code><br>" +
+              "Python Spans: <code>" + JSON.stringify(m.py) + "</code><br>" +
+              "JS Spans: <code>" + JSON.stringify(m.js) + "</code>";
+            mismatchList.appendChild(div);
+          });
+        }
+      } catch (err) {
+        statusBadge.textContent = "ERROR";
+        statusBadge.className = "badge fail";
+        log("Test failed with exception: " + err.message);
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", runParityTests);
+  </script>
+</body>
+</html>

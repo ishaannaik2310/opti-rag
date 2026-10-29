@@ -1,0 +1,1770 @@
+{
+  "summary": {
+    "none": {
+      "bypassed": 3,
+      "mean_original_tokens": 599.3,
+      "mean_compressed_tokens": 341.2,
+      "mean_ratio": 0.5958,
+      "mean_seconds": 7.465,
+      "entity_survival_rate": 0.9139,
+      "entity_kept": 361,
+      "entity_total": 395,
+      "by_kind": {
+        "currency": {
+          "kept": 1,
+          "total": 2,
+          "rate": 0.5
+        },
+        "date": {
+          "kept": 35,
+          "total": 57,
+          "rate": 0.614
+        },
+        "percent": {
+          "kept": 0,
+          "total": 0,
+          "rate": 1.0
+        },
+        "negation": {
+          "kept": 3,
+          "total": 4,
+          "rate": 0.75
+        },
+        "number": {
+          "kept": 322,
+          "total": 332,
+          "rate": 0.9699
+        }
+      },
+      "gold_at_risk": 13,
+      "gold_kept": 11,
+      "gold_survival_rate": 0.8462
+    },
+    "ptm": {
+      "bypassed": 3,
+      "mean_original_tokens": 599.3,
+      "mean_compressed_tokens": 343.1,
+      "mean_ratio": 0.5989,
+      "mean_seconds": 7.433,
+      "entity_survival_rate": 0.9544,
+      "entity_kept": 377,
+      "entity_total": 395,
+      "by_kind": {
+        "currency": {
+          "kept": 2,
+          "total": 2,
+          "rate": 1.0
+        },
+        "date": {
+          "kept": 39,
+          "total": 57,
+          "rate": 0.6842
+        },
+        "percent": {
+          "kept": 0,
+          "total": 0,
+          "rate": 1.0
+        },
+        "negation": {
+          "kept": 4,
+          "total": 4,
+          "rate": 1.0
+        },
+        "number": {
+          "kept": 332,
+          "total": 332,
+          "rate": 1.0
+        }
+      },
+      "gold_at_risk": 13,
+      "gold_kept": 11,
+      "gold_survival_rate": 0.8462
+    },
+    "ptm_ent": {
+      "bypassed": 3,
+      "mean_original_tokens": 599.3,
+      "mean_compressed_tokens": 344.1,
+      "mean_ratio": 0.6003,
+      "mean_seconds": 7.407,
+      "entity_survival_rate": 0.9392,
+      "entity_kept": 371,
+      "entity_total": 395,
+      "by_kind": {
+        "currency": {
+          "kept": 2,
+          "total": 2,
+          "rate": 1.0
+        },
+        "date": {
+          "kept": 33,
+          "total": 57,
+          "rate": 0.5789
+        },
+        "percent": {
+          "kept": 0,
+          "total": 0,
+          "rate": 1.0
+        },
+        "negation": {
+          "kept": 4,
+          "total": 4,
+          "rate": 1.0
+        },
+        "number": {
+          "kept": 332,
+          "total": 332,
+          "rate": 1.0
+        }
+      },
+      "gold_at_risk": 13,
+      "gold_kept": 11,
+      "gold_survival_rate": 0.8462
+    }
+  },
+  "side_by_side_examples": [
+    {
+      "question_id": "5ae3cfe05542990afbd1e1e3",
+      "title": "Knox County Regional Airport",
+      "original": "Knox County Regional Airport (IATA: RKD, ICAO: KRKD, FAA LID: RKD) is a county owned, public use airport in Knox County, Maine, United States. It is located three nautical miles (6 km) south of the central business district of Rockland, Maine. The airport serves the residents of midcoast Maine with commercial and charter aviation services. Scheduled airline service is subsidized by the Essential Air Service program. It is also a major hub of freight and mail service to Maine's island communities including Matinicus, North Haven and Vinalhaven.",
+      "compressed": "Knox County Regional Airport IATA RKD ICAO KRKD FAA LID RKD county airport Knox County Maine three nautical miles 6 km south Rockland Maine serves residents commercial charter Essential Air Service major hub freight mail service Maine communities Matinicus North Haven Vinalhaven",
+      "protected_tokens": [
+        "6"
+      ]
+    },
+    {
+      "question_id": "5abc1abf5542993a06baf87f",
+      "title": "Russell Hobbs",
+      "original": "Russell Hobbs is a manufacturer of household appliances based in Failsworth, Greater Manchester, England, United Kingdom.",
+      "compressed": "Russell Hobbs manufacturer appliances Failsworth Greater Manchester",
+      "protected_tokens": []
+    }
+  ],
+  "records": {
+    "none": [
+      {
+        "question_id": "5ae3cfe05542990afbd1e1e3",
+        "variant": "none",
+        "bypassed": false,
+        "original_tokens": 528,
+        "compressed_tokens": 274,
+        "ratio": 0.5189,
+        "seconds": 9.616,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 15,
+          "total_count": 15,
+          "by_kind": {
+            "number": {
+              "kept": 15,
+              "total": 15,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5abc1abf5542993a06baf87f",
+        "variant": "none",
+        "bypassed": false,
+        "original_tokens": 553,
+        "compressed_tokens": 299,
+        "ratio": 0.5407,
+        "seconds": 8.612,
+        "entity_survival": {
+          "overall_rate": 0.8387,
+          "kept_count": 26,
+          "total_count": 31,
+          "by_kind": {
+            "number": {
+              "kept": 26,
+              "total": 30,
+              "rate": 0.8667
+            },
+            "currency": {
+              "kept": 0,
+              "total": 1,
+              "rate": 0.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5ac250eb5542992f1f2b384f",
+        "variant": "none",
+        "bypassed": false,
+        "original_tokens": 616,
+        "compressed_tokens": 317,
+        "ratio": 0.5146,
+        "seconds": 8.497,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 9,
+          "total_count": 9,
+          "by_kind": {
+            "number": {
+              "kept": 8,
+              "total": 8,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 1,
+              "total": 1,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": null
+      },
+      {
+        "question_id": "5a81a60455429903bc27b990",
+        "variant": "none",
+        "bypassed": false,
+        "original_tokens": 523,
+        "compressed_tokens": 279,
+        "ratio": 0.5335,
+        "seconds": 8.728,
+        "entity_survival": {
+          "overall_rate": 0.8182,
+          "kept_count": 18,
+          "total_count": 22,
+          "by_kind": {
+            "number": {
+              "kept": 16,
+              "total": 17,
+              "rate": 0.9412
+            },
+            "date": {
+              "kept": 2,
+              "total": 5,
+              "rate": 0.4
+            }
+          }
+        },
+        "gold_survival": null
+      },
+      {
+        "question_id": "5a70fb2d5542994082a3e482",
+        "variant": "none",
+        "bypassed": false,
+        "original_tokens": 524,
+        "compressed_tokens": 273,
+        "ratio": 0.521,
+        "seconds": 8.925,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 10,
+          "total_count": 10,
+          "by_kind": {
+            "number": {
+              "kept": 10,
+              "total": 10,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5a9050925542995651fb512f",
+        "variant": "none",
+        "bypassed": false,
+        "original_tokens": 620,
+        "compressed_tokens": 328,
+        "ratio": 0.529,
+        "seconds": 8.61,
+        "entity_survival": {
+          "overall_rate": 0.8889,
+          "kept_count": 16,
+          "total_count": 18,
+          "by_kind": {
+            "number": {
+              "kept": 16,
+              "total": 16,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 0,
+              "total": 2,
+              "rate": 0.0
+            }
+          }
+        },
+        "gold_survival": null
+      },
+      {
+        "question_id": "5a760b725542994ccc91869a",
+        "variant": "none",
+        "bypassed": true,
+        "original_tokens": 414,
+        "compressed_tokens": 414,
+        "ratio": 1.0,
+        "seconds": 0.0,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 14,
+          "total_count": 14,
+          "by_kind": {
+            "number": {
+              "kept": 13,
+              "total": 13,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 1,
+              "total": 1,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5ae60d88554299546bf83040",
+        "variant": "none",
+        "bypassed": false,
+        "original_tokens": 1259,
+        "compressed_tokens": 627,
+        "ratio": 0.498,
+        "seconds": 8.763,
+        "entity_survival": {
+          "overall_rate": 0.9524,
+          "kept_count": 40,
+          "total_count": 42,
+          "by_kind": {
+            "number": {
+              "kept": 40,
+              "total": 42,
+              "rate": 0.9524
+            }
+          }
+        },
+        "gold_survival": false
+      },
+      {
+        "question_id": "5a8d9501554299068b959d4d",
+        "variant": "none",
+        "bypassed": false,
+        "original_tokens": 456,
+        "compressed_tokens": 247,
+        "ratio": 0.5417,
+        "seconds": 8.483,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 11,
+          "total_count": 11,
+          "by_kind": {
+            "number": {
+              "kept": 11,
+              "total": 11,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": null
+      },
+      {
+        "question_id": "5a875ce15542993e715abf16",
+        "variant": "none",
+        "bypassed": true,
+        "original_tokens": 374,
+        "compressed_tokens": 374,
+        "ratio": 1.0,
+        "seconds": 0.0,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 10,
+          "total_count": 10,
+          "by_kind": {
+            "number": {
+              "kept": 8,
+              "total": 8,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 2,
+              "total": 2,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5adcc89f5542994d58a2f6cf",
+        "variant": "none",
+        "bypassed": false,
+        "original_tokens": 716,
+        "compressed_tokens": 366,
+        "ratio": 0.5112,
+        "seconds": 8.847,
+        "entity_survival": {
+          "overall_rate": 0.8485,
+          "kept_count": 28,
+          "total_count": 33,
+          "by_kind": {
+            "number": {
+              "kept": 25,
+              "total": 25,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 3,
+              "total": 8,
+              "rate": 0.375
+            }
+          }
+        },
+        "gold_survival": null
+      },
+      {
+        "question_id": "5a8fafb15542992414482b3f",
+        "variant": "none",
+        "bypassed": false,
+        "original_tokens": 683,
+        "compressed_tokens": 341,
+        "ratio": 0.4993,
+        "seconds": 8.64,
+        "entity_survival": {
+          "overall_rate": 0.7857,
+          "kept_count": 11,
+          "total_count": 14,
+          "by_kind": {
+            "number": {
+              "kept": 9,
+              "total": 12,
+              "rate": 0.75
+            },
+            "date": {
+              "kept": 2,
+              "total": 2,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5a906beb55429916514e74b9",
+        "variant": "none",
+        "bypassed": false,
+        "original_tokens": 541,
+        "compressed_tokens": 287,
+        "ratio": 0.5305,
+        "seconds": 8.608,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 15,
+          "total_count": 15,
+          "by_kind": {
+            "number": {
+              "kept": 13,
+              "total": 13,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 2,
+              "total": 2,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5a7a17975542990783324e4b",
+        "variant": "none",
+        "bypassed": false,
+        "original_tokens": 735,
+        "compressed_tokens": 371,
+        "ratio": 0.5048,
+        "seconds": 9.087,
+        "entity_survival": {
+          "overall_rate": 0.8462,
+          "kept_count": 11,
+          "total_count": 13,
+          "by_kind": {
+            "number": {
+              "kept": 7,
+              "total": 7,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 3,
+              "total": 5,
+              "rate": 0.6
+            },
+            "negation": {
+              "kept": 1,
+              "total": 1,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5ab9257b554299753720f749",
+        "variant": "none",
+        "bypassed": false,
+        "original_tokens": 543,
+        "compressed_tokens": 301,
+        "ratio": 0.5543,
+        "seconds": 8.937,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 44,
+          "total_count": 44,
+          "by_kind": {
+            "number": {
+              "kept": 40,
+              "total": 40,
+              "rate": 1.0
+            },
+            "negation": {
+              "kept": 2,
+              "total": 2,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 2,
+              "total": 2,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5a711ec15542994082a3e5aa",
+        "variant": "none",
+        "bypassed": false,
+        "original_tokens": 667,
+        "compressed_tokens": 352,
+        "ratio": 0.5277,
+        "seconds": 8.531,
+        "entity_survival": {
+          "overall_rate": 0.9643,
+          "kept_count": 27,
+          "total_count": 28,
+          "by_kind": {
+            "number": {
+              "kept": 24,
+              "total": 24,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 2,
+              "total": 3,
+              "rate": 0.6667
+            },
+            "currency": {
+              "kept": 1,
+              "total": 1,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5a72d20e5542991f9a20c5a7",
+        "variant": "none",
+        "bypassed": true,
+        "original_tokens": 404,
+        "compressed_tokens": 404,
+        "ratio": 1.0,
+        "seconds": 0.0,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 11,
+          "total_count": 11,
+          "by_kind": {
+            "number": {
+              "kept": 7,
+              "total": 7,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 4,
+              "total": 4,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": null
+      },
+      {
+        "question_id": "5ae6880c55429908198fa5f3",
+        "variant": "none",
+        "bypassed": false,
+        "original_tokens": 726,
+        "compressed_tokens": 385,
+        "ratio": 0.5303,
+        "seconds": 8.801,
+        "entity_survival": {
+          "overall_rate": 0.9375,
+          "kept_count": 15,
+          "total_count": 16,
+          "by_kind": {
+            "number": {
+              "kept": 12,
+              "total": 12,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 3,
+              "total": 3,
+              "rate": 1.0
+            },
+            "negation": {
+              "kept": 0,
+              "total": 1,
+              "rate": 0.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5ac028d95542992a796decb2",
+        "variant": "none",
+        "bypassed": false,
+        "original_tokens": 539,
+        "compressed_tokens": 285,
+        "ratio": 0.5288,
+        "seconds": 8.679,
+        "entity_survival": {
+          "overall_rate": 0.8571,
+          "kept_count": 12,
+          "total_count": 14,
+          "by_kind": {
+            "number": {
+              "kept": 8,
+              "total": 8,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 4,
+              "total": 6,
+              "rate": 0.6667
+            }
+          }
+        },
+        "gold_survival": false
+      },
+      {
+        "question_id": "5adfa82255429942ec259ada",
+        "variant": "none",
+        "bypassed": false,
+        "original_tokens": 565,
+        "compressed_tokens": 300,
+        "ratio": 0.531,
+        "seconds": 8.935,
+        "entity_survival": {
+          "overall_rate": 0.72,
+          "kept_count": 18,
+          "total_count": 25,
+          "by_kind": {
+            "number": {
+              "kept": 14,
+              "total": 14,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 4,
+              "total": 11,
+              "rate": 0.3636
+            }
+          }
+        },
+        "gold_survival": null
+      }
+    ],
+    "ptm": [
+      {
+        "question_id": "5ae3cfe05542990afbd1e1e3",
+        "variant": "ptm",
+        "bypassed": false,
+        "original_tokens": 528,
+        "compressed_tokens": 275,
+        "ratio": 0.5208,
+        "seconds": 8.94,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 15,
+          "total_count": 15,
+          "by_kind": {
+            "number": {
+              "kept": 15,
+              "total": 15,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5abc1abf5542993a06baf87f",
+        "variant": "ptm",
+        "bypassed": false,
+        "original_tokens": 553,
+        "compressed_tokens": 303,
+        "ratio": 0.5479,
+        "seconds": 8.686,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 31,
+          "total_count": 31,
+          "by_kind": {
+            "number": {
+              "kept": 30,
+              "total": 30,
+              "rate": 1.0
+            },
+            "currency": {
+              "kept": 1,
+              "total": 1,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5ac250eb5542992f1f2b384f",
+        "variant": "ptm",
+        "bypassed": false,
+        "original_tokens": 616,
+        "compressed_tokens": 317,
+        "ratio": 0.5146,
+        "seconds": 8.65,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 9,
+          "total_count": 9,
+          "by_kind": {
+            "number": {
+              "kept": 8,
+              "total": 8,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 1,
+              "total": 1,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": null
+      },
+      {
+        "question_id": "5a81a60455429903bc27b990",
+        "variant": "ptm",
+        "bypassed": false,
+        "original_tokens": 523,
+        "compressed_tokens": 281,
+        "ratio": 0.5373,
+        "seconds": 8.604,
+        "entity_survival": {
+          "overall_rate": 0.9091,
+          "kept_count": 20,
+          "total_count": 22,
+          "by_kind": {
+            "number": {
+              "kept": 17,
+              "total": 17,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 3,
+              "total": 5,
+              "rate": 0.6
+            }
+          }
+        },
+        "gold_survival": null
+      },
+      {
+        "question_id": "5a70fb2d5542994082a3e482",
+        "variant": "ptm",
+        "bypassed": false,
+        "original_tokens": 524,
+        "compressed_tokens": 273,
+        "ratio": 0.521,
+        "seconds": 8.982,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 10,
+          "total_count": 10,
+          "by_kind": {
+            "number": {
+              "kept": 10,
+              "total": 10,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5a9050925542995651fb512f",
+        "variant": "ptm",
+        "bypassed": false,
+        "original_tokens": 620,
+        "compressed_tokens": 328,
+        "ratio": 0.529,
+        "seconds": 8.519,
+        "entity_survival": {
+          "overall_rate": 0.8889,
+          "kept_count": 16,
+          "total_count": 18,
+          "by_kind": {
+            "number": {
+              "kept": 16,
+              "total": 16,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 0,
+              "total": 2,
+              "rate": 0.0
+            }
+          }
+        },
+        "gold_survival": null
+      },
+      {
+        "question_id": "5a760b725542994ccc91869a",
+        "variant": "ptm",
+        "bypassed": true,
+        "original_tokens": 414,
+        "compressed_tokens": 414,
+        "ratio": 1.0,
+        "seconds": 0.0,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 14,
+          "total_count": 14,
+          "by_kind": {
+            "number": {
+              "kept": 13,
+              "total": 13,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 1,
+              "total": 1,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5ae60d88554299546bf83040",
+        "variant": "ptm",
+        "bypassed": false,
+        "original_tokens": 1259,
+        "compressed_tokens": 630,
+        "ratio": 0.5004,
+        "seconds": 8.908,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 42,
+          "total_count": 42,
+          "by_kind": {
+            "number": {
+              "kept": 42,
+              "total": 42,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": false
+      },
+      {
+        "question_id": "5a8d9501554299068b959d4d",
+        "variant": "ptm",
+        "bypassed": false,
+        "original_tokens": 456,
+        "compressed_tokens": 247,
+        "ratio": 0.5417,
+        "seconds": 8.7,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 11,
+          "total_count": 11,
+          "by_kind": {
+            "number": {
+              "kept": 11,
+              "total": 11,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": null
+      },
+      {
+        "question_id": "5a875ce15542993e715abf16",
+        "variant": "ptm",
+        "bypassed": true,
+        "original_tokens": 374,
+        "compressed_tokens": 374,
+        "ratio": 1.0,
+        "seconds": 0.0,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 10,
+          "total_count": 10,
+          "by_kind": {
+            "number": {
+              "kept": 8,
+              "total": 8,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 2,
+              "total": 2,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5adcc89f5542994d58a2f6cf",
+        "variant": "ptm",
+        "bypassed": false,
+        "original_tokens": 716,
+        "compressed_tokens": 370,
+        "ratio": 0.5168,
+        "seconds": 8.963,
+        "entity_survival": {
+          "overall_rate": 0.8485,
+          "kept_count": 28,
+          "total_count": 33,
+          "by_kind": {
+            "number": {
+              "kept": 25,
+              "total": 25,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 3,
+              "total": 8,
+              "rate": 0.375
+            }
+          }
+        },
+        "gold_survival": null
+      },
+      {
+        "question_id": "5a8fafb15542992414482b3f",
+        "variant": "ptm",
+        "bypassed": false,
+        "original_tokens": 683,
+        "compressed_tokens": 343,
+        "ratio": 0.5022,
+        "seconds": 8.398,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 14,
+          "total_count": 14,
+          "by_kind": {
+            "number": {
+              "kept": 12,
+              "total": 12,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 2,
+              "total": 2,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5a906beb55429916514e74b9",
+        "variant": "ptm",
+        "bypassed": false,
+        "original_tokens": 541,
+        "compressed_tokens": 287,
+        "ratio": 0.5305,
+        "seconds": 8.654,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 15,
+          "total_count": 15,
+          "by_kind": {
+            "number": {
+              "kept": 13,
+              "total": 13,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 2,
+              "total": 2,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5a7a17975542990783324e4b",
+        "variant": "ptm",
+        "bypassed": false,
+        "original_tokens": 735,
+        "compressed_tokens": 371,
+        "ratio": 0.5048,
+        "seconds": 9.068,
+        "entity_survival": {
+          "overall_rate": 0.8462,
+          "kept_count": 11,
+          "total_count": 13,
+          "by_kind": {
+            "number": {
+              "kept": 7,
+              "total": 7,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 3,
+              "total": 5,
+              "rate": 0.6
+            },
+            "negation": {
+              "kept": 1,
+              "total": 1,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5ab9257b554299753720f749",
+        "variant": "ptm",
+        "bypassed": false,
+        "original_tokens": 543,
+        "compressed_tokens": 313,
+        "ratio": 0.5764,
+        "seconds": 8.836,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 44,
+          "total_count": 44,
+          "by_kind": {
+            "number": {
+              "kept": 40,
+              "total": 40,
+              "rate": 1.0
+            },
+            "negation": {
+              "kept": 2,
+              "total": 2,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 2,
+              "total": 2,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5a711ec15542994082a3e5aa",
+        "variant": "ptm",
+        "bypassed": false,
+        "original_tokens": 667,
+        "compressed_tokens": 352,
+        "ratio": 0.5277,
+        "seconds": 9.012,
+        "entity_survival": {
+          "overall_rate": 0.9643,
+          "kept_count": 27,
+          "total_count": 28,
+          "by_kind": {
+            "number": {
+              "kept": 24,
+              "total": 24,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 2,
+              "total": 3,
+              "rate": 0.6667
+            },
+            "currency": {
+              "kept": 1,
+              "total": 1,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5a72d20e5542991f9a20c5a7",
+        "variant": "ptm",
+        "bypassed": true,
+        "original_tokens": 404,
+        "compressed_tokens": 404,
+        "ratio": 1.0,
+        "seconds": 0.0,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 11,
+          "total_count": 11,
+          "by_kind": {
+            "number": {
+              "kept": 7,
+              "total": 7,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 4,
+              "total": 4,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": null
+      },
+      {
+        "question_id": "5ae6880c55429908198fa5f3",
+        "variant": "ptm",
+        "bypassed": false,
+        "original_tokens": 726,
+        "compressed_tokens": 386,
+        "ratio": 0.5317,
+        "seconds": 8.626,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 16,
+          "total_count": 16,
+          "by_kind": {
+            "number": {
+              "kept": 12,
+              "total": 12,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 3,
+              "total": 3,
+              "rate": 1.0
+            },
+            "negation": {
+              "kept": 1,
+              "total": 1,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5ac028d95542992a796decb2",
+        "variant": "ptm",
+        "bypassed": false,
+        "original_tokens": 539,
+        "compressed_tokens": 287,
+        "ratio": 0.5325,
+        "seconds": 8.703,
+        "entity_survival": {
+          "overall_rate": 0.8571,
+          "kept_count": 12,
+          "total_count": 14,
+          "by_kind": {
+            "number": {
+              "kept": 8,
+              "total": 8,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 4,
+              "total": 6,
+              "rate": 0.6667
+            }
+          }
+        },
+        "gold_survival": false
+      },
+      {
+        "question_id": "5adfa82255429942ec259ada",
+        "variant": "ptm",
+        "bypassed": false,
+        "original_tokens": 565,
+        "compressed_tokens": 307,
+        "ratio": 0.5434,
+        "seconds": 8.421,
+        "entity_survival": {
+          "overall_rate": 0.84,
+          "kept_count": 21,
+          "total_count": 25,
+          "by_kind": {
+            "number": {
+              "kept": 14,
+              "total": 14,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 7,
+              "total": 11,
+              "rate": 0.6364
+            }
+          }
+        },
+        "gold_survival": null
+      }
+    ],
+    "ptm_ent": [
+      {
+        "question_id": "5ae3cfe05542990afbd1e1e3",
+        "variant": "ptm_ent",
+        "bypassed": false,
+        "original_tokens": 528,
+        "compressed_tokens": 272,
+        "ratio": 0.5152,
+        "seconds": 8.707,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 15,
+          "total_count": 15,
+          "by_kind": {
+            "number": {
+              "kept": 15,
+              "total": 15,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5abc1abf5542993a06baf87f",
+        "variant": "ptm_ent",
+        "bypassed": false,
+        "original_tokens": 553,
+        "compressed_tokens": 307,
+        "ratio": 0.5552,
+        "seconds": 8.789,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 31,
+          "total_count": 31,
+          "by_kind": {
+            "number": {
+              "kept": 30,
+              "total": 30,
+              "rate": 1.0
+            },
+            "currency": {
+              "kept": 1,
+              "total": 1,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5ac250eb5542992f1f2b384f",
+        "variant": "ptm_ent",
+        "bypassed": false,
+        "original_tokens": 616,
+        "compressed_tokens": 319,
+        "ratio": 0.5179,
+        "seconds": 8.702,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 9,
+          "total_count": 9,
+          "by_kind": {
+            "number": {
+              "kept": 8,
+              "total": 8,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 1,
+              "total": 1,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": null
+      },
+      {
+        "question_id": "5a81a60455429903bc27b990",
+        "variant": "ptm_ent",
+        "bypassed": false,
+        "original_tokens": 523,
+        "compressed_tokens": 281,
+        "ratio": 0.5373,
+        "seconds": 8.78,
+        "entity_survival": {
+          "overall_rate": 0.9091,
+          "kept_count": 20,
+          "total_count": 22,
+          "by_kind": {
+            "number": {
+              "kept": 17,
+              "total": 17,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 3,
+              "total": 5,
+              "rate": 0.6
+            }
+          }
+        },
+        "gold_survival": null
+      },
+      {
+        "question_id": "5a70fb2d5542994082a3e482",
+        "variant": "ptm_ent",
+        "bypassed": false,
+        "original_tokens": 524,
+        "compressed_tokens": 277,
+        "ratio": 0.5286,
+        "seconds": 8.702,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 10,
+          "total_count": 10,
+          "by_kind": {
+            "number": {
+              "kept": 10,
+              "total": 10,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5a9050925542995651fb512f",
+        "variant": "ptm_ent",
+        "bypassed": false,
+        "original_tokens": 620,
+        "compressed_tokens": 331,
+        "ratio": 0.5339,
+        "seconds": 9.071,
+        "entity_survival": {
+          "overall_rate": 0.8889,
+          "kept_count": 16,
+          "total_count": 18,
+          "by_kind": {
+            "number": {
+              "kept": 16,
+              "total": 16,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 0,
+              "total": 2,
+              "rate": 0.0
+            }
+          }
+        },
+        "gold_survival": null
+      },
+      {
+        "question_id": "5a760b725542994ccc91869a",
+        "variant": "ptm_ent",
+        "bypassed": true,
+        "original_tokens": 414,
+        "compressed_tokens": 414,
+        "ratio": 1.0,
+        "seconds": 0.0,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 14,
+          "total_count": 14,
+          "by_kind": {
+            "number": {
+              "kept": 13,
+              "total": 13,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 1,
+              "total": 1,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5ae60d88554299546bf83040",
+        "variant": "ptm_ent",
+        "bypassed": false,
+        "original_tokens": 1259,
+        "compressed_tokens": 632,
+        "ratio": 0.502,
+        "seconds": 8.671,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 42,
+          "total_count": 42,
+          "by_kind": {
+            "number": {
+              "kept": 42,
+              "total": 42,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": false
+      },
+      {
+        "question_id": "5a8d9501554299068b959d4d",
+        "variant": "ptm_ent",
+        "bypassed": false,
+        "original_tokens": 456,
+        "compressed_tokens": 242,
+        "ratio": 0.5307,
+        "seconds": 8.854,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 11,
+          "total_count": 11,
+          "by_kind": {
+            "number": {
+              "kept": 11,
+              "total": 11,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": null
+      },
+      {
+        "question_id": "5a875ce15542993e715abf16",
+        "variant": "ptm_ent",
+        "bypassed": true,
+        "original_tokens": 374,
+        "compressed_tokens": 374,
+        "ratio": 1.0,
+        "seconds": 0.0,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 10,
+          "total_count": 10,
+          "by_kind": {
+            "number": {
+              "kept": 8,
+              "total": 8,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 2,
+              "total": 2,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5adcc89f5542994d58a2f6cf",
+        "variant": "ptm_ent",
+        "bypassed": false,
+        "original_tokens": 716,
+        "compressed_tokens": 369,
+        "ratio": 0.5154,
+        "seconds": 8.83,
+        "entity_survival": {
+          "overall_rate": 0.7879,
+          "kept_count": 26,
+          "total_count": 33,
+          "by_kind": {
+            "number": {
+              "kept": 25,
+              "total": 25,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 1,
+              "total": 8,
+              "rate": 0.125
+            }
+          }
+        },
+        "gold_survival": null
+      },
+      {
+        "question_id": "5a8fafb15542992414482b3f",
+        "variant": "ptm_ent",
+        "bypassed": false,
+        "original_tokens": 683,
+        "compressed_tokens": 344,
+        "ratio": 0.5037,
+        "seconds": 8.347,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 14,
+          "total_count": 14,
+          "by_kind": {
+            "number": {
+              "kept": 12,
+              "total": 12,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 2,
+              "total": 2,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5a906beb55429916514e74b9",
+        "variant": "ptm_ent",
+        "bypassed": false,
+        "original_tokens": 541,
+        "compressed_tokens": 281,
+        "ratio": 0.5194,
+        "seconds": 8.442,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 15,
+          "total_count": 15,
+          "by_kind": {
+            "number": {
+              "kept": 13,
+              "total": 13,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 2,
+              "total": 2,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5a7a17975542990783324e4b",
+        "variant": "ptm_ent",
+        "bypassed": false,
+        "original_tokens": 735,
+        "compressed_tokens": 368,
+        "ratio": 0.5007,
+        "seconds": 8.773,
+        "entity_survival": {
+          "overall_rate": 0.6923,
+          "kept_count": 9,
+          "total_count": 13,
+          "by_kind": {
+            "number": {
+              "kept": 7,
+              "total": 7,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 1,
+              "total": 5,
+              "rate": 0.2
+            },
+            "negation": {
+              "kept": 1,
+              "total": 1,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5ab9257b554299753720f749",
+        "variant": "ptm_ent",
+        "bypassed": false,
+        "original_tokens": 543,
+        "compressed_tokens": 312,
+        "ratio": 0.5746,
+        "seconds": 8.715,
+        "entity_survival": {
+          "overall_rate": 0.9773,
+          "kept_count": 43,
+          "total_count": 44,
+          "by_kind": {
+            "number": {
+              "kept": 40,
+              "total": 40,
+              "rate": 1.0
+            },
+            "negation": {
+              "kept": 2,
+              "total": 2,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 1,
+              "total": 2,
+              "rate": 0.5
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5a711ec15542994082a3e5aa",
+        "variant": "ptm_ent",
+        "bypassed": false,
+        "original_tokens": 667,
+        "compressed_tokens": 348,
+        "ratio": 0.5217,
+        "seconds": 8.806,
+        "entity_survival": {
+          "overall_rate": 0.9643,
+          "kept_count": 27,
+          "total_count": 28,
+          "by_kind": {
+            "number": {
+              "kept": 24,
+              "total": 24,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 2,
+              "total": 3,
+              "rate": 0.6667
+            },
+            "currency": {
+              "kept": 1,
+              "total": 1,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5a72d20e5542991f9a20c5a7",
+        "variant": "ptm_ent",
+        "bypassed": true,
+        "original_tokens": 404,
+        "compressed_tokens": 404,
+        "ratio": 1.0,
+        "seconds": 0.0,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 11,
+          "total_count": 11,
+          "by_kind": {
+            "number": {
+              "kept": 7,
+              "total": 7,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 4,
+              "total": 4,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": null
+      },
+      {
+        "question_id": "5ae6880c55429908198fa5f3",
+        "variant": "ptm_ent",
+        "bypassed": false,
+        "original_tokens": 726,
+        "compressed_tokens": 404,
+        "ratio": 0.5565,
+        "seconds": 8.499,
+        "entity_survival": {
+          "overall_rate": 1.0,
+          "kept_count": 16,
+          "total_count": 16,
+          "by_kind": {
+            "number": {
+              "kept": 12,
+              "total": 12,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 3,
+              "total": 3,
+              "rate": 1.0
+            },
+            "negation": {
+              "kept": 1,
+              "total": 1,
+              "rate": 1.0
+            }
+          }
+        },
+        "gold_survival": true
+      },
+      {
+        "question_id": "5ac028d95542992a796decb2",
+        "variant": "ptm_ent",
+        "bypassed": false,
+        "original_tokens": 539,
+        "compressed_tokens": 289,
+        "ratio": 0.5362,
+        "seconds": 8.842,
+        "entity_survival": {
+          "overall_rate": 0.7857,
+          "kept_count": 11,
+          "total_count": 14,
+          "by_kind": {
+            "number": {
+              "kept": 8,
+              "total": 8,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 3,
+              "total": 6,
+              "rate": 0.5
+            }
+          }
+        },
+        "gold_survival": false
+      },
+      {
+        "question_id": "5adfa82255429942ec259ada",
+        "variant": "ptm_ent",
+        "bypassed": false,
+        "original_tokens": 565,
+        "compressed_tokens": 315,
+        "ratio": 0.5575,
+        "seconds": 8.616,
+        "entity_survival": {
+          "overall_rate": 0.84,
+          "kept_count": 21,
+          "total_count": 25,
+          "by_kind": {
+            "number": {
+              "kept": 14,
+              "total": 14,
+              "rate": 1.0
+            },
+            "date": {
+              "kept": 7,
+              "total": 11,
+              "rate": 0.6364
+            }
+          }
+        },
+        "gold_survival": null
+      }
+    ]
+  }
+}

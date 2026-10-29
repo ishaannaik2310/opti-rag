@@ -1,0 +1,293 @@
+{
+  "benchmark_table": [
+    {
+      "system": "Always-SMALL (allam-2-7b)",
+      "threshold_method": "N/A (Fixed)",
+      "decision_threshold": "N/A",
+      "fraction_to_large": "0.0",
+      "accuracy": "38.0",
+      "accuracy_ci_low": "29.0",
+      "accuracy_ci_high": "48.0",
+      "mean_f1": "0.3462",
+      "cost_per_1k": "0.0417",
+      "cost_ci_low": "0.0399",
+      "cost_ci_high": "0.0433",
+      "mean_latency_s": "0.173",
+      "llm_only_latency_s": "0.173",
+      "compression_latency_s": "0.0",
+      "end_to_end_latency_s": "0.173"
+    },
+    {
+      "system": "Always-LARGE (gemini-3.5-flash-lite)",
+      "threshold_method": "N/A (Fixed)",
+      "decision_threshold": "N/A",
+      "fraction_to_large": "1.0",
+      "accuracy": "48.0",
+      "accuracy_ci_low": "38.0",
+      "accuracy_ci_high": "58.0",
+      "mean_f1": "0.4519",
+      "cost_per_1k": "0.2294",
+      "cost_ci_low": "0.2198",
+      "cost_ci_high": "0.2384",
+      "mean_latency_s": "0.919",
+      "llm_only_latency_s": "0.919",
+      "compression_latency_s": "0.0",
+      "end_to_end_latency_s": "0.919"
+    },
+    {
+      "system": "Heuristic Router (Score < 0.70 or keyword)",
+      "threshold_method": "Heuristic rule",
+      "decision_threshold": "Score < 0.70",
+      "fraction_to_large": "0.7",
+      "accuracy": "46.0",
+      "accuracy_ci_low": "37.0",
+      "accuracy_ci_high": "56.0",
+      "mean_f1": "0.4365",
+      "cost_per_1k": "0.1713",
+      "cost_ci_low": "0.1516",
+      "cost_ci_high": "0.1896",
+      "mean_latency_s": "0.676",
+      "llm_only_latency_s": "0.676",
+      "compression_latency_s": "0.0",
+      "end_to_end_latency_s": "0.676"
+    },
+    {
+      "system": "Router: Query-Only (LogReg, Target 30% Escalation)",
+      "threshold_method": "Train 30% Escalation Quantile",
+      "decision_threshold": "0.244",
+      "fraction_to_large": "0.26",
+      "accuracy": "42.0",
+      "accuracy_ci_low": "33.0",
+      "accuracy_ci_high": "52.0",
+      "mean_f1": "0.3855",
+      "cost_per_1k": "0.0898",
+      "cost_ci_low": "0.0733",
+      "cost_ci_high": "0.1064",
+      "mean_latency_s": "0.373",
+      "llm_only_latency_s": "0.373",
+      "compression_latency_s": "0.0",
+      "end_to_end_latency_s": "0.373"
+    },
+    {
+      "system": "Router: Telemetry-Only (LogReg, Target 30% Escalation)",
+      "threshold_method": "Train 30% Escalation Quantile",
+      "decision_threshold": "0.52",
+      "fraction_to_large": "0.28",
+      "accuracy": "41.0",
+      "accuracy_ci_low": "32.0",
+      "accuracy_ci_high": "51.0",
+      "mean_f1": "0.3691",
+      "cost_per_1k": "0.0968",
+      "cost_ci_low": "0.0795",
+      "cost_ci_high": "0.1153",
+      "mean_latency_s": "0.389",
+      "llm_only_latency_s": "0.389",
+      "compression_latency_s": "0.0",
+      "end_to_end_latency_s": "0.389"
+    },
+    {
+      "system": "Router: Both (LogReg, Target 30% Escalation)",
+      "threshold_method": "Train 30% Escalation Quantile",
+      "decision_threshold": "0.314",
+      "fraction_to_large": "0.25",
+      "accuracy": "44.0",
+      "accuracy_ci_low": "34.98",
+      "accuracy_ci_high": "54.0",
+      "mean_f1": "0.4035",
+      "cost_per_1k": "0.0889",
+      "cost_ci_low": "0.0729",
+      "cost_ci_high": "0.1054",
+      "mean_latency_s": "0.369",
+      "llm_only_latency_s": "0.369",
+      "compression_latency_s": "0.0",
+      "end_to_end_latency_s": "0.369"
+    },
+    {
+      "system": "Router: Telemetry-Only (LogReg, Max Youden on Train)",
+      "threshold_method": "Train Max Youden J",
+      "decision_threshold": "0.49",
+      "fraction_to_large": "0.41",
+      "accuracy": "44.0",
+      "accuracy_ci_low": "35.0",
+      "accuracy_ci_high": "54.0",
+      "mean_f1": "0.4066",
+      "cost_per_1k": "0.1215",
+      "cost_ci_low": "0.1023",
+      "cost_ci_high": "0.1418",
+      "mean_latency_s": "0.477",
+      "llm_only_latency_s": "0.477",
+      "compression_latency_s": "0.0",
+      "end_to_end_latency_s": "0.477"
+    },
+    {
+      "system": "Router: Telemetry-Only (LogReg, Default 0.50)",
+      "threshold_method": "Default Probability Threshold 0.50",
+      "decision_threshold": "0.5",
+      "fraction_to_large": "0.38",
+      "accuracy": "44.0",
+      "accuracy_ci_low": "35.0",
+      "accuracy_ci_high": "54.0",
+      "mean_f1": "0.4041",
+      "cost_per_1k": "0.1164",
+      "cost_ci_low": "0.097",
+      "cost_ci_high": "0.1364",
+      "mean_latency_s": "0.448",
+      "llm_only_latency_s": "0.448",
+      "compression_latency_s": "0.0",
+      "end_to_end_latency_s": "0.448"
+    },
+    {
+      "system": "Always-SMALL (PTM-Compressed)",
+      "threshold_method": "N/A (Fixed)",
+      "decision_threshold": "N/A",
+      "fraction_to_large": "0.0",
+      "accuracy": "41.0",
+      "accuracy_ci_low": "32.0",
+      "accuracy_ci_high": "51.0",
+      "mean_f1": "0.3888",
+      "cost_per_1k": "0.0271",
+      "cost_ci_low": "0.0264",
+      "cost_ci_high": "0.0279",
+      "mean_latency_s": "0.147",
+      "llm_only_latency_s": "0.147",
+      "compression_latency_s": "6.869",
+      "end_to_end_latency_s": "7.016"
+    },
+    {
+      "system": "Always-LARGE (PTM-Compressed)",
+      "threshold_method": "N/A (Fixed)",
+      "decision_threshold": "N/A",
+      "fraction_to_large": "1.0",
+      "accuracy": "46.0",
+      "accuracy_ci_low": "37.0",
+      "accuracy_ci_high": "56.0",
+      "mean_f1": "0.447",
+      "cost_per_1k": "0.1469",
+      "cost_ci_low": "0.1429",
+      "cost_ci_high": "0.1514",
+      "mean_latency_s": "0.922",
+      "llm_only_latency_s": "0.922",
+      "compression_latency_s": "6.869",
+      "end_to_end_latency_s": "7.791"
+    },
+    {
+      "system": "OptiRAG (Telemetry Router @ 30% + PTM)",
+      "threshold_method": "Train 30% Escalation Quantile",
+      "decision_threshold": "0.52",
+      "fraction_to_large": "0.28",
+      "accuracy": "42.0",
+      "accuracy_ci_low": "33.0",
+      "accuracy_ci_high": "52.0",
+      "mean_f1": "0.4001",
+      "cost_per_1k": "0.0619",
+      "cost_ci_low": "0.0514",
+      "cost_ci_high": "0.0736",
+      "mean_latency_s": "0.355",
+      "llm_only_latency_s": "0.355",
+      "compression_latency_s": "6.869",
+      "end_to_end_latency_s": "7.224"
+    }
+  ],
+  "extra_stats": {
+    "test_n100": {
+      "small_acc": 38.0,
+      "large_acc": 48.0,
+      "difference_large_minus_small": 10.0,
+      "paired_bootstrap_95ci": [
+        -1.0,
+        21.0
+      ],
+      "discordant_large_correct_small_wrong_b": 22,
+      "discordant_small_correct_large_wrong_c": 12,
+      "mcnemar_exact_p_value": 0.1214,
+      "mcnemar_significant_at_005": false
+    },
+    "train_n200": {
+      "small_acc": 47.0,
+      "large_acc": 59.0,
+      "difference_large_minus_small": 12.0,
+      "paired_bootstrap_95ci": [
+        4.5,
+        19.5
+      ],
+      "discordant_large_correct_small_wrong_b": 43,
+      "discordant_small_correct_large_wrong_c": 19,
+      "mcnemar_exact_p_value": 0.0032,
+      "mcnemar_significant_at_005": true
+    },
+    "retrieval_subgroups": {
+      "train_complete_n99": {
+        "n": 99,
+        "small_mean": 71.72,
+        "small_ci": [
+          62.63,
+          79.8
+        ],
+        "large_mean": 87.88,
+        "large_ci": [
+          80.81,
+          93.94
+        ]
+      },
+      "train_incomplete_n101": {
+        "n": 101,
+        "small_mean": 22.77,
+        "small_ci": [
+          14.85,
+          30.69
+        ],
+        "large_mean": 30.69,
+        "large_ci": [
+          21.78,
+          39.6
+        ]
+      },
+      "test_complete_n49": {
+        "n": 49,
+        "small_mean": 57.14,
+        "small_ci": [
+          42.86,
+          71.43
+        ],
+        "large_mean": 85.71,
+        "large_ci": [
+          75.51,
+          93.93
+        ]
+      },
+      "test_incomplete_n51": {
+        "n": 51,
+        "small_mean": 19.61,
+        "small_ci": [
+          9.8,
+          31.37
+        ],
+        "large_mean": 11.76,
+        "large_ci": [
+          3.92,
+          21.57
+        ]
+      }
+    }
+  },
+  "prices": {
+    "disclaimer_label": "simulated list price, not billed",
+    "small_proxy_label": "small-model price is a proxy",
+    "small_tier": {
+      "name": "ALLaM-2-7B on Groq Free Tier",
+      "billed_cost": "$0.00 (Groq Free Tier, 0 billed spend)",
+      "proxy_pricing_label": "small-model price is a proxy (8B-class list proxy)",
+      "prompt_per_million": 0.05,
+      "completion_per_million": 0.08,
+      "source": "https://groq.com/pricing/"
+    },
+    "large_tier": {
+      "name": "Gemini 3.5 Flash-Lite on Google AI Studio",
+      "billed_cost": "$0.00 (AI Studio Free Tier, 0 billed spend)",
+      "list_pricing_label": "simulated list price, not billed",
+      "prompt_per_million": 0.3,
+      "completion_per_million": 2.5,
+      "source": "https://ai.google.dev/pricing"
+    }
+  }
+}

@@ -1,0 +1,4 @@
+variant,bypassed_count,mean_original_tokens,mean_compressed_tokens,mean_ratio,mean_latency_s,entity_survival_rate,entity_kept,entity_total,number_survival_rate,date_survival_rate,currency_survival_rate,negation_survival_rate,percent_survival_rate,gold_at_risk,gold_kept,gold_survival_rate
+none,13,622.0,352.6,0.5922,6.876,0.8825,1862,2110,0.9598,0.5791,0.3571,0.7391,0.1667,61,56,0.918
+ptm,13,622.0,353.9,0.5943,6.869,0.9422,1988,2110,1.0,0.661,0.8571,1.0,1.0,61,57,0.9344
+ptm_ent,13,622.0,355.3,0.5965,6.883,0.9374,1978,2110,1.0,0.6328,0.8571,1.0,1.0,61,59,0.9672

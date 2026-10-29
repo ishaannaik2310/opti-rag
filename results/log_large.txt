@@ -1,0 +1,702 @@
+
+======================================================================
+[WORKER LARGE] Starting Large Tier: Train Split
+======================================================================
+======================================================================
+OPTIRAG LABELING JOB: TIER=LARGE | SPLIT=TRAIN | LIVE=True
+Provider: gemini | Model: gemini-3.5-flash-lite
+Output File: W:\opti-rag\results\labels_large_train.jsonl
+======================================================================
+Using the latest cached version of the dataset since hotpotqa/hotpot_qa couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'distractor' at C:\Users\ishaa\.cache\huggingface\datasets\hotpotqa___hotpot_qa\distractor\0.0.0\1908d6afbbead072334abe2965f91bd2709910ab (last modified on Wed Oct 28 16:07:01 2026).
+Total targeted questions: 200 | Remaining to process: 200
+
+Could not reach the Hub (Cannot reach https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2: offline mode is enabled. To disable it, please unset the `HF_HUB_OFFLINE` environment variable.). Using cached commit hash for 'sentence-transformers/all-MiniLM-L6-v2'.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights:  26%|##6       | 27/103 [00:00<00:00, 238.15it/s]Loading weights: 100%|##########| 103/103 [00:00<00:00, 850.64it/s]
+[1/200] ID: 5ae3cfe0 | CACHED (0 API calls) | InTokens=605 | Q: "Which airport is located in Maine, Sacramento Internati..."
+    --> Saved (labels_large_train.jsonl): In=612 Out=5 Latency=1.18s
+[2/200] ID: 5abc1abf | CACHED (0 API calls) | InTokens=629 | Q: "Peter Hobbs founded the company that is based in what t..."
+    --> Saved (labels_large_train.jsonl): In=656 Out=2 Latency=0.72s
+[3/200] ID: 5ac250eb | CACHED (0 API calls) | InTokens=693 | Q: "What direction does the river that Austrolebias bellott..."
+    --> Saved (labels_large_train.jsonl): In=694 Out=6 Latency=0.66s
+[4/200] ID: 5a81a604 | CACHED (0 API calls) | InTokens=599 | Q: "Were both Gabriela Mistral and G. K. Chesterton authors..."
+    --> Saved (labels_large_train.jsonl): In=632 Out=6 Latency=0.74s
+[5/200] ID: 5a70fb2d | CACHED (0 API calls) | InTokens=620 | Q: "What city, other than San Jose del Cabo, is at the the ..."
+    --> Saved (labels_large_train.jsonl): In=600 Out=4 Latency=0.72s
+[6/200] ID: 5a905092 | CACHED (0 API calls) | InTokens=693 | Q: "Sky High starred the actress who is married to which ac..."
+    --> Saved (labels_large_train.jsonl): In=717 Out=6 Latency=0.69s
+[7/200] ID: 5a760b72 | CACHED (0 API calls) | InTokens=495 | Q: "What event occured at the Red Bull Arena in Salzburg, A..."
+    --> Saved (labels_large_train.jsonl): In=506 Out=7 Latency=0.69s
+[8/200] ID: 5ae60d88 | CACHED (0 API calls) | InTokens=1337 | Q: "Sir Thomas Kyriell was executed after which battle from..."
+    --> Saved (labels_large_train.jsonl): In=1389 Out=6 Latency=0.67s
+[9/200] ID: 5a8d9501 | CACHED (0 API calls) | InTokens=540 | Q: "Where is the fruit, part of the flowering plant species..."
+    --> Saved (labels_large_train.jsonl): In=538 Out=6 Latency=1.09s
+[10/200] ID: 5a875ce1 | CACHED (0 API calls) | InTokens=465 | Q: "Undertow is a steel spinning roller coaster, built by M..."
+    --> Saved (labels_large_train.jsonl): In=472 Out=4 Latency=0.65s
+[11/200] ID: 5adcc89f | CACHED (0 API calls) | InTokens=805 | Q: "An actress nominated for 20 academy awards was featured..."
+    --> Saved (labels_large_train.jsonl): In=852 Out=6 Latency=0.70s
+[12/200] ID: 5a8fafb1 | CACHED (0 API calls) | InTokens=765 | Q: "Which movement was lead by the poet who is included amo..."
+    --> Saved (labels_large_train.jsonl): In=755 Out=5 Latency=0.80s
+[13/200] ID: 5a906beb | LIVE CALL | InTokens=618 | Q: "Al-Battani and Ibn al-Shatir, have which mutual occupat..."
+    --> Saved (labels_large_train.jsonl): In=602 Out=3 Latency=0.96s
+[14/200] ID: 5a7a1797 | LIVE CALL | InTokens=831 | Q: ""Lisa's Rival" is the second episode of "The Simpsons"'..."
+    --> Saved (labels_large_train.jsonl): In=857 Out=3 Latency=0.74s
+[15/200] ID: 5ab9257b | LIVE CALL | InTokens=637 | Q: "Who introduced the Ultimate Boeing 747 gambit in respon..."
+    --> Saved (labels_large_train.jsonl): In=706 Out=2 Latency=1.54s
+[16/200] ID: 5a711ec1 | LIVE CALL | InTokens=742 | Q: "Which magazine was published weekly vs every weekday, A..."
+    --> Saved (labels_large_train.jsonl): In=778 Out=1 Latency=0.76s
+[17/200] ID: 5a72d20e | LIVE CALL | InTokens=482 | Q: "What is the current name of the club that Agustin Lione..."
+    --> Saved (labels_large_train.jsonl): In=473 Out=2 Latency=0.93s
+[18/200] ID: 5ae6880c | LIVE CALL | InTokens=812 | Q: "The composer of Massu Engira Masilamani began his music..."
+    --> Saved (labels_large_train.jsonl): In=785 Out=4 Latency=0.68s
+[19/200] ID: 5ac028d9 | LIVE CALL | InTokens=618 | Q: "Who has more scope of profession, E. L. Doctorow or Jul..."
+    --> Saved (labels_large_train.jsonl): In=627 Out=6 Latency=0.68s
+[20/200] ID: 5adfa822 | LIVE CALL | InTokens=643 | Q: "When was the military branch, for which Christian Roy K..."
+    --> Saved (labels_large_train.jsonl): In=666 Out=6 Latency=1.60s
+[21/200] ID: 5a7cf78a | LIVE CALL | InTokens=494 | Q: "When the group who murdered Jaime Zapata form their own..."
+    --> Saved (labels_large_train.jsonl): In=513 Out=6 Latency=0.79s
+[22/200] ID: 5ac1679f | LIVE CALL | InTokens=888 | Q: "In which city was the Symphony for Classical Orchestra ..."
+    --> Saved (labels_large_train.jsonl): In=921 Out=4 Latency=0.72s
+[23/200] ID: 5a8ef39a | LIVE CALL | InTokens=867 | Q: "What character did this actor, who also played a suppor..."
+    --> Saved (labels_large_train.jsonl): In=912 Out=6 Latency=0.68s
+
+======================================================================
+[WORKER LARGE] Starting Large Tier: Train Split
+======================================================================
+======================================================================
+OPTIRAG LABELING JOB: TIER=LARGE | SPLIT=TRAIN | LIVE=True
+Provider: gemini | Model: gemini-3.5-flash-lite
+Output File: W:\opti-rag\results\labels_large_train.jsonl
+======================================================================
+Resuming: Found 23 already completed questions.
+Using the latest cached version of the dataset since hotpotqa/hotpot_qa couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'distractor' at C:\Users\ishaa\.cache\huggingface\datasets\hotpotqa___hotpot_qa\distractor\0.0.0\1908d6afbbead072334abe2965f91bd2709910ab (last modified on Wed Oct 28 16:07:01 2026).
+Total targeted questions: 200 | Remaining to process: 177
+
+Could not reach the Hub (Cannot reach https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2: offline mode is enabled. To disable it, please unset the `HF_HUB_OFFLINE` environment variable.). Using cached commit hash for 'sentence-transformers/all-MiniLM-L6-v2'.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights:   8%|7         | 8/103 [00:00<00:04, 22.64it/s]Loading weights:  28%|##8       | 29/103 [00:00<00:01, 71.55it/s]Loading weights: 100%|##########| 103/103 [00:00<00:00, 187.36it/s]
+[1/177] ID: 5ac1e6fe | LIVE CALL | InTokens=870 | Q: "What T.V. show did the episode Colonel Homer air on?"
+    --> Saved (labels_large_train.jsonl): In=900 Out=2 Latency=1.54s
+[2/177] ID: 5ae80c82 | LIVE CALL | InTokens=673 | Q: " Chairmen of the Bored is an album that references a jo..."
+    --> Saved (labels_large_train.jsonl): In=681 Out=3 Latency=0.86s
+[3/177] ID: 5aba813f | LIVE CALL | InTokens=805 | Q: "STS-7 was NASA's seventh Space Shuttle mission carried ..."
+    --> Saved (labels_large_train.jsonl): In=849 Out=2 Latency=1.01s
+[4/177] ID: 5ab39662 | LIVE CALL | InTokens=428 | Q: "Shottenstein Store Corp's primary holders are Jerome Sh..."
+    --> Saved (labels_large_train.jsonl): In=431 Out=4 Latency=0.68s
+[5/177] ID: 5a7b13b2 | LIVE CALL | InTokens=580 | Q: "Which is from farther west, Woman's Viewpoint or Al Jam..."
+    --> Saved (labels_large_train.jsonl): In=594 Out=5 Latency=0.65s
+[6/177] ID: 5ae7aae3 | LIVE CALL | InTokens=610 | Q: "What was the duck character's name in the Disney cartoo..."
+    --> Saved (labels_large_train.jsonl): In=618 Out=1 Latency=0.99s
+[7/177] ID: 5ae3641e | LIVE CALL | InTokens=954 | Q: "The singer who released the single "Kid Stuff" in 1973 ..."
+    --> Saved (labels_large_train.jsonl): In=1000 Out=6 Latency=0.78s
+[8/177] ID: 5ae0cb11 | LIVE CALL | InTokens=931 | Q: "What instrument did Shannon Leto play in his band Thirt..."
+    --> Saved (labels_large_train.jsonl): In=976 Out=1 Latency=0.68s
+[9/177] ID: 5a7c9474 | LIVE CALL | InTokens=686 | Q: "In which year was the farming simulation video game pub..."
+    --> Saved (labels_large_train.jsonl): In=724 Out=6 Latency=0.63s
+[10/177] ID: 5a7db4eb | LIVE CALL | InTokens=517 | Q: "Which Australian locality is 110 km north form the city..."
+    --> Saved (labels_large_train.jsonl): In=544 Out=6 Latency=0.92s
+[11/177] ID: 5ab9dbf0 | LIVE CALL | InTokens=666 | Q: "What musical did Dan Domenech perform in that was based..."
+    --> Saved (labels_large_train.jsonl): In=668 Out=2 Latency=0.99s
+[12/177] ID: 5a729119 | LIVE CALL | InTokens=546 | Q: "When did the singer of Mestarit salilla serve in the Fi..."
+    --> Saved (labels_large_train.jsonl): In=575 Out=6 Latency=1.49s
+[13/177] ID: 5a847de2 | LIVE CALL | InTokens=618 | Q: "Along what road was the former mall near White Flint st..."
+    --> Saved (labels_large_train.jsonl): In=655 Out=3 Latency=0.82s
+[14/177] ID: 5a72fcdc | LIVE CALL | InTokens=623 | Q: "Who lived longer, Lothar von Richthofen or  Wolfram Fre..."
+    --> Saved (labels_large_train.jsonl): In=620 Out=8 Latency=0.79s
+[15/177] ID: 5a863fc8 | LIVE CALL | InTokens=853 | Q: "Which court case occurred first, Phillips v. Martin Mar..."
+    --> Saved (labels_large_train.jsonl): In=933 Out=5 Latency=0.77s
+[16/177] ID: 5a819c51 | LIVE CALL | InTokens=1166 | Q: "Andrew Jaspan is the co-founder of a website that launc..."
+    --> Saved (labels_large_train.jsonl): In=1260 Out=4 Latency=0.95s
+[17/177] ID: 5a820307 | LIVE CALL | InTokens=819 | Q: "The 2009 Louisiana Tech Bulldogs football team was coac..."
+    --> Saved (labels_large_train.jsonl): In=882 Out=6 Latency=0.72s
+[18/177] ID: 5ae01a0f | LIVE CALL | InTokens=487 | Q: "Were Richard Bach and Paul Celan from the same country?"
+    --> Saved (labels_large_train.jsonl): In=523 Out=1 Latency=0.65s
+[19/177] ID: 5ab72be7 | LIVE CALL | InTokens=709 | Q: "Ernest Davies' successor was born on what date?"
+    --> Saved (labels_large_train.jsonl): In=767 Out=6 Latency=0.69s
+[20/177] ID: 5adfc1bd | LIVE CALL | InTokens=442 | Q: "When was the delusional anarchist from the television f..."
+    --> Saved (labels_large_train.jsonl): In=425 Out=6 Latency=0.83s
+[21/177] ID: 5ab708fe | LIVE CALL | InTokens=618 | Q: "Mandarin Oriental Macau is a hotel that overlooks what ..."
+    --> Saved (labels_large_train.jsonl): In=637 Out=3 Latency=0.72s
+[22/177] ID: 5a7772ac | LIVE CALL | InTokens=748 | Q: "Who was drafted into the 2009 NFL Draft, during the he ..."
+    --> Saved (labels_large_train.jsonl): In=816 Out=2 Latency=0.72s
+[23/177] ID: 5ab98602 | LIVE CALL | InTokens=572 | Q: "Mustang television and cinema promoted which brand of I..."
+    --> Saved (labels_large_train.jsonl): In=591 Out=4 Latency=0.70s
+[24/177] ID: 5ade8f87 | LIVE CALL | InTokens=556 | Q: "What is one of the many universities that Lennart Ander..."
+    --> Saved (labels_large_train.jsonl): In=578 Out=2 Latency=0.68s
+[25/177] ID: 5aba91cd | LIVE CALL | InTokens=831 | Q: "For what team is the cricket bowler, who is considered ..."
+    --> Saved (labels_large_train.jsonl): In=849 Out=6 Latency=0.74s
+[26/177] ID: 5a84b778 | LIVE CALL | InTokens=579 | Q: "What was the nationality of the comedian who died the d..."
+    --> Saved (labels_large_train.jsonl): In=599 Out=1 Latency=1.01s
+[27/177] ID: 5a7dbe21 | LIVE CALL | InTokens=470 | Q: "WikiLeak: Inside Julian Assange's War on Secrecy tells ..."
+    --> Saved (labels_large_train.jsonl): In=510 Out=6 Latency=0.82s
+[28/177] ID: 5ab6e1ef | LIVE CALL | InTokens=1376 | Q: "In the 2004-05 Season, The Houston Rockets acquired a c..."
+    --> Saved (labels_large_train.jsonl): In=1476 Out=6 Latency=1.27s
+[29/177] ID: 5a861e33 | LIVE CALL | InTokens=752 | Q: "David Snoke co-published a paper in 2004 with what Lehi..."
+    --> Saved (labels_large_train.jsonl): In=782 Out=3 Latency=0.73s
+[30/177] ID: 5adf957e | LIVE CALL | InTokens=853 | Q: "The Adventures of Elmo in Grouchland was a 1999 film wh..."
+    --> Saved (labels_large_train.jsonl): In=868 Out=2 Latency=1.01s
+[31/177] ID: 5ae1b376 | LIVE CALL | InTokens=706 | Q: "Which company is in the discount travel market, The Wal..."
+    --> Saved (labels_large_train.jsonl): In=726 Out=5 Latency=1.02s
+[32/177] ID: 5ab73f9a | LIVE CALL | InTokens=620 | Q: "Juliana Maria of Brunswick-Wolfenbüttel is a descendant..."
+    --> Saved (labels_large_train.jsonl): In=646 Out=6 Latency=1.29s
+[33/177] ID: 5aba9150 | LIVE CALL | InTokens=843 | Q: "Chris Bosh took over the role of fan favorite, and face..."
+    --> Saved (labels_large_train.jsonl): In=903 Out=2 Latency=0.74s
+[34/177] ID: 5a73fce3 | LIVE CALL | InTokens=675 | Q: "What flowering plant, first classified by Carl Linnaeus..."
+    --> Saved (labels_large_train.jsonl): In=649 Out=6 Latency=0.95s
+[35/177] ID: 5ae63d85 | LIVE CALL | InTokens=824 | Q: "What was the name of a United Stated Army officer durin..."
+    --> Saved (labels_large_train.jsonl): In=853 Out=3 Latency=0.75s
+[36/177] ID: 5a7c6c06 | LIVE CALL | InTokens=606 | Q: "Which band currently has more members, Last Dinosaurs o..."
+    --> Saved (labels_large_train.jsonl): In=592 Out=3 Latency=0.77s
+[37/177] ID: 5a7fa153 | LIVE CALL | InTokens=642 | Q: "What building in the 14th largest city in Georgia was a..."
+    --> Saved (labels_large_train.jsonl): In=690 Out=6 Latency=0.62s
+[38/177] ID: 5a8b85f3 | LIVE CALL | InTokens=536 | Q: "Jean-Baptiste Andrea wrote and directed what 2003 Frenc..."
+    --> Saved (labels_large_train.jsonl): In=560 Out=6 Latency=0.84s
+[39/177] ID: 5a7a7d6d | LIVE CALL | InTokens=456 | Q: "When was the founder of The City of Oxford High School ..."
+    --> Saved (labels_large_train.jsonl): In=479 Out=6 Latency=0.64s
+[40/177] ID: 5a802bfd | LIVE CALL | InTokens=684 | Q: "South Korean actress Bae Doona, known for her role in 2..."
+    --> Saved (labels_large_train.jsonl): In=717 Out=2 Latency=0.71s
+[41/177] ID: 5ae405d9 | LIVE CALL | InTokens=1099 | Q: "Uyirodu Uyiraga was a film that starred the Indian acto..."
+    --> Saved (labels_large_train.jsonl): In=1035 Out=6 Latency=0.71s
+[42/177] ID: 5a7e8f6d | LIVE CALL | InTokens=439 | Q: "The Creators and Best Boy were both produced before 200..."
+    --> Saved (labels_large_train.jsonl): In=454 Out=1 Latency=1.07s
+[43/177] ID: 5ae10f0d | LIVE CALL | InTokens=457 | Q: "what does Weihui and Weinan have in common?"
+    --> Saved (labels_large_train.jsonl): In=462 Out=6 Latency=0.73s
+[44/177] ID: 5a7772d2 | LIVE CALL | InTokens=684 | Q: "What is the name of the chartered trade company in whic..."
+    --> Saved (labels_large_train.jsonl): In=708 Out=4 Latency=0.62s
+[45/177] ID: 5ae333f0 | LIVE CALL | InTokens=711 | Q: "What type of institution are Kathmandu University and B..."
+    --> Saved (labels_large_train.jsonl): In=663 Out=1 Latency=0.70s
+[46/177] ID: 5aba934d | LIVE CALL | InTokens=740 | Q: "Which league does the team, where Alan McNeill played f..."
+    --> Saved (labels_large_train.jsonl): In=794 Out=6 Latency=0.79s
+[47/177] ID: 5adefa29 | LIVE CALL | InTokens=674 | Q: "Which filmmaker created the award winning film "La batt..."
+    --> Saved (labels_large_train.jsonl): In=682 Out=5 Latency=0.76s
+[48/177] ID: 5ac30156 | LIVE CALL | InTokens=737 | Q: "Were the Pecom 32 and the Apple I both produced before ..."
+    --> Saved (labels_large_train.jsonl): In=773 Out=1 Latency=0.87s
+[49/177] ID: 5a74fa4c | LIVE CALL | InTokens=452 | Q: "which Magazine was founded first, First for Women or He..."
+    --> Saved (labels_large_train.jsonl): In=495 Out=2 Latency=0.69s
+[50/177] ID: 5ac50b0a | LIVE CALL | InTokens=742 | Q: "What TV network founded in 1984 is co owned by the Hear..."
+    --> Saved (labels_large_train.jsonl): In=782 Out=6 Latency=0.92s
+[51/177] ID: 5a835393 | LIVE CALL | InTokens=816 | Q: "The best know of Austrian author Leopold von Sacher-Mas..."
+    --> Saved (labels_large_train.jsonl): In=817 Out=6 Latency=1.18s
+[52/177] ID: 5ade956b | LIVE CALL | InTokens=650 | Q: "What is the 2011 census population of this village and ..."
+    --> Saved (labels_large_train.jsonl): In=682 Out=6 Latency=0.72s
+[53/177] ID: 5abce6d4 | LIVE CALL | InTokens=508 | Q: "What year was the football player drafted that Nick Col..."
+    --> Saved (labels_large_train.jsonl): In=555 Out=6 Latency=1.08s
+[54/177] ID: 5a838e9c | LIVE CALL | InTokens=440 | Q: "Are both tennis players Kathy Jordan and Daniel Vacek f..."
+    --> Saved (labels_large_train.jsonl): In=459 Out=1 Latency=0.68s
+[55/177] ID: 5a833d88 | LIVE CALL | InTokens=689 | Q: "Chuck Jones directed a Warner Bros version of Jack and ..."
+    --> Saved (labels_large_train.jsonl): In=699 Out=4 Latency=1.88s
+[56/177] ID: 5a770990 | LIVE CALL | InTokens=547 | Q: "What is one of the oldest beverages humans have produce..."
+    --> Saved (labels_large_train.jsonl): In=543 Out=1 Latency=0.64s
+[57/177] ID: 5abe7778 | LIVE CALL | InTokens=588 | Q: "What German theoretical physicist has a chemistry rule ..."
+    --> Saved (labels_large_train.jsonl): In=599 Out=6 Latency=0.79s
+[58/177] ID: 5a8303d8 | LIVE CALL | InTokens=750 | Q: "What U.S. Navy battleship was in the movie Under Siege ..."
+    --> Saved (labels_large_train.jsonl): In=777 Out=2 Latency=0.74s
+[59/177] ID: 5ae40a52 | LIVE CALL | InTokens=624 | Q: "Where does the hockey team based in for which Darrel Sc..."
+    --> Saved (labels_large_train.jsonl): In=655 Out=1 Latency=1.06s
+[60/177] ID: 5a8c47c7 | LIVE CALL | InTokens=816 | Q: "During the 1985 World Games that took place at Slazenge..."
+    --> Saved (labels_large_train.jsonl): In=855 Out=8 Latency=0.85s
+[61/177] ID: 5adfbccf | LIVE CALL | InTokens=633 | Q: "What UNESCO World Heritage Site is located in Tamar Zis..."
+    --> Saved (labels_large_train.jsonl): In=634 Out=6 Latency=0.64s
+[62/177] ID: 5ac24c43 | LIVE CALL | InTokens=834 | Q: "Which British Olympic gold medalist participated in a b..."
+    --> Saved (labels_large_train.jsonl): In=886 Out=4 Latency=1.03s
+[63/177] ID: 5a791a80 | LIVE CALL | InTokens=469 | Q: "Who is younger Stanley Kwan or Atom Egoyan?"
+    --> Saved (labels_large_train.jsonl): In=479 Out=3 Latency=0.69s
+[64/177] ID: 5a8e05ce | LIVE CALL | InTokens=474 | Q: "How tall (in meters) is the mountain which was named af..."
+    --> Saved (labels_large_train.jsonl): In=475 Out=6 Latency=0.65s
+[65/177] ID: 5ab4154b | LIVE CALL | InTokens=659 | Q: "When was the political party, which along with the Soci..."
+    --> Saved (labels_large_train.jsonl): In=659 Out=4 Latency=0.72s
+[66/177] ID: 5adf6719 | LIVE CALL | InTokens=861 | Q: "In 2014, Clemson Tigers football team were invited to t..."
+    --> Saved (labels_large_train.jsonl): In=932 Out=6 Latency=0.65s
+[67/177] ID: 5a772e60 | LIVE CALL | InTokens=566 | Q: "What journalist born in 1966 served on the staff of a s..."
+    --> Saved (labels_large_train.jsonl): In=598 Out=6 Latency=0.87s
+[68/177] ID: 5a907ba5 | LIVE CALL | InTokens=625 | Q: "Were the bands Adam Again and Mastodon active at the sa..."
+    --> Saved (labels_large_train.jsonl): In=652 Out=1 Latency=0.69s
+[69/177] ID: 5ac49f31 | LIVE CALL | InTokens=980 | Q: "What do the roots that the alternative name of a Haugtu..."
+    --> Saved (labels_large_train.jsonl): In=951 Out=6 Latency=0.96s
+[70/177] ID: 5a86e652 | LIVE CALL | InTokens=858 | Q: "In what year was the University that Clive Baldock rece..."
+    --> Saved (labels_large_train.jsonl): In=864 Out=6 Latency=1.07s
+[71/177] ID: 5ac40ff0 | LIVE CALL | InTokens=692 | Q: "Name the country where both Aynalıkavak Palace and Ital..."
+    --> Saved (labels_large_train.jsonl): In=654 Out=1 Latency=0.67s
+[72/177] ID: 5a8a2b21 | LIVE CALL | InTokens=702 | Q: " Semi-Tough is a 1977 American comedy film starring  an..."
+    --> Saved (labels_large_train.jsonl): In=735 Out=5 Latency=0.68s
+[73/177] ID: 5a877b66 | LIVE CALL | InTokens=759 | Q: "What year did the second series of the show Colin Morga..."
+    --> Saved (labels_large_train.jsonl): In=827 Out=4 Latency=0.65s
+[74/177] ID: 5a7e04fa | LIVE CALL | InTokens=992 | Q: "Al Hirt played the theme song for the ABC US television..."
+    --> Saved (labels_large_train.jsonl): In=1034 Out=6 Latency=1.06s
+[75/177] ID: 5add75a3 | LIVE CALL | InTokens=591 | Q: "The movie "3 Ninjas" was released by which American fil..."
+    --> Saved (labels_large_train.jsonl): In=619 Out=3 Latency=0.77s
+[76/177] ID: 5abe9cc6 | LIVE CALL | InTokens=525 | Q: "In which town was the subject of the nursery rhyme with..."
+    --> Saved (labels_large_train.jsonl): In=566 Out=6 Latency=0.71s
+[77/177] ID: 5a775a45 | LIVE CALL | InTokens=711 | Q: "Which Australian actress and musician starred in little..."
+    --> Saved (labels_large_train.jsonl): In=750 Out=6 Latency=0.95s
+[78/177] ID: 5ab5a878 | LIVE CALL | InTokens=718 | Q: "Who was the African-American woman that succeeded Cathe..."
+    --> Saved (labels_large_train.jsonl): In=759 Out=6 Latency=3.67s
+[79/177] ID: 5a7a41c6 | LIVE CALL | InTokens=709 | Q: "Paul Pumphrey went to high school with a former WWE wre..."
+    --> Saved (labels_large_train.jsonl): In=757 Out=4 Latency=0.80s
+[80/177] ID: 5ab30334 | LIVE CALL | InTokens=684 | Q: "At what university in Georgia is Scott Lilienfeld a psy..."
+    --> Saved (labels_large_train.jsonl): In=710 Out=3 Latency=0.70s
+[81/177] ID: 5a7a8236 | LIVE CALL | InTokens=471 | Q: "The professional ice hockey league that the Peoria Rive..."
+    --> Saved (labels_large_train.jsonl): In=466 Out=2 Latency=0.65s
+[82/177] ID: 5a762c89 | LIVE CALL | InTokens=894 | Q: "Which national park is located in more provinces, Sierr..."
+    --> Saved (labels_large_train.jsonl): In=884 Out=6 Latency=0.71s
+[83/177] ID: 5ae588d1 | LIVE CALL | InTokens=647 | Q: ""Gone with the Wind" is set during what era?"
+    --> Saved (labels_large_train.jsonl): In=677 Out=6 Latency=0.86s
+[84/177] ID: 5ae5168f | LIVE CALL | InTokens=790 | Q: "The actor that played Sandy Stumphill in the sitcom "Fl..."
+    --> Saved (labels_large_train.jsonl): In=821 Out=6 Latency=0.75s
+[85/177] ID: 5a73849b | LIVE CALL | InTokens=609 | Q: "Which store located in the Gateway Fashion Mall is curr..."
+    --> Saved (labels_large_train.jsonl): In=637 Out=6 Latency=1.89s
+[86/177] ID: 5ae7e457 | LIVE CALL | InTokens=619 | Q: "What film type has been around since the early years of..."
+    --> Saved (labels_large_train.jsonl): In=629 Out=2 Latency=1.82s
+[87/177] ID: 5ab5e337 | LIVE CALL | InTokens=736 | Q: "Pauline was a journalist and the second wife of which A..."
+    --> Saved (labels_large_train.jsonl): In=786 Out=6 Latency=0.76s
+[88/177] ID: 5ae1020c | LIVE CALL | InTokens=618 | Q: "Which Premier League team does the Nike Hypervenom-wear..."
+    --> Saved (labels_large_train.jsonl): In=620 Out=2 Latency=0.88s
+[89/177] ID: 5a892591 | LIVE CALL | InTokens=678 | Q: "Who was formerly editor-in-chief of Marvel Comics, Arno..."
+    --> Saved (labels_large_train.jsonl): In=728 Out=2 Latency=1.08s
+[90/177] ID: 5a89fccc | LIVE CALL | InTokens=997 | Q: "In which film did Shirley Henderson appear with Tilda S..."
+    --> Saved (labels_large_train.jsonl): In=1063 Out=6 Latency=1.00s
+[91/177] ID: 5a81b485 | LIVE CALL | InTokens=540 | Q: ""I'm a Little Bit Country" is the fourth episode of the..."
+    --> Saved (labels_large_train.jsonl): In=578 Out=6 Latency=0.67s
+[92/177] ID: 5a8b3ae0 | LIVE CALL | InTokens=1126 | Q: "What was the famous work of an astronomer, mathematicia..."
+    --> Saved (labels_large_train.jsonl): In=1081 Out=8 Latency=0.83s
+[93/177] ID: 5a84b9ba | LIVE CALL | InTokens=664 | Q: "Who inspired a themed area included a dark ride attract..."
+    --> Saved (labels_large_train.jsonl): In=702 Out=6 Latency=0.70s
+[94/177] ID: 5ab3d31e | LIVE CALL | InTokens=680 | Q: "Where was the second most penalized brawl in the NBA?"
+    --> Saved (labels_large_train.jsonl): In=691 Out=3 Latency=3.07s
+[95/177] ID: 5a8f7f64 | LIVE CALL | InTokens=315 | Q: "Who directed the film in which Matthew Lintz plays Matt..."
+    --> Saved (labels_large_train.jsonl): In=331 Out=6 Latency=1.04s
+[96/177] ID: 5a7b69f7 | LIVE CALL | InTokens=708 | Q: "How many acres of land is the Box Moor Trust responsibl..."
+    --> Saved (labels_large_train.jsonl): In=718 Out=6 Latency=0.79s
+[97/177] ID: 5ae58e1f | LIVE CALL | InTokens=691 | Q: "Who is more of an independent artist, Pop Evil or Imoge..."
+    --> Saved (labels_large_train.jsonl): In=712 Out=6 Latency=2.70s
+[98/177] ID: 5a84b8ac | LIVE CALL | InTokens=745 | Q: "What type of fils are the Blue Vinyl and Girl 27?"
+    --> Saved (labels_large_train.jsonl): In=795 Out=3 Latency=0.64s
+[99/177] ID: 5ae295a3 | LIVE CALL | InTokens=590 | Q: "What recognitions did David Alan Mamet receive for the ..."
+    --> Saved (labels_large_train.jsonl): In=623 Out=6 Latency=0.83s
+[100/177] ID: 5ae13632 | LIVE CALL | InTokens=547 | Q: "James M. Long, was an American baseball player who play..."
+    --> Saved (labels_large_train.jsonl): In=587 Out=2 Latency=0.84s
+[101/177] ID: 5ae50aff | LIVE CALL | InTokens=488 | Q: "Which documentary film was released first, "Seal Island..."
+    --> Saved (labels_large_train.jsonl): In=519 Out=2 Latency=0.74s
+[102/177] ID: 5adbf9d8 | LIVE CALL | InTokens=811 | Q: "What is the main focus of both paragraphs?"
+    --> Saved (labels_large_train.jsonl): In=806 Out=6 Latency=0.81s
+[103/177] ID: 5ae75dd1 | LIVE CALL | InTokens=799 | Q: "When was the leader of "Citizens for Constitutional Fre..."
+    --> Saved (labels_large_train.jsonl): In=858 Out=6 Latency=1.06s
+[104/177] ID: 5ac10090 | LIVE CALL | InTokens=705 | Q: "Which river in the English county of Warwickshire has a..."
+    --> Saved (labels_large_train.jsonl): In=722 Out=2 Latency=0.74s
+[105/177] ID: 5a846e4c | LIVE CALL | InTokens=578 | Q: "Drivers Republic was founded in March 2008 by Steve Dav..."
+    --> Saved (labels_large_train.jsonl): In=595 Out=2 Latency=0.66s
+[106/177] ID: 5ab2a274 | LIVE CALL | InTokens=427 | Q: "Tourist Season, which is the first solo novel by Carl H..."
+    --> Saved (labels_large_train.jsonl): In=439 Out=4 Latency=1.08s
+[107/177] ID: 5ade5595 | LIVE CALL | InTokens=800 | Q: "What was the 2010 census population of the county in wh..."
+    --> Saved (labels_large_train.jsonl): In=814 Out=5 Latency=0.89s
+[108/177] ID: 5ade55c7 | LIVE CALL | InTokens=425 | Q: "Zwan and Noir Désir, have which genre in common?"
+    --> Saved (labels_large_train.jsonl): In=425 Out=6 Latency=0.76s
+[109/177] ID: 5abfce0e | LIVE CALL | InTokens=468 | Q: "Who did Leonid Kerber work with who was born in 1888?"
+    --> Saved (labels_large_train.jsonl): In=469 Out=4 Latency=0.70s
+[110/177] ID: 5a805065 | LIVE CALL | InTokens=496 | Q: "Both Ruby Yang and Marc Caro are french ?"
+    --> Saved (labels_large_train.jsonl): In=503 Out=1 Latency=1.01s
+[111/177] ID: 5ae32544 | LIVE CALL | InTokens=573 | Q: "What year did Les Scadding win the EuroMillions lottery..."
+    --> Saved (labels_large_train.jsonl): In=629 Out=4 Latency=0.68s
+[112/177] ID: 5a7e7054 | LIVE CALL | InTokens=577 | Q: "Medfield College is a fictitious university used as the..."
+    --> Saved (labels_large_train.jsonl): In=626 Out=12 Latency=1.01s
+[113/177] ID: 5ab98973 | LIVE CALL | InTokens=562 | Q: "What is the nationality of the person who played drums ..."
+    --> Saved (labels_large_train.jsonl): In=564 Out=1 Latency=0.76s
+[114/177] ID: 5a90a220 | LIVE CALL | InTokens=382 | Q: "Mark of the Gorilla is 1950 Jungle Jim film that starre..."
+    --> Saved (labels_large_train.jsonl): In=385 Out=6 Latency=0.72s
+[115/177] ID: 5ac48678 | LIVE CALL | InTokens=768 | Q: " Les nuits d'été is a song cycle by a romantic composer..."
+    --> Saved (labels_large_train.jsonl): In=786 Out=4 Latency=1.08s
+[116/177] ID: 5ae2d440 | LIVE CALL | InTokens=620 | Q: "On what date was the man whom Jamie Maclachlan played i..."
+    --> Saved (labels_large_train.jsonl): In=628 Out=6 Latency=0.97s
+[117/177] ID: 5abee0fe | LIVE CALL | InTokens=504 | Q: "Which of the following is usually garnished with a slic..."
+    --> Saved (labels_large_train.jsonl): In=509 Out=3 Latency=0.70s
+[118/177] ID: 5ae015a0 | LIVE CALL | InTokens=810 | Q: "The 2001 Rockingham 500 was a Championship Auto Racing ..."
+    --> Saved (labels_large_train.jsonl): In=885 Out=3 Latency=0.69s
+[119/177] ID: 5a74e31a | LIVE CALL | InTokens=511 | Q: "What did Wendy Toye and Paul Schrader both do for an oc..."
+    --> Saved (labels_large_train.jsonl): In=527 Out=6 Latency=0.74s
+[120/177] ID: 5ab2c99b | LIVE CALL | InTokens=668 | Q: "Which private, nonsectarian institution has a famous ar..."
+    --> Saved (labels_large_train.jsonl): In=694 Out=6 Latency=0.73s
+[121/177] ID: 5addfd77 | LIVE CALL | InTokens=559 | Q: "What role did Kurt McKinney play in the 1986 American m..."
+    --> Saved (labels_large_train.jsonl): In=573 Out=3 Latency=0.62s
+[122/177] ID: 5a873cb8 | LIVE CALL | InTokens=770 | Q: "What was the debut album of the founder of Reprise Reco..."
+    --> Saved (labels_large_train.jsonl): In=801 Out=6 Latency=0.64s
+[123/177] ID: 5adc8530 | LIVE CALL | InTokens=522 | Q: "Which breed of hound is known by more names, the Austri..."
+    --> Saved (labels_large_train.jsonl): In=504 Out=6 Latency=0.90s
+[124/177] ID: 5a70fc43 | LIVE CALL | InTokens=536 | Q: "What album has the song Stray Heart and was released th..."
+    --> Saved (labels_large_train.jsonl): In=571 Out=3 Latency=1.15s
+[125/177] ID: 5a727c99 | LIVE CALL | InTokens=609 | Q: "What is the name of the album by the English rock band ..."
+    --> Saved (labels_large_train.jsonl): In=633 Out=3 Latency=0.94s
+[126/177] ID: 5aba4c91 | LIVE CALL | InTokens=917 | Q: "What Hawaiian island is home to Taro, the most widely c..."
+    --> Saved (labels_large_train.jsonl): In=866 Out=2 Latency=0.76s
+[127/177] ID: 5a7c60bb | LIVE CALL | InTokens=303 | Q: "Who was born first, American novelist Tom Robbins or ma..."
+    --> Saved (labels_large_train.jsonl): In=330 Out=6 Latency=0.85s
+[128/177] ID: 5ab85f43 | LIVE CALL | InTokens=749 | Q: "What member of nobility does Dalmeny House and Barnboug..."
+    --> Saved (labels_large_train.jsonl): In=731 Out=4 Latency=1.04s
+[129/177] ID: 5ac2604e | LIVE CALL | InTokens=869 | Q: "Joel Meyerowitz taught photography at what privately fu..."
+    --> Saved (labels_large_train.jsonl): In=922 Out=2 Latency=0.81s
+[130/177] ID: 5ac3c23c | LIVE CALL | InTokens=859 | Q: "What country does Andhra Pradesh Randomized Evaluation ..."
+    --> Saved (labels_large_train.jsonl): In=863 Out=1 Latency=0.84s
+[131/177] ID: 5abde91e | LIVE CALL | InTokens=624 | Q: "What was the nationality of the winner of the 2007 Mast..."
+    --> Saved (labels_large_train.jsonl): In=671 Out=6 Latency=3.21s
+[132/177] ID: 5a712890 | LIVE CALL | InTokens=634 | Q: "Which singer debuted as a member of Super Junior and re..."
+    --> Saved (labels_large_train.jsonl): In=688 Out=2 Latency=0.79s
+[133/177] ID: 5ae533d7 | LIVE CALL | InTokens=560 | Q: "What country is the movie Waisa Bhi Hota Hai Part II an..."
+    --> Saved (labels_large_train.jsonl): In=509 Out=1 Latency=0.79s
+[134/177] ID: 5a72d672 | LIVE CALL | InTokens=917 | Q: "Which prominent mathematician in the Bernoulli family d..."
+    --> Saved (labels_large_train.jsonl): In=894 Out=2 Latency=0.94s
+[135/177] ID: 5a7da862 | LIVE CALL | InTokens=501 | Q: "Is the Herald or The Liberator Magazine published furth..."
+    --> Saved (labels_large_train.jsonl): In=529 Out=6 Latency=0.79s
+[136/177] ID: 5ab2dd2d | LIVE CALL | InTokens=805 | Q: "Which genus contais more species, Crowea or Zamioculcas..."
+    --> Saved (labels_large_train.jsonl): In=781 Out=2 Latency=0.86s
+[137/177] ID: 5ae20944 | LIVE CALL | InTokens=452 | Q: "The non-profit organization, Simon Youth Foundation's p..."
+    --> Saved (labels_large_train.jsonl): In=477 Out=3 Latency=0.75s
+[138/177] ID: 5ab1f811 | LIVE CALL | InTokens=574 | Q: "Game Face and March of the Penguins, are which type of ..."
+    --> Saved (labels_large_train.jsonl): In=587 Out=2 Latency=0.68s
+[139/177] ID: 5abe9377 | LIVE CALL | InTokens=935 | Q: "In which year was the arena opened in which Demi Lovato..."
+    --> Saved (labels_large_train.jsonl): In=989 Out=6 Latency=1.12s
+[140/177] ID: 5ab4f7b7 | LIVE CALL | InTokens=901 | Q: "The actress who played Margaret in The Wars of the Rose..."
+    --> Saved (labels_large_train.jsonl): In=927 Out=6 Latency=1.11s
+[141/177] ID: 5ac2c3be | LIVE CALL | InTokens=768 | Q: "The Nutcracker and the Four Realms is an upcoming film ..."
+    --> Saved (labels_large_train.jsonl): In=757 Out=6 Latency=0.85s
+[142/177] ID: 5ae53b3f | LIVE CALL | InTokens=559 | Q: "This EA video games series with Sweedish developers fea..."
+    --> Saved (labels_large_train.jsonl): In=581 Out=6 Latency=1.06s
+[143/177] ID: 5a7f36b0 | LIVE CALL | InTokens=695 | Q: "What band  consists of lead vocalist and guitarist Jon ..."
+    --> Saved (labels_large_train.jsonl): In=711 Out=4 Latency=1.17s
+[144/177] ID: 5ac194dc | LIVE CALL | InTokens=385 | Q: "The Mitchell County School District is a public school ..."
+    --> Saved (labels_large_train.jsonl): In=398 Out=2 Latency=0.82s
+[145/177] ID: 5ab5bee0 | LIVE CALL | InTokens=646 | Q: ""On a Good Night" is a song written by Larry Boone, Don..."
+    --> Saved (labels_large_train.jsonl): In=680 Out=2 Latency=0.89s
+[146/177] ID: 5addf858 | LIVE CALL | InTokens=567 | Q: "Who is the current director for the state pageant title..."
+    --> Saved (labels_large_train.jsonl): In=585 Out=6 Latency=1.83s
+[147/177] ID: 5a736f38 | LIVE CALL | InTokens=496 | Q: "What is the chemical formula of the kind of ash of whic..."
+    --> Saved (labels_large_train.jsonl): In=498 Out=6 Latency=0.86s
+[148/177] ID: 5a86a417 | LIVE CALL | InTokens=787 | Q: "Do both Platystemon and Aulax grow in soils?"
+    --> Saved (labels_large_train.jsonl): In=752 Out=1 Latency=0.65s
+[149/177] ID: 5ae74559 | LIVE CALL | InTokens=612 | Q: "The character Michael Guerin in the tv series "Roswell"..."
+    --> Saved (labels_large_train.jsonl): In=629 Out=5 Latency=0.73s
+[150/177] ID: 5adcc3ff | LIVE CALL | InTokens=933 | Q: "Who did Seymour Heller represent?"
+    --> Saved (labels_large_train.jsonl): In=975 Out=15 Latency=0.69s
+[151/177] ID: 5ae3bf0e | LIVE CALL | InTokens=664 | Q: "Rich Kids were a short-lived new wave band from London,..."
+    --> Saved (labels_large_train.jsonl): In=696 Out=4 Latency=0.71s
+[152/177] ID: 5ae2399f | LIVE CALL | InTokens=739 | Q: "Henry Durant went to this constituent college that has ..."
+    --> Saved (labels_large_train.jsonl): In=760 Out=2 Latency=0.94s
+[153/177] ID: 5ae5608a | LIVE CALL | InTokens=511 | Q: "What kind of compound is Oxalic acid?"
+    --> Saved (labels_large_train.jsonl): In=464 Out=2 Latency=0.86s
+[154/177] ID: 5a76ab38 | LIVE CALL | InTokens=555 | Q: "What film is a remake of the 1975 Disney film "Escape t..."
+    --> Saved (labels_large_train.jsonl): In=588 Out=4 Latency=0.68s
+[155/177] ID: 5a796285 | LIVE CALL | InTokens=765 | Q: "Elisabeth Marschall was the Head Nurse at Ravensbruck d..."
+    --> Saved (labels_large_train.jsonl): In=780 Out=6 Latency=1.19s
+[156/177] ID: 5a733813 | LIVE CALL | InTokens=595 | Q: "Which film based on a novel written by Mary Hayley Bell..."
+    --> Saved (labels_large_train.jsonl): In=624 Out=6 Latency=0.81s
+[157/177] ID: 5ade39cd | LIVE CALL | InTokens=866 | Q: "Vladmir Filatov was able to save the eyesight of sniper..."
+    --> Saved (labels_large_train.jsonl): In=825 Out=3 Latency=1.07s
+[158/177] ID: 5ae01fcf | LIVE CALL | InTokens=612 | Q: "Where is the hockey team based on with which  Sebastian..."
+    --> Saved (labels_large_train.jsonl): In=653 Out=2 Latency=0.66s
+[159/177] ID: 5adfe655 | LIVE CALL | InTokens=643 | Q: "What is the name of this American football coach and fo..."
+    --> Saved (labels_large_train.jsonl): In=667 Out=3 Latency=0.89s
+[160/177] ID: 5ae12053 | LIVE CALL | InTokens=680 | Q: "In what county is the university at which Walter Oechel..."
+    --> Saved (labels_large_train.jsonl): In=674 Out=2 Latency=0.69s
+[161/177] ID: 5a8b191a | LIVE CALL | InTokens=671 | Q: "What 1999 film, considered by many as one of the worst ..."
+    --> Saved (labels_large_train.jsonl): In=679 Out=4 Latency=0.84s
+[162/177] ID: 5ac1bc04 | LIVE CALL | InTokens=616 | Q: "Wyckoff Company and Pacific Creosoting Company have bee..."
+    --> Saved (labels_large_train.jsonl): In=640 Out=6 Latency=1.07s
+[163/177] ID: 5ae776b1 | LIVE CALL | InTokens=831 | Q: "From which city comes the band that put out the album "..."
+    --> Saved (labels_large_train.jsonl): In=855 Out=6 Latency=0.69s
+[164/177] ID: 5ab2091e | LIVE CALL | InTokens=804 | Q: "Who is a guest rapper in the song "Frankie Sinatra" and..."
+    --> Saved (labels_large_train.jsonl): In=850 Out=6 Latency=0.87s
+[165/177] ID: 5a738562 | LIVE CALL | InTokens=1009 | Q: "Arturo's right hand man was arrested for what charges i..."
+    --> Saved (labels_large_train.jsonl): In=1011 Out=4 Latency=1.03s
+[166/177] ID: 5ab46618 | LIVE CALL | InTokens=458 | Q: "In between The Murder of Fred Hampton and Comandante, w..."
+    --> Saved (labels_large_train.jsonl): In=487 Out=6 Latency=1.08s
+[167/177] ID: 5ab6dea6 | LIVE CALL | InTokens=651 | Q: "Bill Erwin played the bellhop Arthur in a 1980 movie th..."
+    --> Saved (labels_large_train.jsonl): In=682 Out=3 Latency=0.72s
+[168/177] ID: 5a7b19fb | LIVE CALL | InTokens=741 | Q: "Which college offers more majors, Western Institute of ..."
+    --> Saved (labels_large_train.jsonl): In=776 Out=6 Latency=1.03s
+[169/177] ID: 5adf82a3 | LIVE CALL | InTokens=624 | Q: "What is the name of the Brewery in Germany, which share..."
+    --> Saved (labels_large_train.jsonl): In=636 Out=6 Latency=8.26s
+[170/177] ID: 5abdab0a | LIVE CALL | InTokens=526 | Q: "When was the English poet, painter, and printmaker died..."
+    --> Saved (labels_large_train.jsonl): In=536 Out=6 Latency=1.21s
+[171/177] ID: 5adecf67 | LIVE CALL | InTokens=549 | Q: "Russian Dolls, is a 2005 French-British film, the seque..."
+    --> Saved (labels_large_train.jsonl): In=584 Out=6 Latency=0.81s
+[172/177] ID: 5a7e41c2 | LIVE CALL | InTokens=658 | Q: "What profession have both Guy Manos and Stanley Kramer ..."
+    --> Saved (labels_large_train.jsonl): In=697 Out=2 Latency=0.92s
+[173/177] ID: 5a7cde46 | LIVE CALL | InTokens=803 | Q: "Which President of Bayern Munich scored twice in the fi..."
+    --> Saved (labels_large_train.jsonl): In=852 Out=5 Latency=0.68s
+[174/177] ID: 5a7fbe2c | LIVE CALL | InTokens=480 | Q: "Julin Bristol is the codename given to a nuclear weapon..."
+    --> Saved (labels_large_train.jsonl): In=547 Out=3 Latency=0.74s
+[175/177] ID: 5a8b07ef | LIVE CALL | InTokens=916 | Q: "Barrier Device starred which Canadian actress, known fo..."
+    --> Saved (labels_large_train.jsonl): In=944 Out=2 Latency=0.64s
+[176/177] ID: 5a775bce | LIVE CALL | InTokens=738 | Q: "What kind of wood-bodied , single cone resonator instru..."
+    --> Saved (labels_large_train.jsonl): In=724 Out=2 Latency=0.75s
+[177/177] ID: 5ae82f85 | LIVE CALL | InTokens=701 | Q: "Which Halime Hatun son was the leader of the Ottoman Tu..."
+    --> Saved (labels_large_train.jsonl): In=661 Out=3 Latency=1.06s
+
+======================================================================
+LIVE LABELING PASS COMPLETE.
+Records successfully written to: W:\opti-rag\results\labels_large_train.jsonl
+======================================================================
+
+======================================================================
+OPTIRAG USAGE & BUDGET SUMMARY
+======================================================================
+Run Real Calls Made   : 177
+Run Cached Hits        : 0
+Run Dry-Run Calls      : 0
+Run Real Tokens (In/Out): 122992 / 754
+----------------------------------------------------------------------
+Daily Budget Status (Safety Ceilings Enforced):
+[groq:allam-2-7b] (Day: 2026-10-28)
+  Requests: 168 used / 6300 safe cap (Remaining: 6132)
+  Tokens  : 133717 used / 400000 safe cap (Remaining: 266283)
+[gemini:gemini-3.5-flash-lite] (Day: 2026-10-28)
+  Requests: 202 used / 450 safe cap (Remaining: 248)
+  Tokens  : 141350 used / None safe cap (Remaining: N/A)
+[groq:llama-3.3-70b-versatile] (Day: 2026-10-28)
+  Requests: 0 used / 900 safe cap (Remaining: 900)
+  Tokens  : 0 used / 80000 safe cap (Remaining: 80000)
+======================================================================
+
+
+======================================================================
+[WORKER LARGE] Train split completed. Starting Large Tier: Test Split
+======================================================================
+======================================================================
+OPTIRAG LABELING JOB: TIER=LARGE | SPLIT=TEST | LIVE=True
+Provider: gemini | Model: gemini-3.5-flash-lite
+Output File: W:\opti-rag\results\labels_large_test.jsonl
+======================================================================
+Using the latest cached version of the dataset since hotpotqa/hotpot_qa couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'distractor' at C:\Users\ishaa\.cache\huggingface\datasets\hotpotqa___hotpot_qa\distractor\0.0.0\1908d6afbbead072334abe2965f91bd2709910ab (last modified on Wed Oct 28 16:07:01 2026).
+Total targeted questions: 100 | Remaining to process: 100
+
+Could not reach the Hub (Cannot reach https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2: offline mode is enabled. To disable it, please unset the `HF_HUB_OFFLINE` environment variable.). Using cached commit hash for 'sentence-transformers/all-MiniLM-L6-v2'.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights:  12%|#1        | 12/103 [00:00<00:00, 119.13it/s]Loading weights: 100%|##########| 103/103 [00:00<00:00, 524.80it/s]
+[1/100] ID: 5ae3b8e9 | LIVE CALL | InTokens=609 | Q: "Family Circle and Avantages, are which forms of publica..."
+    --> Saved (labels_large_test.jsonl): In=636 Out=2 Latency=1.07s
+[2/100] ID: 5ae70e6f | LIVE CALL | InTokens=876 | Q: "What's the nickname for Grodziskie, the beer from Polan..."
+    --> Saved (labels_large_test.jsonl): In=864 Out=4 Latency=0.79s
+[3/100] ID: 5a7eb22b | LIVE CALL | InTokens=718 | Q: "Greenville, Indiana sits in a county of what population..."
+    --> Saved (labels_large_test.jsonl): In=810 Out=6 Latency=1.24s
+[4/100] ID: 5ae16050 | LIVE CALL | InTokens=637 | Q: "In what year was the British historian who was arrested..."
+    --> Saved (labels_large_test.jsonl): In=667 Out=6 Latency=0.84s
+[5/100] ID: 5a7dc942 | LIVE CALL | InTokens=560 | Q: "Suzy starred the actress who was a sex symbol of what d..."
+    --> Saved (labels_large_test.jsonl): In=576 Out=5 Latency=1.08s
+[6/100] ID: 5ae36cf7 | LIVE CALL | InTokens=1187 | Q: "In what year was the actress who played Holly Holliday ..."
+    --> Saved (labels_large_test.jsonl): In=1216 Out=6 Latency=1.14s
+[7/100] ID: 5abe6ebe | LIVE CALL | InTokens=687 | Q: "Liquid computing was coined in July 2014 by which infor..."
+    --> Saved (labels_large_test.jsonl): In=721 Out=2 Latency=2.43s
+[8/100] ID: 5a74f6b8 | LIVE CALL | InTokens=652 | Q: "Who is older, Jennifer Capriati or Pierre-Hugues Herber..."
+    --> Saved (labels_large_test.jsonl): In=682 Out=3 Latency=0.70s
+[9/100] ID: 5a8e46e7 | LIVE CALL | InTokens=729 | Q: "Alan Schilke is an engineer who made is mark on a steel..."
+    --> Saved (labels_large_test.jsonl): In=738 Out=6 Latency=0.75s
+[10/100] ID: 5ae0f680 | LIVE CALL | InTokens=906 | Q: "what does 1977–78 UCLA Bruins men's basketball team and..."
+    --> Saved (labels_large_test.jsonl): In=1002 Out=8 Latency=0.93s
+[11/100] ID: 5a8431b5 | LIVE CALL | InTokens=771 | Q: "Lane Boy was written by the musical duo hailing from wh..."
+    --> Saved (labels_large_test.jsonl): In=786 Out=6 Latency=0.95s
+[12/100] ID: 5a8aba9f | LIVE CALL | InTokens=709 | Q: "After he dissolved the monasteries, in 1545 Henry VIII ..."
+    --> Saved (labels_large_test.jsonl): In=733 Out=2 Latency=0.84s
+[13/100] ID: 5ac554ab | LIVE CALL | InTokens=462 | Q: "The Trials of Henry Kissinger and The Judge and the Gen..."
+    --> Saved (labels_large_test.jsonl): In=466 Out=3 Latency=0.67s
+[14/100] ID: 5ade9892 | LIVE CALL | InTokens=810 | Q: "The leader of the band that came out with Monuments to ..."
+    --> Saved (labels_large_test.jsonl): In=831 Out=6 Latency=0.79s
+[15/100] ID: 5addaf4b | LIVE CALL | InTokens=504 | Q: "Were "Oceans" and "Race to Witch Mountain" released in ..."
+    --> Saved (labels_large_test.jsonl): In=541 Out=1 Latency=1.06s
+[16/100] ID: 5a851078 | LIVE CALL | InTokens=542 | Q: "What kind of persona does the artist who released Speci..."
+    --> Saved (labels_large_test.jsonl): In=513 Out=2 Latency=1.01s
+[17/100] ID: 5a846191 | LIVE CALL | InTokens=683 | Q: "Community is an American television sitcom that follows..."
+    --> Saved (labels_large_test.jsonl): In=727 Out=2 Latency=0.79s
+[18/100] ID: 5a7e0825 | LIVE CALL | InTokens=728 | Q: "The Orford Express operates seasonally on a former line..."
+    --> Saved (labels_large_test.jsonl): In=743 Out=6 Latency=1.34s
+[19/100] ID: 5a80005f | LIVE CALL | InTokens=953 | Q: "What was a brief but violent period of civil unrest in ..."
+    --> Saved (labels_large_test.jsonl): In=988 Out=3 Latency=0.64s
+[20/100] ID: 5ae1d605 | LIVE CALL | InTokens=782 | Q: "Which English poet wrote travel "
+    --> Saved (labels_large_test.jsonl): In=777 Out=6 Latency=0.66s
+[21/100] ID: 5a7a244c | LIVE CALL | InTokens=445 | Q: "What is the country of origin of Brian Stepanek and the..."
+    --> Saved (labels_large_test.jsonl): In=464 Out=1 Latency=0.94s
+[22/100] ID: 5a78f73c | LIVE CALL | InTokens=578 | Q: "Chilly sings its popular songs such as 'Come to L.A.' a..."
+    --> Saved (labels_large_test.jsonl): In=600 Out=6 Latency=0.91s
+[23/100] ID: 5adff3bc | LIVE CALL | InTokens=661 | Q: "You're No Good: was covered in a charting version by wh..."
+    --> Saved (labels_large_test.jsonl): In=691 Out=6 Latency=0.71s
+[24/100] ID: 5a84a29d | LIVE CALL | InTokens=693 | Q: "Geraldine "Gerry" Cowper, an English actress who is bes..."
+    --> Saved (labels_large_test.jsonl): In=730 Out=2 Latency=0.68s
+[25/100] ID: 5abbe3e0 | LIVE CALL | InTokens=573 | Q: "Which cricketer is the younger brother of Jack Lindwall..."
+    --> Saved (labels_large_test.jsonl): In=607 Out=3 Latency=0.65s
+[26/100] ID: 5a7b5e55 | LIVE CALL | InTokens=494 | Q: "Which author was born first, Lorraine Hansberry or Sand..."
+    --> Saved (labels_large_test.jsonl): In=515 Out=6 Latency=0.76s
+[27/100] ID: 5abcfe43 | LIVE CALL | InTokens=463 | Q: "The 1905-1904 college basketball team lead by G.W. Leac..."
+    --> Saved (labels_large_test.jsonl): In=526 Out=6 Latency=0.79s
+[28/100] ID: 5a825f95 | LIVE CALL | InTokens=573 | Q: "Which co-founder of DreamWorks Studios directed two mov..."
+    --> Saved (labels_large_test.jsonl): In=588 Out=6 Latency=1.20s
+[29/100] ID: 5ae53413 | LIVE CALL | InTokens=929 | Q: "When was the American singer, guitarist, songwriter, an..."
+    --> Saved (labels_large_test.jsonl): In=983 Out=9 Latency=0.74s
+[30/100] ID: 5a84b8ff | LIVE CALL | InTokens=927 | Q: "Which state was this American lawyer and Republican pol..."
+    --> Saved (labels_large_test.jsonl): In=1002 Out=6 Latency=1.08s
+[31/100] ID: 5abfb1c8 | LIVE CALL | InTokens=960 | Q: "Rocket Science featured an interview with what US Air F..."
+    --> Saved (labels_large_test.jsonl): In=983 Out=3 Latency=1.04s
+[32/100] ID: 5a8abd76 | LIVE CALL | InTokens=553 | Q: "Which character is nicknamed "The Mountain" and played ..."
+    --> Saved (labels_large_test.jsonl): In=552 Out=9 Latency=1.10s
+[33/100] ID: 5ab98272 | LIVE CALL | InTokens=731 | Q: "Do either Chamaelirium or Aphyllanthes have more than o..."
+    --> Saved (labels_large_test.jsonl): In=703 Out=1 Latency=1.14s
+[34/100] ID: 5ac17a8c | LIVE CALL | InTokens=713 | Q: "Which mountain is higher, Broad Peak or Skyang Kangri?"
+    --> Saved (labels_large_test.jsonl): In=702 Out=6 Latency=0.71s
+[35/100] ID: 5ae39fa0 | LIVE CALL | InTokens=562 | Q: "What is the name of this Catholic University in Philide..."
+    --> Saved (labels_large_test.jsonl): In=604 Out=6 Latency=0.95s
+[36/100] ID: 5ac30136 | LIVE CALL | InTokens=318 | Q: "Are Pamianthe and Manglietia in the same family?"
+    --> Saved (labels_large_test.jsonl): In=304 Out=1 Latency=1.05s
+[37/100] ID: 5a775116 | LIVE CALL | InTokens=684 | Q: "What British-American actor born in 1952 starred in The..."
+    --> Saved (labels_large_test.jsonl): In=703 Out=6 Latency=0.59s
+[38/100] ID: 5ab578c6 | LIVE CALL | InTokens=589 | Q: "Where is the company that owns 13th Street Universal he..."
+    --> Saved (labels_large_test.jsonl): In=629 Out=7 Latency=1.21s
+[39/100] ID: 5abe5bb7 | LIVE CALL | InTokens=748 | Q: "When was the group founded which recorded the song Play..."
+    --> Saved (labels_large_test.jsonl): In=782 Out=6 Latency=0.75s
+[40/100] ID: 5abc7b8f | LIVE CALL | InTokens=686 | Q: "The Nakajima Ki-87 was a type of fighter aircraft desig..."
+    --> Saved (labels_large_test.jsonl): In=719 Out=6 Latency=1.63s
+[41/100] ID: 5ab90235 | LIVE CALL | InTokens=757 | Q: "Sid Haig had a role in the exploitation horror film rel..."
+    --> Saved (labels_large_test.jsonl): In=774 Out=4 Latency=0.95s
+[42/100] ID: 5a8f10bd | LIVE CALL | InTokens=586 | Q: "Brett Dier, who starred in "Jane the Virgin" appears on..."
+    --> Saved (labels_large_test.jsonl): In=605 Out=9 Latency=0.77s
+[43/100] ID: 5a8c7cdf | LIVE CALL | InTokens=842 | Q: "Michael Kelso is one of the male leads on the show that..."
+    --> Saved (labels_large_test.jsonl): In=873 Out=6 Latency=1.28s
+[44/100] ID: 5ab2ecb3 | LIVE CALL | InTokens=612 | Q: "Between University of Wyoming and Clarkson University, ..."
+    --> Saved (labels_large_test.jsonl): In=646 Out=3 Latency=0.67s
+[45/100] ID: 5adea690 | LIVE CALL | InTokens=481 | Q: "Here Is Always Somewhere Else and Football Under Cover,..."
+    --> Saved (labels_large_test.jsonl): In=494 Out=3 Latency=0.71s
+[46/100] ID: 5ac1b749 | LIVE CALL | InTokens=596 | Q: "What genre of music is the solo artist that contributed..."
+    --> Saved (labels_large_test.jsonl): In=610 Out=3 Latency=1.19s
+[47/100] ID: 5a80ac8c | LIVE CALL | InTokens=753 | Q: "Guitarist Dave Gregory is known best for his work with ..."
+    --> Saved (labels_large_test.jsonl): In=778 Out=6 Latency=0.74s
+[48/100] ID: 5ae669ac | LIVE CALL | InTokens=605 | Q: "In what year was Joy Enriquez's husband born?"
+    --> Saved (labels_large_test.jsonl): In=630 Out=6 Latency=0.79s
+[49/100] ID: 5a72948c | LIVE CALL | InTokens=871 | Q: "Which episode of Glee is named after a power ballad fro..."
+    --> Saved (labels_large_test.jsonl): In=916 Out=2 Latency=0.67s
+[50/100] ID: 5a88aca5 | LIVE CALL | InTokens=754 | Q: "In what city does Mike Carey coach women's basketball ?"
+    --> Saved (labels_large_test.jsonl): In=792 Out=3 Latency=0.82s
+[51/100] ID: 5a7ae069 | LIVE CALL | InTokens=576 | Q: "Giovanni Battista Castiglione was imprisoned in a tower..."
+    --> Saved (labels_large_test.jsonl): In=558 Out=6 Latency=0.83s
+[52/100] ID: 5a7c61d4 | LIVE CALL | InTokens=1037 | Q: "The actor who played John Aubrey in many productions of..."
+    --> Saved (labels_large_test.jsonl): In=1049 Out=6 Latency=0.95s
+[53/100] ID: 5ae490e5 | LIVE CALL | InTokens=769 | Q: "Bill Harry is the creator of the publication that was f..."
+    --> Saved (labels_large_test.jsonl): In=808 Out=1 Latency=0.85s
+[54/100] ID: 5ac3a866 | LIVE CALL | InTokens=813 | Q: "What 1980s soap opera did the actress, who also starred..."
+    --> Saved (labels_large_test.jsonl): In=855 Out=6 Latency=0.97s
+[55/100] ID: 5ae78cef | LIVE CALL | InTokens=423 | Q: "The Wave is the debut solo studio album by the English ..."
+    --> Saved (labels_large_test.jsonl): In=441 Out=2 Latency=0.72s
+[56/100] ID: 5ab37b84 | LIVE CALL | InTokens=790 | Q: "Are Jenůfa and The Knot Garden operas?"
+    --> Saved (labels_large_test.jsonl): In=779 Out=1 Latency=0.69s
+[57/100] ID: 5a88aad5 | LIVE CALL | InTokens=801 | Q: "The Three Bogatyrs, is an animated franchise produced b..."
+    --> Saved (labels_large_test.jsonl): In=770 Out=5 Latency=0.63s
+[58/100] ID: 5abce496 | LIVE CALL | InTokens=752 | Q: "Bloomfield, Montana is in the county that had a 2010 po..."
+    --> Saved (labels_large_test.jsonl): In=837 Out=5 Latency=0.72s
+[59/100] ID: 5a8488d5 | LIVE CALL | InTokens=1024 | Q: "John D'Leo (born July 8, 1995) is an American actor, he..."
+    --> Saved (labels_large_test.jsonl): In=1073 Out=2 Latency=0.92s
+[60/100] ID: 5ab26893 | LIVE CALL | InTokens=731 | Q: "Where did the actor performing the voice of Bleeding Gu..."
+    --> Saved (labels_large_test.jsonl): In=747 Out=6 Latency=0.65s
+[61/100] ID: 5ae59f13 | LIVE CALL | InTokens=684 | Q: "What is the name of the famous dancer, taught by Richar..."
+    --> Saved (labels_large_test.jsonl): In=706 Out=4 Latency=1.24s
+[62/100] ID: 5ac30964 | LIVE CALL | InTokens=749 | Q: "The Girl In 14G is a song by the composer of what natio..."
+    --> Saved (labels_large_test.jsonl): In=778 Out=6 Latency=0.67s
+[63/100] ID: 5ae7ef65 | LIVE CALL | InTokens=731 | Q: "What was the debut album of the Australian band whose d..."
+    --> Saved (labels_large_test.jsonl): In=760 Out=6 Latency=0.89s
+[64/100] ID: 5ae22ef4 | LIVE CALL | InTokens=649 | Q: "What is the name of the comedian that uses one-liner jo..."
+    --> Saved (labels_large_test.jsonl): In=677 Out=2 Latency=0.94s
+[65/100] ID: 5a74af4d | LIVE CALL | InTokens=532 | Q: "Who was born first, Milan Kundera or Daniil Kharms?"
+    --> Saved (labels_large_test.jsonl): In=549 Out=4 Latency=1.04s
+[66/100] ID: 5a7bd5b1 | LIVE CALL | InTokens=853 | Q: "Which subgenre of dark wave music was performed by the ..."
+    --> Saved (labels_large_test.jsonl): In=863 Out=4 Latency=0.85s
+[67/100] ID: 5a8e4e3f | LIVE CALL | InTokens=669 | Q: " Symphony No. 2 in C major was dedicated to a Duke whos..."
+    --> Saved (labels_large_test.jsonl): In=700 Out=6 Latency=0.72s
+[68/100] ID: 5a76a116 | LIVE CALL | InTokens=909 | Q: "Wilhelm Reich and Jorge Luis Borges, have which occupat..."
+    --> Saved (labels_large_test.jsonl): In=885 Out=6 Latency=0.84s
+[69/100] ID: 5abd09cd | LIVE CALL | InTokens=772 | Q: "Frannie Lindsay earned her B.A. from a women's college ..."
+    --> Saved (labels_large_test.jsonl): In=794 Out=6 Latency=0.74s
+[70/100] ID: 5ab6895d | LIVE CALL | InTokens=573 | Q: "For what was the person with which Phair began the prod..."
+    --> Saved (labels_large_test.jsonl): In=612 Out=6 Latency=0.96s
+[71/100] ID: 5adfed0b | LIVE CALL | InTokens=666 | Q: "What album took over two years to create and contained ..."
+    --> Saved (labels_large_test.jsonl): In=694 Out=6 Latency=0.98s
+[72/100] ID: 5a8c4ad4 | LIVE CALL | InTokens=862 | Q: "Did Daphne and Iolanta premiere within 5 years of each ..."
+    --> Saved (labels_large_test.jsonl): In=869 Out=6 Latency=0.99s
+[73/100] ID: 5ae58ba0 | LIVE CALL | InTokens=781 | Q: "Matt Harrigan created and hosts which American talk sho..."
+    --> Saved (labels_large_test.jsonl): In=823 Out=3 Latency=1.07s
+[74/100] ID: 5ab5d56c | LIVE CALL | InTokens=639 | Q: "The Missouri Rhineland is a geographical area located m..."
+    --> Saved (labels_large_test.jsonl): In=645 Out=6 Latency=0.84s
+[75/100] ID: 5a7f4768 | LIVE CALL | InTokens=550 | Q: "Are the poets Lavinia Greenlaw and Marge Piercy of the ..."
+    --> Saved (labels_large_test.jsonl): In=562 Out=1 Latency=1.21s
+[76/100] ID: 5ab927c9 | LIVE CALL | InTokens=608 | Q: "where is the Dunn memorial bridge located"
+    --> Saved (labels_large_test.jsonl): In=628 Out=12 Latency=1.43s
+[77/100] ID: 5abe77da | LIVE CALL | InTokens=607 | Q: "Which magazine Decibel or Skeptic is published more fre..."
+    --> Saved (labels_large_test.jsonl): In=636 Out=2 Latency=0.88s
+[78/100] ID: 5ac4c6cd | LIVE CALL | InTokens=683 | Q: "In which soap opera did Australian star of The Duel pla..."
+    --> Saved (labels_large_test.jsonl): In=712 Out=2 Latency=0.63s
+[79/100] ID: 5abba28c | LIVE CALL | InTokens=764 | Q: "Run was covered by what actor and singer from Derry, No..."
+    --> Saved (labels_large_test.jsonl): In=802 Out=6 Latency=0.71s
+[80/100] ID: 5ab50a54 | LIVE CALL | InTokens=855 | Q: "Randal Cornell Teague is the former chief of staff and ..."
+    --> Saved (labels_large_test.jsonl): In=913 Out=6 Latency=0.67s
+[81/100] ID: 5ac517f9 | LIVE CALL | InTokens=879 | Q: "Wicksteed Park is the second oldest theme park in the U..."
+    --> Saved (labels_large_test.jsonl): In=883 Out=2 Latency=0.96s
+[82/100] ID: 5a8cdad5 | LIVE CALL | InTokens=480 | Q: " Clark Mountain is a summit in a county with a 2010 pop..."
+    --> Saved (labels_large_test.jsonl): In=509 Out=6 Latency=0.77s
+[83/100] ID: 5ade7b86 | LIVE CALL | InTokens=783 | Q: "PostNL is a mail, parcel and e-commerce corporation lis..."
+    --> Saved (labels_large_test.jsonl): In=816 Out=6 Latency=0.80s
+[84/100] ID: 5ab5e06c | LIVE CALL | InTokens=396 | Q: "What country of origin does Smitty and Louis Gossett Jr..."
+    --> Saved (labels_large_test.jsonl): In=408 Out=1 Latency=0.69s
+[85/100] ID: 5a78ae3c | LIVE CALL | InTokens=755 | Q: "What band is widely credited as one of the pioneers of ..."
+    --> Saved (labels_large_test.jsonl): In=795 Out=6 Latency=1.09s
+[86/100] ID: 5ab252fd | LIVE CALL | InTokens=844 | Q: "What Oklahoma City Thunder basketball player is feature..."
+    --> Saved (labels_large_test.jsonl): In=897 Out=3 Latency=1.54s
+[87/100] ID: 5a7720f0 | LIVE CALL | InTokens=947 | Q: "What former host at TVB later starred in Love as a Pred..."
+    --> Saved (labels_large_test.jsonl): In=938 Out=6 Latency=1.04s
+[88/100] ID: 5adf706f | LIVE CALL | InTokens=689 | Q: "Both Olympia Entertainment and Joe Louis Arena are loca..."
+    --> Saved (labels_large_test.jsonl): In=714 Out=1 Latency=1.28s
+[89/100] ID: 5a8a11e0 | LIVE CALL | InTokens=668 | Q: "What animal does Havanese and Alpine Dachsbracke have i..."
+    --> Saved (labels_large_test.jsonl): In=628 Out=6 Latency=0.70s
+[90/100] ID: 5ab6101f | LIVE CALL | InTokens=776 | Q: "In which county is the city in which Time Hill is locat..."
+    --> Saved (labels_large_test.jsonl): In=793 Out=2 Latency=0.97s
+[91/100] ID: 5ae0f42d | LIVE CALL | InTokens=593 | Q: "Which character's past is explored in J.K. Rowling's si..."
+    --> Saved (labels_large_test.jsonl): In=626 Out=3 Latency=0.97s
+[92/100] ID: 5ab9380c | LIVE CALL | InTokens=943 | Q: "Are the bands Flow and Against the Current from the sam..."
+    --> Saved (labels_large_test.jsonl): In=947 Out=1 Latency=0.98s
+[93/100] ID: 5a75f657 | LIVE CALL | InTokens=908 | Q: "Where are the studios of the station that broadcasts "T..."
+    --> Saved (labels_large_test.jsonl): In=947 Out=3 Latency=0.97s
+[94/100] ID: 5aba7429 | LIVE CALL | InTokens=723 | Q: "Are Prince of Wales and Jägerbomb both beer-based mixed..."
+    --> Saved (labels_large_test.jsonl): In=715 Out=6 Latency=0.96s
+[95/100] ID: 5a76597b | LIVE CALL | InTokens=390 | Q: "Who is older, Alexander Razborov or Pyotr Novikov?"
+    --> Saved (labels_large_test.jsonl): In=378 Out=4 Latency=0.73s
+[96/100] ID: 5a79fdb4 | LIVE CALL | InTokens=694 | Q: "What studio album self-released on 10 October 2007 as a..."
+    --> Saved (labels_large_test.jsonl): In=712 Out=6 Latency=0.68s
+[97/100] ID: 5a736ee2 | LIVE CALL | InTokens=529 | Q: "Situated on the west bank of the Nile, opposite Luxor, ..."
+    --> Saved (labels_large_test.jsonl): In=536 Out=6 Latency=0.74s
+[98/100] ID: 5abd9a27 | LIVE CALL | InTokens=736 | Q: "What Turkish city between the Karakum Desert and the Ko..."
+    --> Saved (labels_large_test.jsonl): In=727 Out=3 Latency=1.03s
+[99/100] ID: 5a8cebfa | LIVE CALL | InTokens=667 | Q: "Which Queen of England and Ireland who lived from 18 Fe..."
+    --> Saved (labels_large_test.jsonl): In=706 Out=2 Latency=0.73s
+[100/100] ID: 5ab31010 | LIVE CALL | InTokens=963 | Q: "WTMA (branded as News Talk 1250 WTMA) is an AM radio st..."
+    --> Saved (labels_large_test.jsonl): In=996 Out=3 Latency=1.08s
+
+======================================================================
+LIVE LABELING PASS COMPLETE.
+Records successfully written to: W:\opti-rag\results\labels_large_test.jsonl
+======================================================================
+
+======================================================================
+OPTIRAG USAGE & BUDGET SUMMARY
+======================================================================
+Run Real Calls Made   : 100
+Run Cached Hits        : 0
+Run Dry-Run Calls      : 0
+Run Real Tokens (In/Out): 72718 / 448
+----------------------------------------------------------------------
+Daily Budget Status (Safety Ceilings Enforced):
+[groq:allam-2-7b] (Day: 2026-10-28)
+  Requests: 250 used / 6300 safe cap (Remaining: 6050)
+  Tokens  : 198945 used / 400000 safe cap (Remaining: 201055)
+[gemini:gemini-3.5-flash-lite] (Day: 2026-10-28)
+  Requests: 302 used / 450 safe cap (Remaining: 148)
+  Tokens  : 214516 used / None safe cap (Remaining: N/A)
+[groq:llama-3.3-70b-versatile] (Day: 2026-10-28)
+  Requests: 0 used / 900 safe cap (Remaining: 900)
+  Tokens  : 0 used / 80000 safe cap (Remaining: 80000)
+======================================================================
+
+
+======================================================================
+[WORKER LARGE] ALL DONE (Train + Test finished successfully)
+======================================================================

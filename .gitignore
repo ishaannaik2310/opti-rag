@@ -1,0 +1,22 @@
+# Environment & Secrets
+.env
+.env.*
+
+# Virtual Environment
+venv/
+.venv/
+
+# Caches
+.cache/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Backups & Local Scratch
+backups/
+scratch/
+
+# System
+.DS_Store
+Thumbs.db
+

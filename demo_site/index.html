@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OptiRAG-lite: Cost-Aware Cascade Routing & Safe Context Compression</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Mandatory Top Notice Banner -->
+  <div class="top-banner">
+    <span class="badge-pill">Zero-Cost Offline Demo</span>
+    Replay of cached results for 100 HotpotQA test questions. No live model calls. Costs are simulated at list prices (small model: proxy price).
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="brand-row">
+      <div class="logo-group">
+        <h1>OptiRAG-<span>lite</span></h1>
+        <p>Resource-Constrained RAG Optimization: Retrieval Telemetry Cascade Routing & Protected Token Masking (PTM)</p>
+      </div>
+      <div>
+        <span class="badge badge-info" style="font-size: 13px;">Author: Ishaan Naik &bull; Symbiosis Institute of Technology</span>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs" role="tablist">
+      <button class="tab-btn active" data-tab="pipeline" role="tab">Pipeline Demo</button>
+      <button class="tab-btn" data-tab="mask" role="tab">Try the Mask</button>
+      <button class="tab-btn" data-tab="results" role="tab">Results</button>
+      <button class="tab-btn" data-tab="about" role="tab">About</button>
+    </nav>
+  </header>
+
+  <!-- Main Container -->
+  <main>
+
+    <!-- ============================================================== -->
+    <!-- TAB 1: PIPELINE DEMO -->
+    <!-- ============================================================== -->
+    <section id="tab-pipeline" class="tab-content active">
+
+      <!-- Query Selector -->
+      <div class="query-picker-row">
+        <div class="search-wrap">
+          <input type="text" id="querySearch" placeholder="Type to filter 100 test questions by keyword or ID..." autocomplete="off">
+          <select id="querySelect" style="margin-top: 8px;">
+            <option value="">Loading test questions...</option>
+          </select>
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+          <button id="btnRandom" class="btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+            Random Question
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 1: Question & Gold Answer -->
+      <div class="card">
+        <div class="card-title">
+          <span class="step-num">1</span>
+          <span>Question & Retrieval Target</span>
+          <span id="qidBadge" style="margin-left: auto; font-size: 13px; font-weight: 600; color: #94a3b8; font-family: ui-monospace, monospace;"></span>
+        </div>
+        <div class="question-box">
+          <div id="questionText" class="q-text">Loading question...</div>
+          <div class="gold-reveal-area">
+            <button id="btnRevealGold" class="btn btn-secondary btn-sm">Reveal Gold Answer</button>
+            <div id="goldAnswerContainer" style="display: none; align-items: center; gap: 8px;">
+              <span style="font-size: 14px; color: #94a3b8; font-weight: 700;">GROUND TRUTH:</span>
+              <span id="goldAnswerText" class="gold-ans-tag"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Dense Retrieval Chunks & Telemetry -->
+      <div class="card">
+        <div class="card-title">
+          <span class="step-num">2</span>
+          <span>Retrieval Telemetry (MiniLM-L6-v2 + FAISS Dense Top-5)</span>
+          <span id="retrievalCoverageBadge" style="margin-left: auto; display: none;"></span>
+        </div>
+        <div id="chunksList" class="chunks-grid">
+          <!-- Populated by JS -->
+        </div>
+        <div class="metric-strip" id="telemetryStrip" style="margin-top: 16px;">
+          <!-- 8 Telemetry Features -->
+        </div>
+      </div>
+
+      <!-- Step 3: Cascade Router Decision -->
+      <div class="card">
+        <div class="card-title">
+          <span class="step-num">3</span>
+          <span>Adaptive Cascade Router</span>
+        </div>
+        <div class="router-controls">
+          <div class="control-group">
+            <label for="routerVariantSelect">Router Model Variant</label>
+            <select id="routerVariantSelect">
+              <option value="telemetry_only_logistic" selected>Telemetry-Only (Logistic Regression, 8 features) [Recommended]</option>
+              <option value="telemetry_only_mlp">Telemetry-Only (PyTorch MLP, 8 features)</option>
+              <option value="query_only_logistic">Query-Only (Logistic Regression, 385 features)</option>
+              <option value="both_logistic">Both Features (Logistic Regression, 393 features)</option>
+              <option value="heuristic">Heuristic Baseline (Score &lt; 0.70 or keyword)</option>
+            </select>
+            <p id="variantDesc" style="font-size: 13px; color: #94a3b8; margin-top: 6px;"></p>
+          </div>
+          <div class="control-group" id="thresholdControlGroup">
+            <label for="thresholdSlider">
+              Escalation Threshold &tau; 
+              <span style="font-weight: 400; color: #38bdf8;">(Train-calibrated: &tau; = 0.520 for 30% Large budget)</span>
+            </label>
+            <div class="slider-row">
+              <input type="range" id="thresholdSlider" min="0.00" max="1.00" step="0.01" value="0.52">
+              <span id="thresholdValue" class="slider-val">0.52</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 12px; color: #64748b; margin-top: 4px;">
+              <span>0.0 (Always Large)</span>
+              <span>Default: 0.52</span>
+              <span>1.0 (Always Small)</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="routerDecisionBanner" class="router-decision-box">
+          <div>
+            <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8;">Predicted P(hard = 1)</div>
+            <div id="probHardValue" style="font-size: 26px; font-weight: 800; font-family: ui-monospace, monospace;">0.0000</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8;">Routing Action</div>
+            <div id="decisionText" style="font-size: 22px; font-weight: 800;">ROUTE -> SMALL TIER</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4: PTM Context Compression -->
+      <div class="card">
+        <div class="card-title">
+          <span class="step-num">4</span>
+          <span>Protected Token Mask (PTM) & Context Compression</span>
+        </div>
+
+        <div class="compression-toggle-row">
+          <label class="switch-label">
+            <input type="checkbox" id="compressToggle" class="switch-input" checked>
+            <span>Enable PTM + LLMLingua-2 Context Compression (Target Rate: 0.5)</span>
+          </label>
+          <div id="compBypassBadge" style="font-size: 14px; font-weight: 700;"></div>
+        </div>
+
+        <div class="legend-strip">
+          <span style="font-weight: 700; color: #94a3b8; font-size: 13px;">PTM PROTECTED TOKENS:</span>
+          <span class="legend-item"><span class="legend-color" style="background: var(--ptm-currency)"></span> Currency</span>
+          <span class="legend-item"><span class="legend-color" style="background: var(--ptm-date)"></span> Date</span>
+          <span class="legend-item"><span class="legend-color" style="background: var(--ptm-percent)"></span> Percent</span>
+          <span class="legend-item"><span class="legend-color" style="background: var(--ptm-negation)"></span> Negation</span>
+          <span class="legend-item"><span class="legend-color" style="background: var(--ptm-number)"></span> Number</span>
+        </div>
+
+        <div class="context-compare-grid">
+          <div class="context-col">
+            <div class="col-header">
+              <span>ORIGINAL CONTEXT (WITH PTM SPANS)</span>
+              <span id="origTokCount">Tokens: -</span>
+            </div>
+            <div id="originalContextView" class="context-text-area"></div>
+          </div>
+          <div class="context-col">
+            <div class="col-header">
+              <span>COMPRESSED CONTEXT (LLMLINGUA-2 + PTM)</span>
+              <span id="compTokCount">Tokens: -</span>
+            </div>
+            <div id="compressedContextView" class="context-text-area"></div>
+          </div>
+        </div>
+
+        <p style="font-size: 13px; color: #94a3b8; margin-top: 12px; font-style: italic;">
+          * Note: Context compression was precomputed on CPU in this project; takes about 7 s per query on 2 CPU threads.
+        </p>
+      </div>
+
+      <!-- Step 5: Final Dispatch, Answers & Simulated Economics -->
+      <div class="card">
+        <div class="card-title">
+          <span class="step-num">5</span>
+          <span>Final Dispatch, Answer & Simulated Economics</span>
+        </div>
+
+        <div class="outcome-grid">
+          <div class="answer-card">
+            <div class="answer-lead" id="activeModelLabel">Served by Small Tier (ALLaM-2-7B on Groq)</div>
+            <div id="activeAnswerText" class="model-answer-text">"Loading answer..."</div>
+            <div id="evalBadgeContainer" style="margin-top: 12px; display: none;">
+              <!-- Correct / Incorrect badge shown after gold reveal -->
+            </div>
+          </div>
+
+          <div class="answer-card" style="display: flex; flex-direction: column; justify-content: center;">
+            <div class="metric-strip" style="flex-direction: column; gap: 10px;">
+              <div class="metric-box">
+                <div class="label">LLM Latency</div>
+                <div id="valLlmLats" class="val">- s</div>
+              </div>
+              <div class="metric-box">
+                <div class="label">End-to-End Latency</div>
+                <div id="valE2eLats" class="val">- s</div>
+              </div>
+              <div class="metric-box">
+                <div class="label">Simulated Cost / 1k</div>
+                <div id="valCost1k" class="val">$ -</div>
+              </div>
+              <div class="metric-box">
+                <div class="label">Simulated Cost / Query</div>
+                <div id="valCostQuery" class="val">$ -</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- TAB 2: TRY THE MASK (PTM LIVE TESTER) -->
+    <!-- ============================================================== -->
+    <section id="tab-mask" class="tab-content">
+      <div class="card">
+        <div class="card-title">
+          <span>Protected Token Mask (PTM) Interactive Sandbox</span>
+          <span class="badge badge-info" style="margin-left: auto; font-size: 13px;">Runs 100% Client-Side JS</span>
+        </div>
+        <p style="color: #94a3b8; margin-bottom: 16px;">
+          Type or paste any text below. The JavaScript engine (with 100% exact parity to Python <code>ptm.py</code>) instantly scans and highlights high-entropy tokens across 5 entity types.
+          <strong style="color: #38bdf8;">Note: This panel runs the mask only, not the neural compressor.</strong>
+        </p>
+
+        <!-- Quick example buttons -->
+        <div style="display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap;">
+          <span style="font-size: 14px; font-weight: 700; color: #94a3b8; align-self: center;">One-Click Examples:</span>
+          <button id="exBtnFinance" class="btn btn-secondary btn-sm">Financial & Negation</button>
+          <button id="exBtnBio" class="btn btn-secondary btn-sm">Date-Heavy Biography</button>
+          <button id="exBtnPlain" class="btn btn-secondary btn-sm">Plain Sentence (No Entities)</button>
+        </div>
+
+        <textarea id="maskInput" rows="5" placeholder="Type or paste arbitrary text here..."></textarea>
+
+        <div class="legend-strip" style="margin-top: 16px;">
+          <span style="font-weight: 700; color: #94a3b8; font-size: 14px;">LEGEND:</span>
+          <span class="legend-item"><span class="legend-color" style="background: var(--ptm-currency)"></span> Currency</span>
+          <span class="legend-item"><span class="legend-color" style="background: var(--ptm-date)"></span> Date</span>
+          <span class="legend-item"><span class="legend-color" style="background: var(--ptm-percent)"></span> Percent</span>
+          <span class="legend-item"><span class="legend-color" style="background: var(--ptm-negation)"></span> Negation</span>
+          <span class="legend-item"><span class="legend-color" style="background: var(--ptm-number)"></span> Number</span>
+        </div>
+
+        <div style="margin-top: 16px;">
+          <div style="font-size: 13px; font-weight: 700; color: #94a3b8; text-transform: uppercase; margin-bottom: 6px;">Live Highlighted Preview</div>
+          <div id="maskHighlightPreview" class="context-text-area" style="background: #090d16; min-height: 120px; border: 1px solid #1e293b; border-radius: 6px; padding: 16px;"></div>
+        </div>
+
+        <!-- Entity Counts and Word Stats -->
+        <div class="metric-strip" style="margin-top: 20px;">
+          <div class="metric-box">
+            <div class="label">Currency Spans</div>
+            <div id="cntCurrency" class="val">0</div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Date Spans</div>
+            <div id="cntDate" class="val">0</div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Percent Spans</div>
+            <div id="cntPercent" class="val">0</div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Negation Spans</div>
+            <div id="cntNegation" class="val">0</div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Number Spans</div>
+            <div id="cntNumber" class="val">0</div>
+          </div>
+          <div class="metric-box" style="border-color: #38bdf8;">
+            <div class="label">Words Protected</div>
+            <div id="pctProtectedWords" class="val" style="color: #38bdf8;">0.0%</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- TAB 3: RESULTS & PUBLICATION FINDINGS -->
+    <!-- ============================================================== -->
+    <section id="tab-results" class="tab-content">
+      
+      <!-- Key Findings Callout -->
+      <div class="findings-box">
+        <h3>Three Core Empirical Findings (From Audited N=100 Test Benchmark)</h3>
+        <ul>
+          <li>
+            <strong>1. PTM Preserves Critical Facts Through Compression:</strong> Numbers, negations, and percentages achieved 100.0% survival (1,667/1,667 numbers, 69/69 negations, 6/6 percents). Dates and currency achieved 99.7% and 85.7% exact span survival, and <strong>100.0% word/digit-level survival</strong> after punctuation normalization (0 constituent words dropped across all 120 missed date spans).
+          </li>
+          <li>
+            <strong>2. Retrieval Completeness Dominates Accuracy:</strong> When all gold paragraphs were retrieved in the top-5 (49% of test queries), Large tier accuracy reached <strong>85.71% [75.51, 93.93]</strong> and Small reached <strong>57.14% [42.86, 71.43]</strong>. When retrieval missed at least one gold paragraph (51% of test), Large accuracy collapsed to <strong>11.76% [3.92, 21.57]</strong> and Small to <strong>19.61% [9.80, 31.37]</strong>.
+          </li>
+          <li>
+            <strong>3. Cascade Routing & Latency Limits:</strong> At N=100 test queries, learned routers did not statistically significantly beat cost-matched random routing (paired 95% CIs span zero). Context compression on CPU adds ~6.87s latency overhead, making it a <strong>token (~40%) and cost (~36%) optimization</strong>, rather than a wall-clock latency saving on free-tier APIs.
+          </li>
+        </ul>
+      </div>
+
+      <!-- Audited Benchmark Summary Table -->
+      <div class="card">
+        <div class="card-title">
+          <span>Full Pipeline Benchmark Table (Audited summary_v4.csv)</span>
+        </div>
+        <div class="table-wrap">
+          <table id="benchmarkTable">
+            <thead>
+              <tr>
+                <th>System</th>
+                <th>Threshold Method</th>
+                <th>&tau;</th>
+                <th>Large %</th>
+                <th>Accuracy [95% CI]</th>
+                <th>Mean F1</th>
+                <th>Simulated Cost / 1k</th>
+                <th>LLM Latency</th>
+                <th>End-to-End Latency</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Filled from summary.json -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Pricing Disclosure Table -->
+      <div class="card">
+        <div class="card-title">
+          <span>Simulated Pricing Model Disclosures</span>
+        </div>
+        <p style="color: #94a3b8; font-size: 15px; margin-bottom: 14px;">
+          OptiRAG-lite was built with strictly $0 actual spend using free-tier API quotas. Pricing reported below reflects standard developer list prices used solely to model production economics.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Tier</th>
+                <th>Model</th>
+                <th>Billed Spend</th>
+                <th>Simulated Prompt / 1M</th>
+                <th>Simulated Completion / 1M</th>
+                <th>Pricing Disclosure Label</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Small Tier</strong></td>
+                <td>ALLaM-2-7B (Groq)</td>
+                <td><span class="badge badge-success">$0.00 (Free Tier)</span></td>
+                <td>$0.05</td>
+                <td>$0.08</td>
+                <td><span class="badge badge-info">small-model price is a proxy (8B list proxy)</span></td>
+              </tr>
+              <tr>
+                <td><strong>Large Tier</strong></td>
+                <td>Gemini 3.5 Flash-Lite (AI Studio)</td>
+                <td><span class="badge badge-success">$0.00 (Free Tier)</span></td>
+                <td>$0.30</td>
+                <td>$2.50</td>
+                <td><span class="badge badge-info">simulated list price, not billed</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Three Figures Grid -->
+      <div class="figures-grid">
+        <div class="figure-card">
+          <img src="assets/retrieval_accuracy_v3.png" alt="Retrieval completeness impact on accuracy" loading="lazy">
+          <div class="caption">
+            <strong>Figure 1: Accuracy depends heavily on retrieval completeness.</strong> Large tier accuracy is 85.7% with complete retrieval but drops to 11.8% when any gold paragraph is missing (N=100 test).
+          </div>
+        </div>
+
+        <div class="figure-card">
+          <img src="assets/ptm_survival_v4.png" alt="PTM Entity survival rates" loading="lazy">
+          <div class="caption">
+            <strong>Figure 2: Protected entity survival across compression modes.</strong> PTM preserves 100% of numbers, negations, and percentages, and achieves 100% word-level preservation for dates and currency after punctuation normalization.
+          </div>
+        </div>
+
+        <div class="figure-card">
+          <img src="assets/pareto_v4.png" alt="Accuracy and End-to-end latency vs simulated cost" loading="lazy">
+          <div class="caption">
+            <strong>Figure 3: Accuracy and end-to-end latency vs. simulated cost trade-offs.</strong> Routers achieve 41-44% accuracy at 40-50% lower cost, while PTM adds ~6.87s CPU latency overhead to reduce token costs by ~36%.
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- TAB 4: ABOUT -->
+    <!-- ============================================================== -->
+    <section id="tab-about" class="tab-content">
+      <div class="card">
+        <div class="card-title">About OptiRAG-lite</div>
+        <p style="color: #cbd5e1; margin-bottom: 16px;">
+          <strong>OptiRAG-lite</strong> is an end-to-end empirical research project designed to explore cost-accuracy-latency trade-offs in Retrieval-Augmented Generation (RAG) pipelines under strict zero-budget constraints ($0 actual project spend).
+        </p>
+
+        <h3 style="color: #38bdf8; font-size: 18px; margin-top: 20px; margin-bottom: 10px;">Pipeline Architecture</h3>
+        <p style="color: #cbd5e1; margin-bottom: 12px;">
+          The system integrates three core optimization stages:
+        </p>
+        <ol style="padding-left: 24px; color: #cbd5e1; margin-bottom: 16px;">
+          <li style="margin-bottom: 8px;"><strong>Dense Retrieval & Telemetry Extraction:</strong> Encodes passages with <code>sentence-transformers/all-MiniLM-L6-v2</code> and queries a flat FAISS index over HotpotQA passages. Computes 8 low-dimensional retrieval confidence metrics (top-1 score, score gap, entropy, chunk similarity, token volume).</li>
+          <li style="margin-bottom: 8px;"><strong>Confidence-Based Cascade Routing:</strong> Evaluates query difficulty using train-calibrated classifiers. Queries likely to be answered correctly by the small tier stay with the small model; challenging multi-hop queries escalate to the large tier.</li>
+          <li style="margin-bottom: 8px;"><strong>Protected Token Mask (PTM) Context Compression:</strong> Uses <code>microsoft/llmlingua-2-bert-base-multilingual-cased-meetingbank</code> to prune 40-50% of peripheral tokens while enforcing hard regex retention of high-entropy entities (dates, currency, negations, numbers).</li>
+        </ol>
+
+        <h3 style="color: #38bdf8; font-size: 18px; margin-top: 20px; margin-bottom: 10px;">Models & Quotas</h3>
+        <ul style="padding-left: 24px; color: #cbd5e1; margin-bottom: 16px;">
+          <li style="margin-bottom: 6px;"><strong>Small Tier:</strong> <code>allam-2-7b</code> via Groq Cloud free tier (30 RPM, 6,000 TPM limit). Cost modeled via an 8B-class list price proxy ($0.05 / $0.08 per 1M tokens).</li>
+          <li style="margin-bottom: 6px;"><strong>Large Tier:</strong> <code>gemini-3.5-flash-lite</code> via Google AI Studio free tier (15 RPM, 250,000 TPM, provisional 500 RPD). Modeled at official list rates ($0.30 / $2.50 per 1M tokens).</li>
+          <li style="margin-bottom: 6px;"><strong>Embedding:</strong> <code>all-MiniLM-L6-v2</code> (384-dimensional dense vectors, local CPU).</li>
+          <li style="margin-bottom: 6px;"><strong>Compression:</strong> LLMLingua-2 BERT-base (local CPU, 2 threads).</li>
+        </ul>
+
+        <h3 style="color: #38bdf8; font-size: 18px; margin-top: 20px; margin-bottom: 10px;">Project Limitations</h3>
+        <ul style="padding-left: 24px; color: #cbd5e1; margin-bottom: 16px;">
+          <li style="margin-bottom: 6px;"><strong>Sample Size:</strong> 200 train queries and 100 test queries. With N=100 test queries, 95% bootstrap confidence intervals span approximately &plusmn;9 percentage points.</li>
+          <li style="margin-bottom: 6px;"><strong>Small Model Capacity:</strong> ALLaM-2-7B is primarily optimized for Arabic-English tasks and achieves 38.0% accuracy on multi-hop HotpotQA English questions.</li>
+          <li style="margin-bottom: 6px;"><strong>Simulated Costs:</strong> All pricing is simulated based on vendor list price sheets; zero actual currency was billed.</li>
+          <li style="margin-bottom: 6px;"><strong>Static Replay:</strong> This web demonstration replays precomputed, cryptographically verified cached inference traces without executing live network requests.</li>
+        </ul>
+
+        <h3 style="color: #38bdf8; font-size: 18px; margin-top: 20px; margin-bottom: 10px;">Attribution & Academic Integrity</h3>
+        <p style="color: #cbd5e1; margin-bottom: 8px;">
+          <strong>Author:</strong> Ishaan Naik, Symbiosis Institute of Technology.
+        </p>
+        <p style="color: #cbd5e1;">
+          <strong>Dataset Attribution:</strong> Built using the HotpotQA dataset (<a href="https://hotpotqa.github.io/" target="_blank" rel="noopener" style="color: #38bdf8;">Yang et al., 2018</a>), licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener" style="color: #38bdf8;">CC BY-SA 4.0</a>. Passage contents derive from Wikipedia under CC BY-SA licenses.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="ptm.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+system,use_compression,accuracy,accuracy_ci_low,accuracy_ci_high,f1,cost_per_1k,cost_per_1k_ci_low,cost_per_1k_ci_high,mean_latency_s,large_route_pct
+Always-SMALL,False,38.0,29.0,48.0,0.3462,0.0417,0.0399,0.0433,0.173,0.0
+Always-LARGE,False,48.0,38.0,58.0,0.4519,0.2294,0.2198,0.2384,0.919,100.0
+Heuristic Router,False,46.0,37.0,56.0,0.4365,0.1713,0.1516,0.1896,0.676,70.0
+Random Routing (70% Large),False,45.0,36.0,54.02,0.4226,0.1739,0.1557,0.192,0.699,70.0
+Router: Query-Only (LogReg),False,43.0,34.0,53.0,0.3922,0.0789,0.0633,0.0943,0.325,20.0
+Router: Telemetry-Only (LogReg),False,44.0,35.0,54.0,0.4041,0.1164,0.097,0.1364,0.448,38.0
+Router: Both (LogReg),False,42.0,32.98,52.0,0.3822,0.079,0.0637,0.0951,0.326,20.0
+Router: Telemetry-Only (MLP),False,43.0,34.0,53.0,0.4053,0.1888,0.1722,0.2066,0.75,78.0
+Always-SMALL (PTM-Compressed),True,41.0,32.0,51.0,0.3888,0.0271,0.0264,0.0279,0.147,0.0
+OptiRAG (Telemetry Router + PTM),True,42.0,33.0,52.0,0.4051,0.0741,0.0617,0.0868,0.428,38.0

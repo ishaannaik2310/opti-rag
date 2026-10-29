@@ -1,0 +1,530 @@
+[
+  {
+    "idx": 1,
+    "id": "5ae3cfe05542990afbd1e1e3",
+    "question": "Which airport is located in Maine, Sacramento International Airport or Knox County Regional Airport?",
+    "gold_answer": "Knox County Regional Airport",
+    "models": {
+      "allam-2-7b": {
+        "answer": "Knox County Regional Airport",
+        "correct": true,
+        "f1": 1.0,
+        "in_tokens": 694,
+        "out_tokens": 7,
+        "latency_s": 0.3787662982940674,
+        "error": null
+      },
+      "gpt-oss-20b": {
+        "answer": "Knox County Regional Airport",
+        "correct": true,
+        "f1": 1.0,
+        "in_tokens": 664,
+        "out_tokens": 23,
+        "latency_s": 0.5018653869628906,
+        "error": null
+      },
+      "qwen-27b": {
+        "answer": "Knox County Regional Airport",
+        "correct": true,
+        "f1": 1.0,
+        "in_tokens": 638,
+        "out_tokens": 6,
+        "latency_s": 0.15569639205932617,
+        "error": null
+      },
+      "gemini-flash-lite": {
+        "answer": "Knox County Regional Airport",
+        "correct": true,
+        "f1": 1.0,
+        "in_tokens": 612,
+        "out_tokens": 5,
+        "latency_s": 1.1829688549041748,
+        "error": null
+      }
+    }
+  },
+  {
+    "idx": 2,
+    "id": "5abc1abf5542993a06baf87f",
+    "question": "Peter Hobbs founded the company that is based in what town in Manchester?",
+    "gold_answer": "Failsworth",
+    "models": {
+      "allam-2-7b": {
+        "answer": "Manchester",
+        "correct": false,
+        "f1": 0.0,
+        "in_tokens": 755,
+        "out_tokens": 3,
+        "latency_s": 0.12558484077453613,
+        "error": null
+      },
+      "gpt-oss-20b": {
+        "answer": "Failsworth",
+        "correct": true,
+        "f1": 1.0,
+        "in_tokens": 693,
+        "out_tokens": 24,
+        "latency_s": 0.5145442485809326,
+        "error": null
+      },
+      "qwen-27b": {
+        "answer": "Failsworth",
+        "correct": true,
+        "f1": 1.0,
+        "in_tokens": 692,
+        "out_tokens": 3,
+        "latency_s": 0.19638371467590332,
+        "error": null
+      },
+      "gemini-flash-lite": {
+        "answer": "Failsworth",
+        "correct": true,
+        "f1": 1.0,
+        "in_tokens": 656,
+        "out_tokens": 2,
+        "latency_s": 0.7217385768890381,
+        "error": null
+      }
+    }
+  },
+  {
+    "idx": 3,
+    "id": "5ac250eb5542992f1f2b384f",
+    "question": "What direction does the river that Austrolebias bellotti are found in flow?",
+    "gold_answer": "north to south",
+    "models": {
+      "allam-2-7b": {
+        "answer": "Southwards",
+        "correct": false,
+        "f1": 0.0,
+        "in_tokens": 789,
+        "out_tokens": 4,
+        "latency_s": 0.15112543106079102,
+        "error": null
+      },
+      "gpt-oss-20b": {
+        "answer": "I don't know",
+        "correct": false,
+        "f1": 0.0,
+        "in_tokens": 749,
+        "out_tokens": 49,
+        "latency_s": 0.23140954971313477,
+        "error": null
+      },
+      "qwen-27b": {
+        "answer": "I don't know",
+        "correct": false,
+        "f1": 0.0,
+        "in_tokens": 711,
+        "out_tokens": 5,
+        "latency_s": 0.15749311447143555,
+        "error": null
+      },
+      "gemini-flash-lite": {
+        "answer": "I don't know.",
+        "correct": false,
+        "f1": 0.0,
+        "in_tokens": 694,
+        "out_tokens": 6,
+        "latency_s": 0.6606709957122803,
+        "error": null
+      }
+    }
+  },
+  {
+    "idx": 4,
+    "id": "5a81a60455429903bc27b990",
+    "question": "Were both Gabriela Mistral and G. K. Chesterton authors?",
+    "gold_answer": "yes",
+    "models": {
+      "allam-2-7b": {
+        "answer": "Yes",
+        "correct": true,
+        "f1": 1.0,
+        "in_tokens": 707,
+        "out_tokens": 3,
+        "latency_s": 0.14832663536071777,
+        "error": null
+      },
+      "gpt-oss-20b": {
+        "answer": "I don't know",
+        "correct": false,
+        "f1": 0.0,
+        "in_tokens": 666,
+        "out_tokens": 35,
+        "latency_s": 0.6083736419677734,
+        "error": null
+      },
+      "qwen-27b": {
+        "answer": "I don't know",
+        "correct": false,
+        "f1": 0.0,
+        "in_tokens": 649,
+        "out_tokens": 5,
+        "latency_s": 0.19957327842712402,
+        "error": null
+      },
+      "gemini-flash-lite": {
+        "answer": "I don't know.",
+        "correct": false,
+        "f1": 0.0,
+        "in_tokens": 632,
+        "out_tokens": 6,
+        "latency_s": 0.7389111518859863,
+        "error": null
+      }
+    }
+  },
+  {
+    "idx": 5,
+    "id": "5a70fb2d5542994082a3e482",
+    "question": "What city, other than San Jose del Cabo, is at the the southern tip of Baja California Peninsula and is also encompassed in the Los Cabos Municipality?",
+    "gold_answer": "Cabo San Lucas",
+    "models": {
+      "allam-2-7b": {
+        "answer": "Cabo San Lucas",
+        "correct": true,
+        "f1": 1.0,
+        "in_tokens": 681,
+        "out_tokens": 6,
+        "latency_s": 0.11920022964477539,
+        "error": null
+      },
+      "gpt-oss-20b": {
+        "answer": "Cabo San Lucas",
+        "correct": true,
+        "f1": 1.0,
+        "in_tokens": 655,
+        "out_tokens": 44,
+        "latency_s": 1.552597999572754,
+        "error": null
+      },
+      "qwen-27b": {
+        "answer": "Cabo San Lucas",
+        "correct": true,
+        "f1": 1.0,
+        "in_tokens": 616,
+        "out_tokens": 5,
+        "latency_s": 0.18561148643493652,
+        "error": null
+      },
+      "gemini-flash-lite": {
+        "answer": "Cabo San Lucas",
+        "correct": true,
+        "f1": 1.0,
+        "in_tokens": 600,
+        "out_tokens": 4,
+        "latency_s": 0.7170007228851318,
+        "error": null
+      }
+    }
+  },
+  {
+    "idx": 6,
+    "id": "5a9050925542995651fb512f",
+    "question": "Sky High starred the actress who is married to which actor?",
+    "gold_answer": "John Travolta",
+    "models": {
+      "allam-2-7b": {
+        "answer": "I don't know",
+        "correct": false,
+        "f1": 0.0,
+        "in_tokens": 831,
+        "out_tokens": 7,
+        "latency_s": 0.15268516540527344,
+        "error": null
+      },
+      "gpt-oss-20b": {
+        "answer": "",
+        "correct": false,
+        "f1": 0.0,
+        "in_tokens": 757,
+        "out_tokens": 75,
+        "latency_s": 0.5638222694396973,
+        "error": null
+      },
+      "qwen-27b": {
+        "answer": "I don't know",
+        "correct": false,
+        "f1": 0.0,
+        "in_tokens": 736,
+        "out_tokens": 5,
+        "latency_s": 0.1796271800994873,
+        "error": null
+      },
+      "gemini-flash-lite": {
+        "answer": "I don't know.",
+        "correct": false,
+        "f1": 0.0,
+        "in_tokens": 717,
+        "out_tokens": 6,
+        "latency_s": 0.6939258575439453,
+        "error": null
+      }
+    }
+  },
+  {
+    "idx": 7,
+    "id": "5a760b725542994ccc91869a",
+    "question": "What event occured at the Red Bull Arena in Salzburg, Austria and Switzerland in 2008?",
+    "gold_answer": "UEFA Euro 2008",
+    "models": {
+      "allam-2-7b": {
+        "answer": "I don't know",
+        "correct": false,
+        "f1": 0.0,
+        "in_tokens": 593,
+        "out_tokens": 7,
+        "latency_s": 0.1736760139465332,
+        "error": null
+      },
+      "gpt-oss-20b": {
+        "answer": "",
+        "correct": false,
+        "f1": 0.0,
+        "in_tokens": 549,
+        "out_tokens": 75,
+        "latency_s": 0.5558137893676758,
+        "error": null
+      },
+      "qwen-27b": {
+        "answer": "UEFA Euro 2008",
+        "correct": true,
+        "f1": 1.0,
+        "in_tokens": 519,
+        "out_tokens": 9,
+        "latency_s": 0.4420177936553955,
+        "error": null
+      },
+      "gemini-flash-lite": {
+        "answer": "UEFA Euro 2008",
+        "correct": true,
+        "f1": 1.0,
+        "in_tokens": 506,
+        "out_tokens": 7,
+        "latency_s": 0.685614824295044,
+        "error": null
+      }
+    }
+  },
+  {
+    "idx": 8,
+    "id": "5ae60d88554299546bf83040",
+    "question": "Sir Thomas Kyriell was executed after which battle from the Wars of the Roses?",
+    "gold_answer": "Second Battle of St Albans",
+    "models": {
+      "allam-2-7b": {
+        "answer": "Battle of Bosworth",
+        "correct": true,
+        "f1": 0.5,
+        "in_tokens": 1528,
+        "out_tokens": 6,
+        "latency_s": 0.16806626319885254,
+        "error": null
+      },
+      "gpt-oss-20b": {
+        "answer": "Second Battle of St Albans",
+        "correct": true,
+        "f1": 1.0,
+        "in_tokens": 1405,
+        "out_tokens": 26,
+        "latency_s": 0.5652010440826416,
+        "error": null
+      },
+      "qwen-27b": {
+        "answer": "Second Battle of St Albans",
+        "correct": true,
+        "f1": 1.0,
+        "in_tokens": 1406,
+        "out_tokens": 7,
+        "latency_s": 0.2284412384033203,
+        "error": null
+      },
+      "gemini-flash-lite": {
+        "answer": "Second Battle of St Albans",
+        "correct": true,
+        "f1": 1.0,
+        "in_tokens": 1389,
+        "out_tokens": 6,
+        "latency_s": 0.6747469902038574,
+        "error": null
+      }
+    }
+  },
+  {
+    "idx": 9,
+    "id": "5a8d9501554299068b959d4d",
+    "question": "Where is the fruit, part of the flowering plant species in the palm family Arecaceae, most popular?",
+    "gold_answer": "Malta",
+    "models": {
+      "allam-2-7b": {
+        "answer": "Canary Islands",
+        "correct": false,
+        "f1": 0.0,
+        "in_tokens": 607,
+        "out_tokens": 5,
+        "latency_s": 0.14668869972229004,
+        "error": null
+      },
+      "gpt-oss-20b": {
+        "answer": "I don't know",
+        "correct": false,
+        "f1": 0.0,
+        "in_tokens": 600,
+        "out_tokens": 32,
+        "latency_s": 0.48780298233032227,
+        "error": null
+      },
+      "qwen-27b": {
+        "answer": "I don't know",
+        "correct": false,
+        "f1": 0.0,
+        "in_tokens": 560,
+        "out_tokens": 5,
+        "latency_s": 0.16337823867797852,
+        "error": null
+      },
+      "gemini-flash-lite": {
+        "answer": "I don't know.",
+        "correct": false,
+        "f1": 0.0,
+        "in_tokens": 538,
+        "out_tokens": 6,
+        "latency_s": 1.0856916904449463,
+        "error": null
+      }
+    }
+  },
+  {
+    "idx": 10,
+    "id": "5a875ce15542993e715abf16",
+    "question": "Undertow is a steel spinning roller coaster, built by Maurer S\u00f6hne, located at which oceanfront amusement park in Santa Cruz, California?",
+    "gold_answer": "Santa Cruz Beach Boardwalk",
+    "models": {
+      "allam-2-7b": {
+        "answer": "Santa Cruz Beach Boardwalk",
+        "correct": true,
+        "f1": 1.0,
+        "in_tokens": 548,
+        "out_tokens": 7,
+        "latency_s": 0.1278853416442871,
+        "error": null
+      },
+      "gpt-oss-20b": {
+        "answer": "Santa\u202fCruz\u202fBeach\u202fBoardwalk",
+        "correct": true,
+        "f1": 1.0,
+        "in_tokens": 533,
+        "out_tokens": 29,
+        "latency_s": 0.15980887413024902,
+        "error": null
+      },
+      "qwen-27b": {
+        "answer": "Santa Cruz Beach Boardwalk",
+        "correct": true,
+        "f1": 1.0,
+        "in_tokens": 499,
+        "out_tokens": 6,
+        "latency_s": 0.1526477336883545,
+        "error": null
+      },
+      "gemini-flash-lite": {
+        "answer": "Santa Cruz Beach Boardwalk",
+        "correct": true,
+        "f1": 1.0,
+        "in_tokens": 472,
+        "out_tokens": 4,
+        "latency_s": 0.6478621959686279,
+        "error": null
+      }
+    }
+  },
+  {
+    "idx": 11,
+    "id": "5adcc89f5542994d58a2f6cf",
+    "question": "An actress nominated for 20 academy awards was featured on a TV series about genealogical research of 12 americans hosted by whom?",
+    "gold_answer": "Professor Henry Louis Gates",
+    "models": {
+      "allam-2-7b": {
+        "answer": "Seth MacFarlane",
+        "correct": false,
+        "f1": 0.0,
+        "in_tokens": 942,
+        "out_tokens": 9,
+        "latency_s": 0.14008235931396484,
+        "error": null
+      },
+      "gpt-oss-20b": {
+        "answer": "I don't know",
+        "correct": false,
+        "f1": 0.0,
+        "in_tokens": 868,
+        "out_tokens": 52,
+        "latency_s": 0.5388979911804199,
+        "error": null
+      },
+      "qwen-27b": {
+        "answer": "I don't know",
+        "correct": false,
+        "f1": 0.0,
+        "in_tokens": 873,
+        "out_tokens": 5,
+        "latency_s": 0.19777488708496094,
+        "error": null
+      },
+      "gemini-flash-lite": {
+        "answer": "I don't know.",
+        "correct": false,
+        "f1": 0.0,
+        "in_tokens": 852,
+        "out_tokens": 6,
+        "latency_s": 0.7007944583892822,
+        "error": null
+      }
+    }
+  },
+  {
+    "idx": 12,
+    "id": "5a8fafb15542992414482b3f",
+    "question": "Which movement was lead by the poet who is included among those David S. Reynolds is an expert on?",
+    "gold_answer": "transcendentalist",
+    "models": {
+      "allam-2-7b": {
+        "answer": "Transcendentalism",
+        "correct": false,
+        "f1": 0.0,
+        "in_tokens": 887,
+        "out_tokens": 7,
+        "latency_s": 0.14860796928405762,
+        "error": null
+      },
+      "gpt-oss-20b": {
+        "answer": "",
+        "correct": false,
+        "f1": 0.0,
+        "in_tokens": 825,
+        "out_tokens": 75,
+        "latency_s": 0.602825403213501,
+        "error": null
+      },
+      "qwen-27b": {
+        "answer": "transcendentalist movement",
+        "correct": true,
+        "f1": 0.6666666666666666,
+        "in_tokens": 792,
+        "out_tokens": 7,
+        "latency_s": 0.17078566551208496,
+        "error": null
+      },
+      "gemini-flash-lite": {
+        "answer": "transcendentalist movement",
+        "correct": true,
+        "f1": 0.6666666666666666,
+        "in_tokens": 755,
+        "out_tokens": 5,
+        "latency_s": 0.7982509136199951,
+        "error": null
+      }
+    }
+  }
+]

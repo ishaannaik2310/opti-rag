@@ -1,0 +1,12 @@
+system,threshold_method,decision_threshold,fraction_to_large,accuracy,accuracy_ci_low,accuracy_ci_high,mean_f1,cost_per_1k,cost_ci_low,cost_ci_high,mean_latency_s
+Always-SMALL (allam-2-7b),N/A (Fixed),N/A,0.0,38.0,29.0,48.0,0.3462,0.0417,0.0399,0.0433,0.173
+Always-LARGE (gemini-3.5-flash-lite),N/A (Fixed),N/A,1.0,48.0,38.0,58.0,0.4519,0.2294,0.2198,0.2384,0.919
+Heuristic Router (Score < 0.70 or keyword),Heuristic rule,Score < 0.70,0.7,46.0,37.0,56.0,0.4365,0.1713,0.1516,0.1896,0.676
+"Router: Query-Only (LogReg, Target 30% Escalation)",Train 30% Escalation Quantile,0.244,0.26,42.0,33.0,52.0,0.3855,0.0898,0.0733,0.1064,0.373
+"Router: Telemetry-Only (LogReg, Target 30% Escalation)",Train 30% Escalation Quantile,0.52,0.28,41.0,32.0,51.0,0.3691,0.0968,0.0795,0.1153,0.389
+"Router: Both (LogReg, Target 30% Escalation)",Train 30% Escalation Quantile,0.314,0.25,44.0,34.98,54.0,0.4035,0.0889,0.0729,0.1054,0.369
+"Router: Telemetry-Only (LogReg, Max Youden on Train)",Train Max Youden J,0.49,0.41,44.0,35.0,54.0,0.4066,0.1215,0.1023,0.1418,0.477
+"Router: Telemetry-Only (LogReg, Default 0.50)",Default Probability Threshold 0.50,0.5,0.38,44.0,35.0,54.0,0.4041,0.1164,0.097,0.1364,0.448
+Always-SMALL (PTM-Compressed),N/A (Fixed),N/A,0.0,41.0,32.0,51.0,0.3888,0.0271,0.0264,0.0279,0.147
+Always-LARGE (PTM-Compressed),N/A (Fixed),N/A,1.0,46.0,37.0,56.0,0.447,0.1469,0.1429,0.1514,0.922
+OptiRAG (Telemetry Router @ 30% + PTM),Train 30% Escalation Quantile,0.52,0.28,42.0,33.0,52.0,0.4001,0.0619,0.0514,0.0736,0.355
